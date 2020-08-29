@@ -255,7 +255,6 @@
 				url : '${pageContext.request.contextPath}/apt/aptBasic/' + infodata.kaptCode,
 				type : 'get',
 				success : function(data) {
-					console.log(data)
 					var content = '<div class="wrap">' + '    <div class="info">' + '        <div class="title">' + data.aptBasicVO.kaptName + '            <div class="close" onclick="closeCustomOverlay()" title="닫기"></div>' + '        </div>' + '        <div class="body">' + '            <div class="desc">' + '                <div class="ellipsis"> <b>(주소)</b><br>' + data.aptDetailVO.kaptAddr + '</div>' + '                <div class="ellipsis"> <b>(도로명)</b><br>' + data.aptDetailVO.doroJuso + '</div>' + '                <div class="jibun ellipsis">| 동수 | ' + data.aptDetailVO.kaptDongCnt + ' |세대수 | ' + data.aptDetailVO.kaptDaCnt + '</div>' + '            </div>' + '        </div>' + '    </div>' + '</div>';
 					displayOverlay(infomarker, content)
 				}
@@ -287,7 +286,6 @@
 			let ja = bounds.ja;
 			let ka = bounds.ka;
 			let params = "?da=" + da + "&ia=" + ia + "&ja=" + ja + "&ka=" + ka;
-			console.log(params)
 			// 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
 			$.get("${ pageContext.request.contextPath }/apt/aptLatLng.json" + params, function(data) {
 				// 데이터에서 좌표 값을 가지고 마커를 표시합니다
@@ -303,7 +301,7 @@
 
 				//마커에 커스텀 오버레이 표시
 				for (var i = 0; i < data.positions.length; i++) {
-					console.log(markers[i].getPosition())
+					/* console.log(markers[i].getPosition()) */
 					displayInfo(markers[i], data.positions[i])
 				}
 

@@ -55,7 +55,6 @@ public class AptController {
 	@RequestMapping("/aptBasic/{aptNo}")
 	@ResponseBody
 	public AptAllInfoVO aptBasic(@PathVariable("aptNo") String aptNo){
-		System.out.println("aptBasic");
 		AptBasicVO aptBasic = aptService.selectAptBasic(aptNo);
 		AptDetailVO aptDetail = aptService.selectAptDetailInOverlay(aptNo);
 		AptAllInfoVO aptOverlay = new AptAllInfoVO();
