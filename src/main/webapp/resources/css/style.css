@@ -6,6 +6,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 /* =======================================================
 *
 * 	Template Style 
@@ -13,7 +14,7 @@
 *
 * ======================================================= */
 body {
-	font-family: "hana-font-l" !important, "Work Sans", Arial, sans-serif;
+	font-family: "Noto Sans KR","hana-font-l", "Work Sans", Arial, sans-serif;
 	font-weight: 300;
 	font-size: 16px;
 	line-height: 1.7;
@@ -35,7 +36,7 @@ body {
 }
 
 a {
-	color: #27b2a5;
+	color: #000;
 	-webkit-transition: 0.5s;
 	-o-transition: 0.5s;
 	transition: 0.5s;
@@ -86,10 +87,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: "Work Sans", Arial, sans-serif;
 	font-size: 16px;
 	font-weight: 400;
-	-webkit-border-radius: 50px;
+	/* -webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
 	-ms-border-radius: 50px;
-	border-radius: 50px;
+	border-radius: 50px; */
 	-webkit-transition: 0.5s;
 	-o-transition: 0.5s;
 	transition: 0.5s;
@@ -294,12 +295,24 @@ Extra height css
 	margin-top: 60px;
 }
 
+.margin-bottom-60 {
+	margin-bottom: 60px;
+}
+
 .margin-top-80 {
 	margin-top: 80px;
 }
 
+.margin-bottom-80 {
+	margin-bottom: 80px;
+}
+
 .margin-top-100 {
 	margin-top: 100px;
+}
+
+.margin-bottom-100 {
+	margin-bottom: 100px;
 }
 
 .margin-top-120 {
@@ -2343,11 +2356,14 @@ ul {
 ---------------------------------------------------------*/
 .panel-heading {
 	padding: 5px 15px;
+	background-color: rgb(242, 246, 247) !important;
 }
 
 .panel-footer {
 	padding: 1px 15px;
 	color: #A0A0A0;
+	background-color: rgb(242, 246, 247);
+	height: 30px;
 }
 
 .profile-img {
@@ -2364,4 +2380,17 @@ section.container-fluid {
 	min-height: 90%;
 }
 
-.
+.sign-in {
+	width: 100%;
+}
+.sub-nav {
+	border-bottom: 1px solid #bbb;
+    border-top: 1px solid #bbb;
+    margin-bottom: 30px;
+    background-color: rgb(242, 246, 247);
+}
+.kakao-login{
+	background-color: #ffd362;
+    color: #75302e;
+    font-weight: 600;
+}
