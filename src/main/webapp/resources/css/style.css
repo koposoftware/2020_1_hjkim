@@ -2036,7 +2036,26 @@ ul {
 	height: 100%;
 	animation: sonar 1.5s infinite;
 }
-
+/*-------------------------------------------------------------------
+				좌측 아파트 목록 apt list
+---------------------------------------------------------------------  */
+.sidebar-fixed{
+	padding: 0;
+	border-bottom: 1px solid #3a3f48;
+}
+#apt-area-list {
+	/* padding: 5px 10px 5px 25px; */
+}
+#apt-area-list .apt-list-one:hover{
+	background-color: #27b2a5;
+	color: #fff;
+}
+#apt-area-list .apt-list-one{
+	padding: 5px 10px 5px 25px;
+}
+#apt-area-list .apt-list-one-title{
+	font-weight: bold;
+}
 /*--------------------------page-content-----------------------------*/
 .page-wrapper .page-content {
 	display: inline-block;
@@ -2114,7 +2133,7 @@ ul {
     border-top: 1px solid;
 }
 
-.chiller-theme .sidebar-wrapper .sidebar-header, .chiller-theme .sidebar-wrapper .sidebar-search, .chiller-theme .sidebar-wrapper .sidebar-menu {
+.chiller-theme .sidebar-wrapper .sidebar-header, .chiller-theme .sidebar-wrapper .sidebar-search, .chiller-theme .sidebar-wrapper {
 	border-top: 1px solid #3a3f48;
 }
 
