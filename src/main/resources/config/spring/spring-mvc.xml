@@ -1,74 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:websocket="http://www.springframework.org/schema/websocket"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:websocket="http://www.springframework.org/schema/websocket"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans   
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context   
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd
     http://www.springframework.org/schema/websocket 
-    http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+    http://www.springframework.org/schema/websocket/spring-websocket.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-	<context:component-scan
-		base-package="kr.ac.kopo" />
-
-	<mvc:annotation-driven>
-		<mvc:message-converters>
-			<bean
-				class="org.springframework.http.converter.StringHttpMessageConverter">
-				<property name="supportedMediaTypes">
-					<list>
-						<value>text/html; charset=UTF-8</value>
-						<value>application/json; charset=UTF-8</value>
-					</list>
-				</property>
-			</bean>
-		</mvc:message-converters>
-	</mvc:annotation-driven>
+   <context:component-scan base-package="kr.ac.kopo" />
+   <util:properties id="property" location="classpath:config/properties/key.properties"></util:properties>
+   <mvc:annotation-driven>
+      <mvc:message-converters>
+         <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            <property name="supportedMediaTypes">
+               <list>
+                  <value>text/html; charset=UTF-8</value>
+                  <value>application/json; charset=UTF-8</value>
+               </list>
+            </property>
+         </bean>
+      </mvc:message-converters>
+   </mvc:annotation-driven>
 
 
-	<mvc:annotation-driven />							<!-- annotation 기법을 쓰겠다 component , serviec , autowire 등등 -->
+   <mvc:annotation-driven />							<!-- annotation 기법을 쓰겠다 component , serviec , autowire 등등 -->
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="hr" />
-		<property name="password" value="hr" />
-	</bean>
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+      <property name="username" value="hr" />
+      <property name="password" value="hr" />
+   </bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation"
-			value="classpath:config/mybatis/sqlMapConfig.xml" />
-		<property name="mapperLocations"
-			value="classpath:config/sqlmap/oracle/**.xml" />
-	</bean>
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" />
+      <property name="configLocation" value="classpath:config/mybatis/sqlMapConfig.xml" />
+      <property name="mapperLocations" value="classpath:config/sqlmap/oracle/**.xml" />
+   </bean>
 
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
+   <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg ref="sqlSessionFactory" />
+   </bean>
 
-	<mvc:default-servlet-handler />
+   <mvc:default-servlet-handler />
 
-	<mvc:view-resolvers>
-		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
-	</mvc:view-resolvers>
+   <mvc:view-resolvers>
+      <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+   </mvc:view-resolvers>
 
-	<!-- 웹소켓 관련 -->
-	<!-- <websocket:handlers>
-		<websocket:mapping handler="echoHandler"
-			path="/chat" />
-		<websocket:handshake-interceptors>
-			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-	</websocket:handlers>
-
-	<bean id="echoHandler" class="kr.ac.kopo.chat.EchoHandler"></bean> -->
+   <!-- 웹소켓 관련 -->
+   <!-- <websocket:handlers> <websocket:mapping handler="echoHandler" path="/chat" /> <websocket:handshake-interceptors> 
+      <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" /> </websocket:handshake-interceptors> 
+      </websocket:handlers> <bean id="echoHandler" class="kr.ac.kopo.chat.EchoHandler"></bean> -->
 </beans>
 

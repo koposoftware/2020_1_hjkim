@@ -19,7 +19,7 @@
 
 			<div class="fh5co-slider">
 				<div class="container">
-					<div class="owl-carousel owl-carousel-main">
+					<div class="owl-carousel owl-carousel-main margin-top-100">
 						<div>
 							<div>
 								<img src="${ pageContext.request.contextPath }/resources/images/mainbg.jpg" alt="Free HTML5 Website Template">
@@ -77,7 +77,6 @@
 					</ul>
 				</div>
 			</section>
-			
 			<!-- footer -->
 			<jsp:include page="/WEB-INF/jsp/include/footer.jsp" />
 		</div>

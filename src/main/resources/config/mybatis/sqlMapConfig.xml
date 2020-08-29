@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!-- 	<typeAliases>
-		<typeAlias type="kr.ac.kopo.board.vo.BoardVO" alias="boardVO"/>
-		<typeAlias type="kr.ac.kopo.member.vo.MemberVO" alias="memberVO"/>
+ 	<typeAliases>
+<!-- 		<typeAlias type="kr.ac.kopo.board.vo.BoardVO" alias="boardVO"/> 
+		<typeAlias type="kr.ac.kopo.member.vo.MemberVO" alias="memberVO"/>-->
 		<typeAlias type="kr.ac.kopo.apt.vo.AptLatLngVO" alias="aptLatLngVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptBasicVO" alias="aptBasicVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptDetailVO" alias="aptDetailVO"/>
-	</typeAliases> -->
+	</typeAliases>
 </configuration>
