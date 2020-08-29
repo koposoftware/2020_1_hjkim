@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Loader -->
 <header id="fh5co-header" role="banner">
 	<div class="container">
@@ -22,7 +23,16 @@
 					</div>
 				</li>
 				<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
-				<li class="cta"><a href="${ pageContext.request.contextPath }/login">로그인</a></li>
+				<c:choose>
+					<c:when test="${ empty loginVO }">
+						<li class="cta"><a href="${ pageContext.request.contextPath }/login">로그인</a></li>
+						<li class="cta"><a href="${ pageContext.request.contextPath }/join">회원가입</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="cta"><a href="${ pageContext.request.contextPath }/mypage">마이페이지</a></li>
+						<li class="cta"><a href="${ pageContext.request.contextPath }/logout">logout</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</nav>
 	</div>
