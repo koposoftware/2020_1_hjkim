@@ -43,8 +43,9 @@
    <details>
    <summary>아파트 상세정보</summary>
    <div markdown="1">
-      ```python
-         # 아파트 상세 정보 출력 코드
+            ```python 
+      
+            #아파트 상세화면 
             import urllib.request
             from bs4 import BeautifulSoup
             import time
@@ -104,7 +105,8 @@
                            print(aptInfoAll)
                            sheet.append(aptInfoAll)
                            workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트상세정보.xlsx')
-           ```
+              
+            ```
    </div>
    </detail
 </div>
