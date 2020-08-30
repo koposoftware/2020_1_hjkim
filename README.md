@@ -43,70 +43,70 @@
    <details>
    <summary>아파트 상세정보</summary>
    <div markdown="1">
-            ```python 
-      
-            #아파트 상세화면 
-            import urllib.request
-            from bs4 import BeautifulSoup
-            import time
-            import pandas as pd
-            from pandas import DataFrame as df
-            import openpyxl
+```python 
 
-            def getaptdata(kaptCode):
-                key = "openAPI KEY"
-                url = "http://apis.data.go.kr/1611000/AptBasisInfoService/getAphusBassInfo?kaptCode="+kaptCode+"&serviceKey="+key
-                try:
-                    f = urllib.request.urlopen(url)
-                except Exception as e:
-                    print('Fail ' + str(e))
-                    time.sleep(100)
-                    f = urllib.request.urlopen(url)
+#아파트 상세화면 
+import urllib.request
+from bs4 import BeautifulSoup
+import time
+import pandas as pd
+from pandas import DataFrame as df
+import openpyxl
 
-
-                aptxml = f.read().decode("utf8")
-                f.close()
-                soup = BeautifulSoup(aptxml, "lxml")
-                item = soup.find("item")
-                aptdataAll = []
-                aptSearch = ["bjdcode", "codehallnm", "codeheatnm", "codesalenm","hocnt", "kaptacompany", "kaptaddr", "kaptbcompany"
-                             , "kaptcode", "kaptdongcnt", "kaptfax", "kaptmarea", "kaptmparea_135", "kaptmparea_136", "kaptmparea_60"
-                             , "kaptmparea_85", "kaptname", "kapttarea", "kaptdacnt", "privarea", "kapturl", "dorojuso", "codeaptnm"
-                             , "codemgrnm", "kapttel", "kaptusedate"]
-
-                for aptOne in aptSearch :
-                    try:
-                        aptdataAll.append(item.find(aptOne).get_text())
-                    except AttributeError as e:
-                        aptdataAll.append('-')
-                        pass
+def getaptdata(kaptCode):
+    key = "openAPI KEY"
+    url = "http://apis.data.go.kr/1611000/AptBasisInfoService/getAphusBassInfo?kaptCode="+kaptCode+"&serviceKey="+key
+    try:
+        f = urllib.request.urlopen(url)
+    except Exception as e:
+        print('Fail ' + str(e))
+        time.sleep(100)
+        f = urllib.request.urlopen(url)
 
 
-                return(aptdataAll)
+    aptxml = f.read().decode("utf8")
+    f.close()
+    soup = BeautifulSoup(aptxml, "lxml")
+    item = soup.find("item")
+    aptdataAll = []
+    aptSearch = ["bjdcode", "codehallnm", "codeheatnm", "codesalenm","hocnt", "kaptacompany", "kaptaddr", "kaptbcompany"
+                 , "kaptcode", "kaptdongcnt", "kaptfax", "kaptmarea", "kaptmparea_135", "kaptmparea_136", "kaptmparea_60"
+                 , "kaptmparea_85", "kaptname", "kapttarea", "kaptdacnt", "privarea", "kapturl", "dorojuso", "codeaptnm"
+                 , "codemgrnm", "kapttel", "kaptusedate"]
 
-               apt = []
-               wb = openpyxl.load_workbook('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/2.아파트기본정보.xlsx')
-               ws = wb['Sheet']
-               cells = ws['B2':'B11340']
+    for aptOne in aptSearch :
+        try:
+            aptdataAll.append(item.find(aptOne).get_text())
+        except AttributeError as e:
+            aptdataAll.append('-')
+            pass
 
-               workbook = openpyxl.Workbook()
-               sheet = workbook.active
-               sheet.append(["bjdcode", "codehallnm" ,"codeheatnm" 
-                             ,"codesalenm","hocnt"
-                             ,"kaptacompany","kaptaddr","kaptbcompany", "kaptcode","kaptdongcnt","kaptfax",
-                             "kaptmarea","kaptmparea_135","kaptmparea_136","kaptmparea_60",
-                             "kaptmparea_85","kaptname","kapttarea","kaptdacnt","privarea",
-                             "kapturl","dorojuso","codeaptnm","codemgrnm","kapttel","kaptusedate"])
 
-               for row in cells :
-                   for cell in row:
-                       aptInfoAll = getaptdata(str(cell.value))
-                       if aptInfoAll :
-                           print(aptInfoAll)
-                           sheet.append(aptInfoAll)
-                           workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트상세정보.xlsx')
-              
-            ```
+    return(aptdataAll)
+
+apt = []
+wb = openpyxl.load_workbook('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/2.아파트기본정보.xlsx')
+ws = wb['Sheet']
+cells = ws['B2':'B11340']
+
+workbook = openpyxl.Workbook()
+sheet = workbook.active
+sheet.append(["bjdcode", "codehallnm" ,"codeheatnm" 
+              ,"codesalenm","hocnt"
+              ,"kaptacompany","kaptaddr","kaptbcompany", "kaptcode","kaptdongcnt","kaptfax",
+              "kaptmarea","kaptmparea_135","kaptmparea_136","kaptmparea_60",
+              "kaptmparea_85","kaptname","kapttarea","kaptdacnt","privarea",
+              "kapturl","dorojuso","codeaptnm","codemgrnm","kapttel","kaptusedate"])
+
+for row in cells :
+    for cell in row:
+        aptInfoAll = getaptdata(str(cell.value))
+        if aptInfoAll :
+            print(aptInfoAll)
+            sheet.append(aptInfoAll)
+            workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트상세정보.xlsx')
+
+```
    </div>
    </detail
 </div>
