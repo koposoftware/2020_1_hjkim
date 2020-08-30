@@ -57,12 +57,17 @@ public class MemberController {
 				mav.addObject("msg", "실패!");
 			} else {
 				// 로그인 성공
-				String dest = (String) session.getAttribute("dest");
-				if (dest == null)
-					mav.setViewName("redirect:/");
-				else {
-					mav.setViewName("redirect:" + dest);
-					session.removeAttribute("dest");
+				if(loginVO.getType().equalsIgnoreCase("C")) {
+					System.out.println("memberController > 상담사 들어옴");
+					mav.setViewName("redirect:/counselor");
+				}else {
+					String dest = (String) session.getAttribute("dest");
+					if (dest == null)
+						mav.setViewName("redirect:/");
+					else {
+						mav.setViewName("redirect:" + dest);
+						session.removeAttribute("dest");
+					}
 				}
 				mav.addObject("loginVO", loginVO);
 			}

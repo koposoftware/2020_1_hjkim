@@ -2047,14 +2047,14 @@ ul {
 #apt-area-list {
 	/* padding: 5px 10px 5px 25px; */
 }
-#apt-area-list .apt-list-one:hover{
+#apt-area-list .apt-list-one:hover, #apt-click-list .apt-click-one:hover{
 	background-color: #27b2a5;
 	color: #fff;
 }
-#apt-area-list .apt-list-one{
+#apt-area-list .apt-list-one, #apt-click-list .apt-click-one{
 	padding: 5px 10px 5px 25px;
 }
-#apt-area-list .apt-list-one-title{
+#apt-area-list .apt-list-one-title #apt-click-list .apt-click-one-title{
 	font-weight: bold;
 }
 /*--------------------------page-content-----------------------------*/
@@ -2078,13 +2078,15 @@ ul {
 .page-content .container-fluid {
 	height: 87%;
     border-top: 1px solid;
-	
 }
 
 .page-content .container-fluid #map {
 	width: 100%;
 	height: 100%;
 }
+
+/* .page-content .apt-detail{
+} */
 /*------scroll bar---------------------*/
 ::-webkit-scrollbar {
 	width: 5px;
@@ -2270,7 +2272,7 @@ ul {
 	left: 0;
 	bottom: 40px;
 	width: 288px;
-	height: 200px;
+	height: 236px;
 	margin-left: -144px;
 	text-align: left;
 	overflow: auto;
@@ -2287,7 +2289,7 @@ ul {
 
 .wrap .info {
 	width: 286px;
-	height: 188px;
+	height: 224px;
 	border-radius: 5px;
 	border-bottom: 2px solid #ccc;
 	border-right: 1px solid #ccc;
@@ -2298,6 +2300,13 @@ ul {
 .wrap .info:nth-child(1) {
 	border: 0;
 	box-shadow: 0px 1px 2px #888;
+}
+
+.wrap .info .row {
+    position: absolute;
+    left: 0px;
+    bottom: 16px;
+    width: 100%;
 }
 
 .info .title {
@@ -2370,6 +2379,7 @@ ul {
 	height: 12px;
 	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
+
 
 /*-------------------------------------------------------
 					로그인관련

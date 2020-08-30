@@ -1,7 +1,7 @@
 package kr.ac.kopo.apt.vo;
 
 public class AptDetailVO {
-	private String katpCode; 		// 아파트 코드
+	private String kaptCode; 		// 아파트 코드
 	private String kaptAddr;		// 아파트 법정동주소
 	private String codeSaleNm;		// 분양형태
 	private String codeHeatNm;		// 난방방식
@@ -13,7 +13,7 @@ public class AptDetailVO {
 	private String kaptACompany;	// 시행사
 	private String kaptTel;			// 관리사무소연락처
 	private String kaptFax;			// 관리사무소 팩스
-	private String katpUrl;			// 홈페이지주소
+	private String kaptUrl;			// 홈페이지주소
 	private String codeAptNm;		// 단지분류
 	private String doroJuso;		// 도로명주소
 	private long hocnt;				// 호수
@@ -25,11 +25,11 @@ public class AptDetailVO {
 	private long kaptMPArea135;		// 전용면적별 세대현황 85㎡ ~ 135㎡ 이하
 	private long kaptMPArea136;		// 전용면적별 세대현황 135㎡ 초과
 	private double privArea;		// 단지 전용면적합(㎡)
-	public String getKatpCode() {
-		return katpCode;
+	public String getKaptCode() {
+		return kaptCode;
 	}
-	public void setKatpCode(String katpCode) {
-		this.katpCode = katpCode;
+	public void setKaptCode(String kaptCode) {
+		this.kaptCode = kaptCode;
 	}
 	public String getKaptAddr() {
 		return kaptAddr;
@@ -97,11 +97,11 @@ public class AptDetailVO {
 	public void setKaptFax(String kaptFax) {
 		this.kaptFax = kaptFax;
 	}
-	public String getKatpUrl() {
-		return katpUrl;
+	public String getKaptUrl() {
+		return kaptUrl;
 	}
-	public void setKatpUrl(String katpUrl) {
-		this.katpUrl = katpUrl;
+	public void setKaptUrl(String kaptUrl) {
+		this.kaptUrl = kaptUrl;
 	}
 	public String getCodeAptNm() {
 		return codeAptNm;
@@ -171,11 +171,11 @@ public class AptDetailVO {
 	}
 	@Override
 	public String toString() {
-		return "AptDetailVO [katpCode=" + katpCode + ", kaptAddr=" + kaptAddr + ", codeSaleNm=" + codeSaleNm
+		return "AptDetailVO [kaptCode=" + kaptCode + ", kaptAddr=" + kaptAddr + ", codeSaleNm=" + codeSaleNm
 				+ ", codeHeatNm=" + codeHeatNm + ", codeHallNm=" + codeHallNm + ", kapttarea=" + kapttarea
 				+ ", kaptDongCnt=" + kaptDongCnt + ", kaptDaCnt=" + kaptDaCnt + ", kaptBCompany=" + kaptBCompany
-				+ ", kaptACompany=" + kaptACompany + ", kaptTel=" + kaptTel + ", kaptFax=" + kaptFax + ", katpUrl="
-				+ katpUrl + ", codeAptNm=" + codeAptNm + ", doroJuso=" + doroJuso + ", hocnt=" + hocnt + ", codeMgrNm="
+				+ ", kaptACompany=" + kaptACompany + ", kaptTel=" + kaptTel + ", kaptFax=" + kaptFax + ", kaptUrl="
+				+ kaptUrl + ", codeAptNm=" + codeAptNm + ", doroJuso=" + doroJuso + ", hocnt=" + hocnt + ", codeMgrNm="
 				+ codeMgrNm + ", kaptUseDate=" + kaptUseDate + ", kaptMArea=" + kaptMArea + ", kaptMPArea60="
 				+ kaptMPArea60 + ", kaptMPArea85=" + kaptMPArea85 + ", kaptMPArea135=" + kaptMPArea135
 				+ ", kaptMPArea136=" + kaptMPArea136 + ", privArea=" + privArea + "]";

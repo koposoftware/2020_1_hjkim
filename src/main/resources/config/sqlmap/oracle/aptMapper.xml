@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="apt.dao.AptDAO">
+   <resultMap type="aptDetailVO" id="aptDetailMap">
+      <result column="kaptMPArea_60" property="kaptMPArea60"/>
+      <result column="kaptMPArea_85" property="kaptMPArea85"/>
+      <result column="kaptMPArea_135" property="kaptMPArea135"/>
+      <result column="kaptMPArea_136" property="kaptMPArea136"/>
+   </resultMap>
    <!-- 지도에 마커를 찍기 위한 select -->
    <select id="selectLatLng" resultType="aptLatLngVO" parameterType="java.util.List">
       select kaptCode, lat, lng
@@ -31,4 +37,13 @@
         from f_aptdetail
        where kaptCode = #{aptNo}
    </select>
+   
+   <!-- 아파트 상세정보 모든 정보 -->
+   <select id="selectDetailInfo" parameterType="String" resultMap="aptDetailMap"> 
+      select kaptAddr, codeSaleNm, codeHeatNm, codeHallNm, kapttarea, kaptDongCnt, kaptDaCnt, kaptBCompany,
+            kaptACompany, kaptTel, kaptFax, kaptUrl, codeAptNm, doroJuso, hocnt, codeMgrNm, kaptUseDate, kaptMArea,
+            kaptMPArea_60, kaptMPArea_85, kaptMPArea_135, kaptMPArea_136, privArea
+       from f_aptdetail
+      where kaptCode = #{aptNo}
+   </select> 
 </mapper>

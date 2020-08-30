@@ -3,8 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member.dao.MemberDAO">
-   <select id="login" parameterType="memberVO" resultType="memberVO">
-      select id, password, type
+   <resultMap type="memberVO" id="memberMap">
+      <result column="user_no" property="userNo"/>
+      <result column="phone_no" property="phoneNo"/>
+      <result column="reg_date" property="regDate"/>
+   </resultMap>
+   <select id="login" parameterType="memberVO" resultMap="memberMap">
+      select user_no, id, password, name, email, phone_no, type, reg_date 
       from f_member
       where id = #{id} and password = #{password}
    </select>

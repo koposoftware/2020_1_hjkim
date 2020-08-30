@@ -34,4 +34,10 @@ public class AptServiceImpl implements AptService{
 		return aptDetail;
 	}
 
+	@Override
+	public AptDetailVO selectAptDetail(String aptNo) {
+		AptDetailVO aptDetail = aptDAO.selectAptDetailInfo(aptNo);
+		return aptDetail;
+	}
+	
 }

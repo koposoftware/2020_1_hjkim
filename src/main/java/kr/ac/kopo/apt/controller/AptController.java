@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptAllInfoVO;
@@ -28,6 +29,22 @@ public class AptController {
 	@RequestMapping("/aptMap")
 	public String aptMap() {
 		return "/apt/aptMap";
+	}
+	
+	@RequestMapping("/{kaptCode}")
+	public ModelAndView detail(@PathVariable("kaptCode") String kaptCode) {
+		AptBasicVO aptBasic = aptService.selectAptBasic(kaptCode);
+		AptDetailVO aptDetail = aptService.selectAptDetail(kaptCode);
+		
+		AptAllInfoVO aptAllInfo = new AptAllInfoVO();
+		aptAllInfo.setAptBasicVO(aptBasic);
+		aptAllInfo.setAptDetailVO(aptDetail);
+		
+		ModelAndView mav = new ModelAndView();
+		/* mav.setViewName("/apt/aptMap"); */
+		mav.setViewName("/apt/aptDetailInfo");
+		mav.addObject("detailVO", aptAllInfo);
+		return mav;
 	}
 	
 	@RequestMapping("/aptLatLng.json")

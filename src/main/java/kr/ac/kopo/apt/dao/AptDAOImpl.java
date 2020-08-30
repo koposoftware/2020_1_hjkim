@@ -30,8 +30,14 @@ public class AptDAOImpl implements AptDAO {
 
 	@Override
 	public AptDetailVO selectAptDetailInOverlay(String aptNo) {
-		AptDetailVO aptBasic = sqlSession.selectOne("apt.dao.AptDAO.selectDetailInOverlay", aptNo);
-		return aptBasic;
+		AptDetailVO aptDetail = sqlSession.selectOne("apt.dao.AptDAO.selectDetailInOverlay", aptNo);
+		return aptDetail;
+	}
+
+	@Override
+	public AptDetailVO selectAptDetailInfo(String aptNo) {
+		AptDetailVO aptDetail = sqlSession.selectOne("apt.dao.AptDAO.selectDetailInfo", aptNo);
+		return aptDetail;
 	}
 	
 }
