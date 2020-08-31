@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.apt.vo.AptBasicVO;
+import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceVO;
+import kr.ac.kopo.apt.vo.AptSearchVO;
 
 @Repository
 public class AptDAOImpl implements AptDAO {
@@ -38,6 +41,30 @@ public class AptDAOImpl implements AptDAO {
 	public AptDetailVO selectAptDetailInfo(String aptNo) {
 		AptDetailVO aptDetail = sqlSession.selectOne("apt.dao.AptDAO.selectDetailInfo", aptNo);
 		return aptDetail;
+	}
+
+	@Override
+	public List<AptSearchVO> selectAptSearch(String str) {
+		List<AptSearchVO> aptSearch = sqlSession.selectList("apt.dao.AptDAO.selectAptSearch", str);
+		return aptSearch;
+	}
+
+	@Override
+	public AptBjdCodeVO selectAptBjdCode(long bjdCode) {
+		AptBjdCodeVO aptBjdCode = sqlSession.selectOne("apt.dao.AptDAO.selectBjdCode", bjdCode);
+		return aptBjdCode;
+	}
+
+	@Override
+	public AptLatLngVO selectAptLatLng(String code) {
+		AptLatLngVO aptLatLng = sqlSession.selectOne("apt.dao.AptDAO.selectAptLatLng", code);
+		return aptLatLng;
+	}
+
+	@Override
+	public List<AptPriceVO> selectAptPrice(String kaptCode) {
+		List<AptPriceVO> aptPrice = sqlSession.selectList("apt.dao.AptDAO.selectAptPrice", kaptCode);
+		return aptPrice;
 	}
 	
 }

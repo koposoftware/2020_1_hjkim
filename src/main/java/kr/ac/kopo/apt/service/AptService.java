@@ -3,8 +3,11 @@ package kr.ac.kopo.apt.service;
 import java.util.List;
 
 import kr.ac.kopo.apt.vo.AptBasicVO;
+import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceVO;
+import kr.ac.kopo.apt.vo.AptSearchVO;
 
 public interface AptService {
 	
@@ -37,4 +40,29 @@ public interface AptService {
 	 * @return 
 	 */
 	AptDetailVO selectAptDetail(String aptNo);
+	/**
+	 * 검색한 아파트 정보
+	 * @param str 검색한 keyword
+	 * @return 
+	 */
+
+	List<AptSearchVO> selectAptSearch(String str);
+	/**
+	 * 법정동 코드로 지역 정보 select
+	 * @param bjdCode
+	 * @return AptBjdCodeVO
+	 */
+	AptBjdCodeVO selectBjdCode(long bjdCode);
+	/**
+	 * 아파트 코드로 lat, lng값 가져오기
+	 * @param code 검색할 아파트 코드
+	 * @return
+	 */
+	AptLatLngVO selectLatLng(String code);
+	/**
+	 * 아파트 코드로 거래 내역 조회
+	 * @param kaptCode
+	 * @return 해당 아파트의 거래내역 리스트
+	 */
+	List<AptPriceVO> selectAptPrice(String kaptCode);
 }

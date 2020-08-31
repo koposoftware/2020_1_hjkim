@@ -9,5 +9,8 @@
 		<typeAlias type="kr.ac.kopo.apt.vo.AptLatLngVO" alias="aptLatLngVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptBasicVO" alias="aptBasicVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptDetailVO" alias="aptDetailVO"/>
+		<typeAlias type="kr.ac.kopo.apt.vo.AptSearchVO" alias="aptSearchVO"/>
+		<typeAlias type="kr.ac.kopo.apt.vo.AptBjdCodeVO" alias="aptBjdCodeVO"/>
+		<typeAlias type="kr.ac.kopo.apt.vo.AptPriceVO" alias="aptPriceVO"/>
 	</typeAliases>
 </configuration>

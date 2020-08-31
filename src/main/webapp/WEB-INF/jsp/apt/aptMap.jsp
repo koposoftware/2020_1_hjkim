@@ -32,7 +32,15 @@
 		<c:if test="${ empty detailVO }">
 			$(".map-class").css('display','block');
 		</c:if> 
+		
+		$('#searchTextBox').keyup(function(){
+			searchKeyword($('#searchTextBox').val());
+		})
 	})
+	
+	function searchClick() {
+		searchKeyword($('#searchTextBox').val());
+	}
 	
 </script>
 </head>
@@ -65,8 +73,8 @@
 					<div class="sidebar-search">
 						<div>
 							<div class="input-group">
-								<input type="text" class="form-control search-menu" placeholder="Search...">
-								<div class="input-group-append">
+								<input type="text" class="form-control search-menu" id="searchTextBox" placeholder="Search...">
+								<div class="input-group-append" onclick="searchClick()">
 									<span class="input-group-text"> <i class="fa fa-search" aria-hidden="true"></i>
 									</span>
 								</div>
@@ -77,11 +85,11 @@
 				<div class="sidebar-content">
 					<!-- sidebar-search  -->
 					<div class="sidebar-menu">
+						<div id="apt-search-list" class="search-box"></div>
 						<div id ="apt-click-list"></div>
 						<div class="header-menu">
 							<span>이 지역 아파트 목록</span>
 						</div>
-						<div id="apt-search-list"></div>
 						<div id="apt-area-list"></div>
 					</div>
 					<!-- sidebar-menu  -->
@@ -335,7 +343,7 @@
 		}
 
 		// 좌측 목록에서 아파트를 클릭했을 때 아파트 상세정보가 뜨게함
-		function aptDetailInfo(kaptCode) {
+/* 		function aptDetailInfo(kaptCode) {
 			lat = map.getCenter().getLat();
 			lng = map.getCenter().getLng();
 			console.log(lat + " , " + lng);
@@ -352,6 +360,49 @@
 					alert('실패')
 				}
 			})
+		}
+ */		
+		function aptDetailInfo(kaptCode) {
+			lat = map.getCenter().getLat();
+			lng = map.getCenter().getLng();
+			console.log(lat + " , " + lng);
+			$.ajax({
+				url : '${ pageContext.request.contextPath }/apt/' + kaptCode + '/detailinfo',
+				type : 'get',
+				success : function(data) {
+					//map-class는 숨기고 apt-detail을 보이게 한후, html을 삽입함
+					$(".map-class").css('display', 'none');
+					$(".apt-detail").css('display', 'block');
+					$('.apt-detail').html($.trim(data));
+				},
+				error : function() {
+					alert('실패')
+				}
+			})
+		}
+		
+		/*-------------------------------------------------------------
+			키워드 검색 시 수행되는 함수
+		-------------------------------------------------------------*/
+		function searchKeyword(searchText){
+			$.ajax({
+				url : '${ pageContext.request.contextPath }/apt/search',
+				type : 'post',
+				data : {
+					searchText : searchText
+				},
+				success : function(data){
+					$('#apt-search-list').html(data);
+				}
+			})
+		}
+		/*-------------------------------------------------------------
+			지역 클릭시 좌표 이동
+		-------------------------------------------------------------*/
+		function aptMoveCenter(lat,lng){
+			lat = lat
+			lng = lng
+			map.setCenter(new kakao.maps.LatLng(lat, lng));
 		}
 	</script>
 	<script>

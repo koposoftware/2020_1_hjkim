@@ -45,5 +45,41 @@
             kaptMPArea_60, kaptMPArea_85, kaptMPArea_135, kaptMPArea_136, privArea
        from f_aptdetail
       where kaptCode = #{aptNo}
-   </select> 
+   </select>
+   
+   <!-- 검색어 조회 쿼리 -->
+   <select id="selectAptSearch" parameterType="String" resultType="aptSearchVO">
+      select kaptCode as code, lat, lng, 'a' as type
+        from f_aptlatlng
+       where kaptCode in (select kaptCode
+                            from f_aptBasic
+                           where kaptName Like #{keyword})
+      union all
+      select to_char(bjdCode) as code, lat, lng, 'b' as type
+        from f_bjdcode
+       where bjdCode in (select bjdCode
+                           from f_bjdCode
+                          where bjdName Like #{keyword} and lat is not null)
+   </select>
+   
+   <!-- 법정동 코드로 지역명 -->
+   <select id="selectBjdCode" parameterType="long" resultType="aptBjdCodeVO">
+      select bjdCode , bjdName, lat, lng
+        from f_bjdcode
+       where bjdCode = #{ bjdCode } 
+   </select>
+   
+   <!-- 아파트 코드로 latlng가져옴 -->
+   <select id="selectAptLatLng" parameterType="String" resultType="aptLatLngVO">
+      select kaptCode, lat, lng
+        from f_aptlatlng
+       where kaptCode = #{ aptCode }
+   </select>
+   
+   <!-- 아파트 거래내역 -->
+   <select id="selectAptPrice" parameterType="String" resultType="aptPriceVO">
+      select kaptCode, area, yymm, dd, price, floor
+        from f_price
+       where kaptCode = #{aptCode}
+   </select>
 </mapper>

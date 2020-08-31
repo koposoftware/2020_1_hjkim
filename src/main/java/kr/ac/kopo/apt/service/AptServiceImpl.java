@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import kr.ac.kopo.apt.dao.AptDAO;
 import kr.ac.kopo.apt.vo.AptBasicVO;
+import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceVO;
+import kr.ac.kopo.apt.vo.AptSearchVO;
 
 @Service
 public class AptServiceImpl implements AptService{
@@ -38,6 +41,30 @@ public class AptServiceImpl implements AptService{
 	public AptDetailVO selectAptDetail(String aptNo) {
 		AptDetailVO aptDetail = aptDAO.selectAptDetailInfo(aptNo);
 		return aptDetail;
+	}
+
+	@Override
+	public List<AptSearchVO> selectAptSearch(String str) {
+		List<AptSearchVO> aptSearch = aptDAO.selectAptSearch(str);
+		return aptSearch;
+	}
+
+	@Override
+	public AptBjdCodeVO selectBjdCode(long bjdCode) {
+		AptBjdCodeVO aptBjdCode = aptDAO.selectAptBjdCode(bjdCode);
+		return aptBjdCode;
+	}
+
+	@Override
+	public AptLatLngVO selectLatLng(String code) {
+		AptLatLngVO aptLatLng = aptDAO.selectAptLatLng(code);
+		return aptLatLng;
+	}
+
+	@Override
+	public List<AptPriceVO> selectAptPrice(String kaptCode) {
+		List<AptPriceVO> aptPrice = aptDAO.selectAptPrice(kaptCode);
+		return aptPrice;
 	}
 	
 }

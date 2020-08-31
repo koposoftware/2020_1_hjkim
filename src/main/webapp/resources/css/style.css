@@ -973,6 +973,7 @@ Extra height css
 	float: left;
 	width: 100%;
 	border-top: 1px solid #e6e6e6;
+	margin-top : 20px;
 }
 
 #fh5co-footer .fh5co-copyright p {
@@ -2047,11 +2048,11 @@ ul {
 #apt-area-list {
 	/* padding: 5px 10px 5px 25px; */
 }
-#apt-area-list .apt-list-one:hover, #apt-click-list .apt-click-one:hover{
+#apt-area-list .apt-list-one:hover, #apt-click-list .apt-click-one:hover, .apt-search-one:hover{
 	background-color: #27b2a5;
 	color: #fff;
 }
-#apt-area-list .apt-list-one, #apt-click-list .apt-click-one{
+#apt-area-list .apt-list-one, #apt-click-list .apt-click-one, .apt-search-one{
 	padding: 5px 10px 5px 25px;
 }
 #apt-area-list .apt-list-one-title #apt-click-list .apt-click-one-title{
@@ -2078,6 +2079,10 @@ ul {
 .page-content .container-fluid {
 	height: 87%;
     border-top: 1px solid;
+}
+
+.page-content .apt-detail{
+	overflow-y: auto;
 }
 
 .page-content .container-fluid #map {
@@ -2236,7 +2241,6 @@ ul {
 }
 
 .detail-content {
-	border-bottom: 1px solid #cfccc2;
 	height: 300px;
 }
 
@@ -2423,4 +2427,12 @@ section.container-fluid {
 	background-color: #ffd362;
     color: #75302e;
     font-weight: 600;
+}
+
+/*-----------------------------------------------------
+			검색박스 우측의 search-box
+-----------------------------------------------------*/
+.search-box {
+	max-height: 300px;
+	overflow-y: auto;
 }

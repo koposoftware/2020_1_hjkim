@@ -15,9 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptAllInfoVO;
+import kr.ac.kopo.apt.vo.AptBasicAndLatLngVO;
 import kr.ac.kopo.apt.vo.AptBasicVO;
+import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceVO;
+import kr.ac.kopo.apt.vo.AptSearchVO;
 
 @RequestMapping("/apt")
 @Controller
@@ -31,19 +35,24 @@ public class AptController {
 		return "/apt/aptMap";
 	}
 	
-	@RequestMapping("/{kaptCode}")
-	public ModelAndView detail(@PathVariable("kaptCode") String kaptCode) {
-		AptBasicVO aptBasic = aptService.selectAptBasic(kaptCode);
-		AptDetailVO aptDetail = aptService.selectAptDetail(kaptCode);
-		
-		AptAllInfoVO aptAllInfo = new AptAllInfoVO();
-		aptAllInfo.setAptBasicVO(aptBasic);
-		aptAllInfo.setAptDetailVO(aptDetail);
-		
+	@RequestMapping("/{kaptCode}/{type}")
+	public ModelAndView detail(@PathVariable("kaptCode") String kaptCode, @PathVariable("type") String type) {
 		ModelAndView mav = new ModelAndView();
-		/* mav.setViewName("/apt/aptMap"); */
-		mav.setViewName("/apt/aptDetailInfo");
-		mav.addObject("detailVO", aptAllInfo);
+		
+		if(type.equalsIgnoreCase("detailinfo")) {
+			AptBasicVO aptBasic = aptService.selectAptBasic(kaptCode);
+			AptDetailVO aptDetail = aptService.selectAptDetail(kaptCode);
+			AptAllInfoVO aptAllInfo = new AptAllInfoVO();
+			aptAllInfo.setAptBasicVO(aptBasic);
+			aptAllInfo.setAptDetailVO(aptDetail);
+			mav.setViewName("/apt/aptDetailInfo");
+			mav.addObject("detailVO", aptAllInfo);
+		}else if(type.equalsIgnoreCase("detailPrice")) {
+			List<AptPriceVO> aptPrice = aptService.selectAptPrice(kaptCode);
+			mav.addObject("aptPriceList", aptPrice);
+			mav.setViewName("/apt/aptDetailPrice");
+		}
+		
 		return mav;
 	}
 	
@@ -79,5 +88,37 @@ public class AptController {
 		aptOverlay.setAptDetailVO(aptDetail);
 		
 		return aptOverlay;
+	}
+	
+	@RequestMapping("/search")
+	@ResponseBody
+	public ModelAndView aptSearch(@RequestParam("searchText") String searchText ) {
+		ModelAndView mav = new ModelAndView();
+		String str = "";
+		str += "%";
+		for(int i = 0; i < searchText.length(); i++) {
+			str += searchText.substring(i, i+1);
+			str += "%";
+		}
+		List<AptSearchVO> aptSearchList = aptService.selectAptSearch(str);
+		List<AptBasicAndLatLngVO> aptBasicAndLatLngList = new ArrayList<>();
+		List<AptBjdCodeVO> aptBjdCodeList = new ArrayList<>();
+		for(AptSearchVO vo : aptSearchList) {
+			if(vo.getType().equalsIgnoreCase("a")) {
+				AptBasicAndLatLngVO aptBasicAndLatLng = new AptBasicAndLatLngVO();
+				AptBasicVO aptBasic = aptService.selectAptBasic(vo.getCode());
+				AptLatLngVO aptLatLng = aptService.selectLatLng(vo.getCode());
+				aptBasicAndLatLng.setAptBasicVO(aptBasic);
+				aptBasicAndLatLng.setAptLatLngVO(aptLatLng);
+				aptBasicAndLatLngList.add(aptBasicAndLatLng);
+			} else if(vo.getType().equals("b")){
+				AptBjdCodeVO aptBjdCode = aptService.selectBjdCode(Long.parseLong(vo.getCode()));
+				aptBjdCodeList.add(aptBjdCode);
+			}
+		}
+		mav.setViewName("/apt/aptSearchList");
+		mav.addObject("aptBasicAndLatLngList", aptBasicAndLatLngList);
+		mav.addObject("aptBjdCodeList", aptBjdCodeList);
+		return mav;
 	}
 }
