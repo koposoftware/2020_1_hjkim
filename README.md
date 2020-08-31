@@ -37,5 +37,179 @@
 |특기사항|  TOEIC 990 |
 
 # 5. 기타
-그외 프로젝트를 더욱 설명할수 있는 것들을 추가하세요
- 
+<details>
+<summary>❤데이터 베이스 구축과정</summary>
+<div markdown="1">
+
+## ✔개발환경
+   - python, jupyther notebook
+
+## 😎아파트 기본정보
+```python
+import urllib.request
+from bs4 import BeautifulSoup
+import time
+import pandas as pd
+from pandas import DataFrame as df
+import openpyxl
+
+def getaptdata(loadCode):
+    key = "-"
+    url = "http://apis.data.go.kr/1611000/AptListService/getLegaldongAptList?bjdCode="+loadCode+"&serviceKey="+key
+    try:
+        f = urllib.request.urlopen(url)
+    except Exception as e:
+        print('Fail ' + str(e))
+        time.sleep(100)
+        f = urllib.request.urlopen(url)
+
+
+    aptxml = f.read().decode("utf8")
+    f.close()
+    soup = BeautifulSoup(aptxml, "lxml")
+    aptdata = []
+    for item in soup.find_all("item"):
+        aptdataAll = [loadCode, item.find("kaptcode").get_text(), item.find("kaptname").get_text()]
+        aptdata.append(aptdataAll)
+        print(aptdata)
+    return(aptdata)
+
+apt = []
+wb = openpyxl.load_workbook('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/법정동코드.xlsx')
+ws = wb['법정동코드 전체자료']
+print("test")
+cells = ws['A2':'A20525']
+
+workbook = openpyxl.Workbook()
+sheet = workbook.active
+sheet.append(["bjdCode", "kaptCode","kaptName"])
+for row in cells :
+    for cell in row:
+        print(cell.value)
+        test = getaptdata(str(cell.value))
+        if test :
+            for x,y,z in test :
+                check = [x,y,z]
+                print(check)
+                sheet.append(check)
+            workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트기본정보.xlsx')
+print("finish")
+```
+
+   
+## 😎아파트 상세정보
+
+```python  
+import urllib.request
+from bs4 import BeautifulSoup
+import time
+import pandas as pd
+from pandas import DataFrame as df
+import openpyxl
+
+def getaptdata(kaptCode):
+    key = "openAPI KEY"
+    url = "http://apis.data.go.kr/1611000/AptBasisInfoService/getAphusBassInfo?kaptCode="+kaptCode+"&serviceKey="+key
+    try:
+        f = urllib.request.urlopen(url)
+    except Exception as e:
+        print('Fail ' + str(e))
+        time.sleep(100)
+        f = urllib.request.urlopen(url)
+
+
+    aptxml = f.read().decode("utf8")
+    f.close()
+    soup = BeautifulSoup(aptxml, "lxml")
+    item = soup.find("item")
+    aptdataAll = []
+    aptSearch = ["bjdcode", "codehallnm", "codeheatnm", "codesalenm","hocnt", "kaptacompany", "kaptaddr", "kaptbcompany"
+                 , "kaptcode", "kaptdongcnt", "kaptfax", "kaptmarea", "kaptmparea_135", "kaptmparea_136", "kaptmparea_60"
+                 , "kaptmparea_85", "kaptname", "kapttarea", "kaptdacnt", "privarea", "kapturl", "dorojuso", "codeaptnm"
+                 , "codemgrnm", "kapttel", "kaptusedate"]
+
+    for aptOne in aptSearch :
+        try:
+            aptdataAll.append(item.find(aptOne).get_text())
+        except AttributeError as e:
+            aptdataAll.append('-')
+            pass
+
+
+    return(aptdataAll)
+
+apt = []
+wb = openpyxl.load_workbook('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/2.아파트기본정보.xlsx')
+ws = wb['Sheet']
+cells = ws['B2':'B11340']
+
+workbook = openpyxl.Workbook()
+sheet = workbook.active
+sheet.append(["bjdcode", "codehallnm" ,"codeheatnm" 
+              ,"codesalenm","hocnt"
+              ,"kaptacompany","kaptaddr","kaptbcompany", "kaptcode","kaptdongcnt","kaptfax",
+              "kaptmarea","kaptmparea_135","kaptmparea_136","kaptmparea_60",
+              "kaptmparea_85","kaptname","kapttarea","kaptdacnt","privarea",
+              "kapturl","dorojuso","codeaptnm","codemgrnm","kapttel","kaptusedate"])
+
+for row in cells :
+    for cell in row:
+        aptInfoAll = getaptdata(str(cell.value))
+        if aptInfoAll :
+            print(aptInfoAll)
+            sheet.append(aptInfoAll)
+            workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트상세정보.xlsx')
+```
+
+## 😎아파트 LAT LNG
+```python
+# 아파트 상세 정보 출력 코드
+import urllib.request
+from bs4 import BeautifulSoup
+import time
+import pandas as pd
+from pandas import DataFrame as df
+import openpyxl
+
+def getLatLng(addr) :
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + addr
+    headers = {"Authorization": "KakaoAK 354135ccdb89653ab5ecb933d96d903a"}
+    global latlng
+    try:
+        result = json.loads(str(requests.get(url, headers=headers).text))
+        latlng = []
+
+    except Exception as e:
+        print('Fail ' + str(e))
+        time.sleep(100)
+        result = json.loads(str(requests.get(url, headers=headers).text))
+    try:
+        match_first = result['documents'][0]['address']
+        latlng =[float(match_first['y']), float(match_first['x'])]
+    except IndexError as e:
+        latlng=['-','-']
+        
+    return latlng
+
+apt = []
+wb = openpyxl.load_workbook('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/3.아파트상세정보.xlsx')
+ws = wb['Sheet']
+cells = ws['B2':'G11340']
+
+workbook = openpyxl.Workbook()
+sheet = workbook.active
+sheet.append(["lat","lan"])
+
+latlngSave=""
+for row in cells :
+    for cell in row:
+        print(cell.value)
+        latlngSave = getLatLng(str(cell.value))
+        if latlngSave :
+            sheet.append(latlngSave)
+            workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트상세정보-위경도.xlsx')
+print("finish")
+```
+
+</div>
+</details>
