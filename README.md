@@ -37,14 +37,18 @@
 |특기사항|  TOEIC 990 |
 
 # 5. 기타
+
+### ❤ 데이터 베이스 구축과정
 <details>
-<summary>❤데이터 베이스 구축과정</summary>
+  <summary style="">
+     자세히보기
+  </summary>
 <div markdown="1">
 
-## ✔개발환경
-   - python, jupyther notebook
+> ## ✔개발환경
+>  - python, jupyther notebook
 
-## 😎아파트 기본정보
+ ## 😎아파트 기본정보
 ```python
 import urllib.request
 from bs4 import BeautifulSoup
@@ -210,6 +214,32 @@ for row in cells :
             workbook.save('C:/Lecture/프로젝트/최종프로젝트/데이터베이스구축/아파트상세정보-위경도.xlsx')
 print("finish")
 ```
+
+</div>
+</details>
+
+### ❤ api key값 properties파일로 관리
+<details>
+   <summary style="">
+      자세히보기
+   </summary>
+ <div markdown="1">
+   
+#### 1. properties파일을 만든다. __[src/main/resources/config/properties/key.properties]__
+&nbsp; ![properties1](./githubimg/properties1.png) <br>
+&nbsp; __[key.properties]파일 내부__ <br>
+&nbsp; ![properties2](./githubimg/properties2.png)
+
+#### 2. spring-mvc 파일을 수정한다. __[src/main/resources/config/spring/spring-mvc.xml]__
+&nbsp; ![properties3](./githubimg/properties3.png)
+
+#### 3. Properties안에 들어있는 값을 사용하려는 jsp의 상단에 taglib 추가한다. 
+&nbsp; ![properties4](./githubimg/properties4.png)
+
+#### 4. 다음과 같이 사용하려는 위치에서 <spring:eval></spring:eval>을 사용한다.
+&nbsp; ![properties5](./githubimg/properties5.png)
+&nbsp; or
+&nbsp; ![properties6](./githubimg/properties6.png)
 
 </div>
 </details>
