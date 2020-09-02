@@ -12,5 +12,6 @@
 		<typeAlias type="kr.ac.kopo.apt.vo.AptSearchVO" alias="aptSearchVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptBjdCodeVO" alias="aptBjdCodeVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptPriceVO" alias="aptPriceVO"/>
+		<typeAlias type="kr.ac.kopo.chat.vo.ChatVO" alias="chatVO"/>
 	</typeAliases>
 </configuration>

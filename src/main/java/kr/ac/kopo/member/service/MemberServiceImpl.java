@@ -7,7 +7,7 @@ import kr.ac.kopo.member.dao.MemberDAO;
 import kr.ac.kopo.member.vo.MemberVO;
 
 @Service
-public class MmeberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
 	
@@ -20,6 +20,16 @@ public class MmeberServiceImpl implements MemberService{
 	public String idCheck(String id) {
 		String idCheck = memberDAO.idCheck(id);
 		return idCheck;
+	}
+
+	@Override
+	public void insertCounselor(int userNo) {
+		memberDAO.insertCounselor(userNo);
+	}
+
+	@Override
+	public void deleteCounselor(int userNo) {
+		memberDAO.deleteCounselor(userNo);
 	}
 	
 }
