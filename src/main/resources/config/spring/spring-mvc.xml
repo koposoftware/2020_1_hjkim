@@ -17,7 +17,8 @@
     http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
    <context:component-scan base-package="kr.ac.kopo" />
-   <util:properties id="property" location="classpath:config/properties/key.properties"></util:properties>
+   <util:properties id="property"
+      location="classpath:config/properties/key.properties"></util:properties>
    <mvc:annotation-driven>
       <mvc:message-converters>
          <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -59,12 +60,11 @@
 
    <!-- 웹소켓 관련 -->
    <websocket:handlers>
-   <websocket:mapping handler="echoHandler" path="/chat" />
-   <websocket:handshake-interceptors>
-      <bean
-         class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-   </websocket:handshake-interceptors>
-</websocket:handlers>
+      <websocket:mapping handler="echoHandler" path="/chatServer" />
+      <websocket:handshake-interceptors>
+         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+      </websocket:handshake-interceptors>
+   </websocket:handlers>
    <bean id="echoHandler" class="kr.ac.kopo.chat.EchoHandler"></bean>
 </beans>
 

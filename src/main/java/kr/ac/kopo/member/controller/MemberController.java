@@ -58,7 +58,10 @@ public class MemberController {
 			} else {
 				// 로그인 성공
 				if(loginVO.getType().equalsIgnoreCase("C")) {
-					System.out.println("memberController > 상담사 들어옴");
+					/*
+						만약 상담사가 로그인을 하면, user_no를 consulting 테이블에 등록시킨다.
+					 */
+					memberService.insertCounselor(loginVO.getUserNo());
 					mav.setViewName("redirect:/counselor");
 				}else {
 					String dest = (String) session.getAttribute("dest");
@@ -76,7 +79,11 @@ public class MemberController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout(SessionStatus status) {
+	public String logout(SessionStatus status, HttpSession session) {
+		MemberVO loginVO = (MemberVO) session.getAttribute("loginVO"); 
+		if(loginVO.getType().equalsIgnoreCase("c")) {
+			memberService.deleteCounselor(loginVO.getUserNo());
+		}
 		System.out.println(status.isComplete());// false : 세션에 등록된 객체가 있다.
 		status.setComplete(); // isComplete의 값이 true로 바뀐다. 세션에 등록된거 다 지워!
 		return "redirect:/";

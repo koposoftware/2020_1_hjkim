@@ -38,7 +38,7 @@ public class AptController {
 	@RequestMapping("/{kaptCode}/{type}")
 	public ModelAndView detail(@PathVariable("kaptCode") String kaptCode, @PathVariable("type") String type) {
 		ModelAndView mav = new ModelAndView();
-		
+		System.out.println("들어옴");
 		if(type.equalsIgnoreCase("detailinfo")) {
 			AptBasicVO aptBasic = aptService.selectAptBasic(kaptCode);
 			AptDetailVO aptDetail = aptService.selectAptDetail(kaptCode);
@@ -51,6 +51,10 @@ public class AptController {
 			List<AptPriceVO> aptPrice = aptService.selectAptPrice(kaptCode);
 			mav.addObject("aptPriceList", aptPrice);
 			mav.setViewName("/apt/aptDetailPrice");
+		}else if(type.equalsIgnoreCase("consulting")) {
+			System.out.println("consulting");
+			mav.setViewName("/apt/consultingMenu");
+			mav.addObject("aptCode",kaptCode);
 		}
 		
 		return mav;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="consulting.dao.consultingDAO">
+   <resultMap type="chatVO" id="chatMap">
+      <result column="counselor_no" property="counselorNo"/>
+      <result column="user_no" property="userNo"/>
+   </resultMap>
+   <!-- 상담사가 로그인을 하게되면 등록함  -->
+   <insert id="insertCounselor" parameterType="int">
+      insert into f_consulting(counselor_no)
+       values (#{no})
+   </insert>
+   <!-- 상담사가 로그아웃을 하게되면 테이블에서 삭제됨 -->
+   <delete id="deleteCounselor" parameterType="int">
+      delete from f_consulting
+       where counselor_no = #{no}
+   </delete>
+   <!-- 상담사 매칭을 하기 위해 null 인 값을 불러옴 -->
+   <select id="selectCounselor" resultType="int">
+      select counselor_no
+        from f_consulting
+       where user_no is null 
+   </select>
+   <!-- 상담사와 사용자를 매칭한다. -->
+   <update id="updateUser" parameterType="chatVO">
+      update f_consulting
+         set user_no = #{userNo}
+       where counselor_no = #{counselorNo}
+   </update>
+   <!-- 매칭된 상대방을 select한다. -->
+   <select id="selectTarget" parameterType="int" resultMap="chatMap">
+      select counselor_no, user_no
+        from f_consulting
+       where counselor_no = #{checkNo} or user_no = #{checkNo}
+   </select>
+</mapper>
