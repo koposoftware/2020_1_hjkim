@@ -4,7 +4,7 @@
 <ul class="nav nav-tabs justify-content-center">
 	<li id='apt-detail-nav' class="nav-item active" onclick="aptDetailInfo('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link">아파트 상세보기</a></li>
 	<li id='apt-price-nav' class="nav-item" onclick="aptDetailPrice('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">아파트 실거래가</a></li>
-	<li id='apt-consulting-nav' class="nav-item" onclick="aptConsulting('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">아파트 상담하기</a></li>
+	<li class="nav-item"><a class="nav-link" href="#">아파트 상담하기</a></li>
 </ul>
 
 <div class="detail-content">
@@ -113,34 +113,7 @@
 			success : function(data) {
 				$('.detail-content').html(data)
 				$('#apt-detail-nav').removeClass('active')
-				$('#apt-consulting-nav').removeClass('active')
 				$('#apt-price-nav').addClass('active')
-			}
-		})
-	}
-	
-	function aptConsulting(aptCode){
-		$.ajax({
-			url : '${ pageContext.request.contextPath }/apt/' + aptCode + '/consulting',
-			type : 'get',
-			success : function(data) {
-				$('.detail-content').html(data)
-				$('#apt-detail-nav').removeClass('active')
-				$('#apt-price-nav').removeClass('active')
-				$('#apt-consulting-nav').addClass('active')
-			}
-		})
-	}
-	
-	function onlineChat(aptCode) {
-		$.ajax({
-			url : '${ pageContext.request.contextPath}/chat',
-			type : 'post',
-			data : {
-				kaptCode : aptCode
-			},
-			success : function(data) {
-				$('.detail-content').html(data)
 			}
 		})
 	}

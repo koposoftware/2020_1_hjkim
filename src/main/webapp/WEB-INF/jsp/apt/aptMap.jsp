@@ -177,15 +177,10 @@
 		//처음 지도 정보
 		var bounds = map.getBounds();
 
-		/*--------------------------------------------------
-					처음 지도를 띄울 때 마커를 추가한다
-		--------------------------------------------------*/
+		//마커추가
 		addMarker(bounds)
 
-		
-		/*--------------------------------------------------
-					중심좌표나 확대수준이 변경되면 호출한다.
-		--------------------------------------------------*/
+		//중심좌표나 확대수준이 변경되면 호출한다.
 		kakao.maps.event.addListener(map, 'idle', function() {
 			bounds = map.getBounds()
 			//중심좌표나 확대수준이 변경되면 마커 다시생성
@@ -194,12 +189,12 @@
 
 		var marker = new kakao.maps.Marker({
 			position : markerPosition,
-			image : markerImage // 마커이미지 설정 
+			image : markerImage
+		// 마커이미지 설정 
 		});
 
 		//하나금융티아이 마커 추가
 		clusterer.addMarker(marker);
-		
 		var overlay = new kakao.maps.CustomOverlay({
 			content : content,
 			map : map,
@@ -277,11 +272,9 @@
 				displayListWithClick(data);		//선택한 아파트 최상단에 출력 (검색기능 추가시, 2번째 출력)
 			});
 		}
-		
 		function closeCustomOverlay() {
 			clickedOverlay.setMap(null);
 		}
-		
 		function addMarker(bounds) {
 			//지도에 나오는 영역만 latlng값을 가져오기 위함
 			let da = bounds.da;
@@ -349,6 +342,26 @@
 			}
 		}
 
+		// 좌측 목록에서 아파트를 클릭했을 때 아파트 상세정보가 뜨게함
+/* 		function aptDetailInfo(kaptCode) {
+			lat = map.getCenter().getLat();
+			lng = map.getCenter().getLng();
+			console.log(lat + " , " + lng);
+			$.ajax({
+				url : '${ pageContext.request.contextPath }/apt/' + kaptCode,
+				type : 'get',
+				success : function(data) {
+					//map-class는 숨기고 apt-detail을 보이게 한후, html을 삽입함
+					$(".map-class").css('display', 'none');
+					$(".apt-detail").css('display', 'block');
+					$('.apt-detail').html($.trim(data));
+				},
+				error : function() {
+					alert('실패')
+				}
+			})
+		}
+ */		
 		function aptDetailInfo(kaptCode) {
 			lat = map.getCenter().getLat();
 			lng = map.getCenter().getLng();
@@ -360,9 +373,6 @@
 					//map-class는 숨기고 apt-detail을 보이게 한후, html을 삽입함
 					$(".map-class").css('display', 'none');
 					$(".apt-detail").css('display', 'block');
-					$('#apt-detail-nav').removeClass('active')
-					$('#apt-consulting-nav').removeClass('active')
-					$('#apt-price-nav').addClass('active')
 					$('.apt-detail').html($.trim(data));
 				},
 				error : function() {

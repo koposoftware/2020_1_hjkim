@@ -110,5 +110,3 @@ buildNumber.properties
 src/main/resources/config/properties/key.properties
 src/main/webapp/WEB-INF/jsp/basic.jsp
 src/main/webapp/admin.html
-src/main/webapp/chatTest.jsp
-src/main/webapp/chatTest2.jsp

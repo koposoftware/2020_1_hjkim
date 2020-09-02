@@ -6,8 +6,4 @@ public interface MemberService {
 	MemberVO login(MemberVO member);
 
 	String idCheck(String id);
-
-	void insertCounselor(int userNo);
-
-	void deleteCounselor(int userNo);
 }
