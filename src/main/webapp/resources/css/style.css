@@ -2393,7 +2393,7 @@ ul {
 	background-color: rgb(242, 246, 247) !important;
 }
 
-.panel-footer {
+.login-footer {
 	padding: 1px 15px;
 	color: #A0A0A0;
 	background-color: rgb(242, 246, 247);
@@ -2435,4 +2435,93 @@ section.container-fluid {
 .search-box {
 	max-height: 300px;
 	overflow-y: auto;
+}
+
+
+/*----------------------------------------------------
+            consultingMenu card
+-----------------------------------------------------*/
+.card-deck {
+    margin-top: 25px;
+}
+
+.card-img-consulting {
+    margin-top: 15px;
+    border-radius: 5%;
+    width: 80%;
+}
+
+.consulting-card {
+    border-radius: 5%;
+}
+
+.consulting-card:hover {
+    box-shadow: 5px 5px 5px 5px #27b2a536;
+}
+
+/*------------------------------------------------------
+            chatting ui
+--------------------------------------------------------*/
+.chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body {
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body {
+    margin-right: 60px;
+}
+
+.chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+}
+
+.chat-body {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon {
+    margin-right: 5px;
+}
+
+.panel-body {
+    overflow-y: scroll;
+}
+
+.chat-btn {
+    height: 100%;
+}
+
+.chat-input-form {
+    background-color: #fff;
+}
+
+.chat-heading {
+    font-size: 30px;
+    background-color: rgb(242, 246, 247);
+}
+
+.chat-footer {
+    background-color: rgb(242, 246, 247);
+}
+
+.card-all{
+    min-height: 644px
+}
+
+.apt-card-detail{
+	overflow-y: auto;
+	height: 90%
 }

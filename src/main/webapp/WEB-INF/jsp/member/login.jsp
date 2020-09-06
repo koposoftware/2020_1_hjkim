@@ -93,13 +93,13 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i>
-													</span> <input class="form-control" placeholder="Username" name="id" type="text" autofocus>
+													</span> <input class="form-control login-input-form" placeholder="Username" name="id" type="text" autofocus>
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"> <i class="glyphicon glyphicon-lock"></i>
-													</span> <input class="form-control" placeholder="Password" name="password" type="password" value="">
+													</span> <input class="form-control login-input-form" placeholder="Password" name="password" type="password" value="">
 												</div>
 											</div>
 											<div class="form-group">
@@ -117,7 +117,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="panel-footer ">
+						<div class="panel-footer login-footer">
 							 <a href="#" onClick="" class="float-right"> 회원가입 </a>
 						</div>
 					</div>

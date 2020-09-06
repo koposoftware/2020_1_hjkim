@@ -64,7 +64,9 @@
       <websocket:handshake-interceptors>
          <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
       </websocket:handshake-interceptors>
+      <websocket:sockjs/>
    </websocket:handlers>
-   <bean id="echoHandler" class="kr.ac.kopo.chat.EchoHandler"></bean>
+   <!-- <bean id="echoHandler" class="kr.ac.kopo.chat.EchoHandler"></bean> -->
+   <bean id="echoHandler" class="kr.ac.kopo.chat.WebSocketHandler"></bean>
 </beans>
 

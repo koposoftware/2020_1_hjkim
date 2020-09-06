@@ -20,17 +20,21 @@
 		//핸들러 등록 (연결 생성, 메시지 수신, 연결종료)
 		
 		//url 연결할 서버의 경로
-		ws = new WebSocket('ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/chatServer');
+//		ws = new WebSocket('ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/chatServer');
+		ws = new SockJS( "<c:url value="/chatServer"/>" );
 		ws.onopen = function(){
 			console.log('연결생성');
 			register();
-			targetCheck();
 		};
 		
 		ws.onmessage = function(e){
 			console.log('메시지 받음');
 			var data = e.data;
-			addMsg(data);
+			if(data.indexOf("kaptCode:") != -1){
+				addApt(data.substr("kaptCode:".length));
+			}else {
+				addMsg(data);
+			}
 		};
 		ws.onclose = function() {
 			console.log('연결 끊김');
@@ -53,11 +57,21 @@
 	
 		$('.chat').append(content);
 	}
-	
+	function addApt(apt){
+		if($(".card-text").html() == ''){
+			$.ajax({
+				url: '${pageContext.request.contextPath}/apt/' + apt + '/detailInfo',
+				type: 'get',
+				success : function(data){
+					$(".card-text").html(data)
+				}
+			})
+		}
+	}
 	//메시지 수신을 위한 서버에 id 등록
 	function register(){
 		var msg = {
-			type : "con",
+			type : "counselor",
 			userid : userNo
 		};
 		console.log(userNo)
@@ -68,7 +82,7 @@
 		console.log("sendMsg에서 targetNo" + targetNo)
 		var msg = {
 			type : 'chat', //메시지를 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
-			target : targetNo,
+			userid : userNo,
 			message : $('#chatMsg').val()
 		};
 		ws.send(JSON.stringify(msg));
@@ -76,6 +90,7 @@
 	
 	$(function(){
 		connect();
+		loadHistory();
 		$('#btnSend').on("click", function(){
 			var content = '';
 			content += '<li class="right clearfix">'
@@ -94,24 +109,21 @@
 			$('#chatMsg').val("");
 		})
 	})
-	function targetCheck(){
-		var target;
-		console.log('target')
-		$.ajax({
-			url: '${ pageContext.request.contextPath }/chat/targetCheck',
-			type: 'post',
-			data: {
-				checkNo: userNo
-			},
-			success : function(check){
-				
-				targetNo = check.userNo
-				console.log(targetNo)
-			}
-		})
-	}
+	
 	function closeSocket(){
 		ws.close();
+	}
+	function loadHistory(){
+		$.ajax({
+			url: '${pageContext.request.contextPath}/chat/loadHistory',
+			type: 'post',
+			data: {
+				userNo : userNo
+			},
+			success : function(data){
+				$('.chat').append(data)
+			}
+		})
 	}
 </script>
 </head>
@@ -165,9 +177,7 @@
 				<div class="card col-md-5" style="width: 18rem;">
 					<div class="card-body">
 						<h5 class="card-title">고객이 선택한 아파트</h5>
-						<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						<a href="#" class="card-link">Card link</a> <a href="#" class="card-link">Another link</a>
+						<p class="card-text apt-card-detail"></p>
 					</div>
 				</div>
 			</div>

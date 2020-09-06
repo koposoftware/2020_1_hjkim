@@ -18,4 +18,6 @@
 		</tr>
 	</c:forEach>
 </table>
-<button onclick="goBackToMap()" class="btn btn-outline-info">지도로 돌아가기</button>
+<c:if test="${ loginVO.type eq 'u' or loginVO.type eq 'U' }">
+	<button onclick="goBackToMap()" class="btn btn-outline-info">지도로 돌아가기</button>
+</c:if>

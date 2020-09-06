@@ -24,5 +24,14 @@ public class MemberDAOImpl implements MemberDAO{
 		return idCheck;
 	}
 	
+    @Override
+    public void insertCounselor(int userNo) {
+        sqlSession.insert("consulting.dao.consultingDAO.insertCounselor", userNo);
+    }
+
+    @Override
+    public void deleteCounselor(int userNo) {
+        sqlSession.delete("consulting.dao.consultingDAO.deleteCounselor", userNo);
+    }
 	
 }

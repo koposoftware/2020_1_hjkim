@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <h2>${ detailVO.aptBasicVO.kaptName }</h2>
 <hr>
 <ul class="nav nav-tabs justify-content-center">
+
 	<li id='apt-detail-nav' class="nav-item active" onclick="aptDetailInfo('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link">아파트 상세보기</a></li>
 	<li id='apt-price-nav' class="nav-item" onclick="aptDetailPrice('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">아파트 실거래가</a></li>
-	<li class="nav-item"><a class="nav-link" href="#">아파트 상담하기</a></li>
+	<c:if test="${ loginVO.type eq 'U' or loginVO.type eq 'u' or empty loginVO }">
+		<li id='apt-consulting-nav' class="nav-item" onclick="aptConsulting('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">아파트 상담하기</a></li>
+	</c:if>
 </ul>
 
 <div class="detail-content">
@@ -89,7 +93,9 @@
 			<td>${ detailVO.aptDetailVO.kaptMPArea136 }</td>
 		</tr>
 	</table>
-	<button onclick="goBackToMap()" class="btn btn-outline-info">지도로 돌아가기</button>
+	<c:if test="${ loginVO.type eq 'u' or loginVO.type eq 'U' }">
+		<button onclick="goBackToMap()" class="btn btn-outline-info">지도로 돌아가기</button>
+	</c:if>
 </div>
 
 
@@ -113,8 +119,49 @@
 			success : function(data) {
 				$('.detail-content').html(data)
 				$('#apt-detail-nav').removeClass('active')
+				$('#apt-consulting-nav').removeClass('active')
 				$('#apt-price-nav').addClass('active')
 			}
 		})
 	}
+	function aptConsulting(aptCode) {
+		$.ajax({
+			url : '${ pageContext.request.contextPath }/apt/' + aptCode + '/consulting',
+			type : 'get',
+			success : function(data) {
+				$('.detail-content').html(data)
+				$('#apt-detail-nav').removeClass('active')
+				$('#apt-price-nav').removeClass('active')
+				$('#apt-consulting-nav').addClass('active')
+			}
+		})
+	}
+
+	function onlineChat(aptCode) {
+		$.ajax({
+			url : '${ pageContext.request.contextPath}/chat',
+			type : 'post',
+			data : {
+				kaptCode : aptCode
+			},
+			success : function(data) {
+				$('.detail-content').html(data)
+			}
+		})
+	}
+
+	<c:if test="${loginVO.type eq 'c' or loginVO.type eq 'C'}">
+	function aptDetailInfo(aptCode) {
+		$.ajax({
+			url : '${ pageContext.request.contextPath }/apt/' + aptCode + '/detailinfo',
+			type : 'get',
+			success : function(data) {
+				$('.card-text').html(data);
+			},
+			error : function() {
+				alert('실패')
+			}
+		})
+	}
+	</c:if>
 </script>

@@ -7,11 +7,64 @@
       <result column="counselor_no" property="counselorNo"/>
       <result column="user_no" property="userNo"/>
    </resultMap>
+   <resultMap type="historyVO" id="historyMap">
+      <result column="chat_no" property="chatNo"/>
+   </resultMap>
    <!-- 상담사가 로그인을 하게되면 등록함  -->
-   <insert id="insertCounselor" parameterType="int">
+   <!-- <insert id="insertCounselor" parameterType="int">
       insert into f_consulting(counselor_no)
        values (#{no})
+   </insert> -->
+   
+   <!-- 상담사가 로그인을 하게되면 f_chat_list에 등록 -->
+   <insert id="insertCounselor" parameterType="int">
+      insert into f_chat_list(chat_no, counselor)
+       values (seq_f_chat_list_chat_no.nextval, #{userNo})
    </insert>
+   
+   <!-- userNo로 채팅방 검색 단, end_date가 null인 것들만 -->
+   <select id="selectChatNo" parameterType="int" resultType="int">
+      select chat_no
+        from f_chat_list
+       where (counselor = #{userNo} or user_no = #{userNo}) and end_date is null
+   </select>
+   
+   <!-- 채팅 내용을 넣는다. -->
+   <insert id="insertHistory" parameterType="historyVO">
+      insert into f_chat_history(chat_no, sender, receiver, content)
+       values (#{chatNo}, #{sender}, #{receiver}, #{content})
+   </insert>
+   
+   <!-- f_chat_list에서 user_no가 null인 것들 중 랜덤으로 1개를 뽑아 user_no삽입 -->
+   <update id="updateChatListUser" parameterType="int">
+      update f_chat_list
+         set user_no = #{userNo}
+       where chat_no = (select chat_no 
+                         from( 
+                              select * from f_chat_list
+                               where user_no is null
+                               order by DBMS_RANDOM.RANDOM
+                             ) 
+                         <![CDATA[where rownum <2]]>
+                        )   
+   </update>
+   <!-- 상담사가 다른 페이지에 있다와도 채팅 내용이 보일수 있도록 채팅 내용을 먼저 load함 -->
+   <select id="selectHistoryList" resultMap="historyMap" parameterType="int">
+      select chat_no, sender, receiver, content, send_date
+        from f_chat_history
+       where chat_no = (
+                        select chat_no 
+                          from f_chat_list
+                         where counselor = #{userNo} and end_date is null and user_no is not null
+                        )
+   </select>
+   <!-- end date를 업데이트한다. -->
+   <update id="updateEndDate" parameterType="int">
+      update f_chat_list
+         set end_date = sysdate
+       where user_no = #{userNo} and end_date is null
+   </update>
+   
    <!-- 상담사가 로그아웃을 하게되면 테이블에서 삭제됨 -->
    <delete id="deleteCounselor" parameterType="int">
       delete from f_consulting

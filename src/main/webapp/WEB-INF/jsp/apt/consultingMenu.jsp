@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="container ">
 	<div class="card-deck row justify-content-center">
-		<div class="card consulting-card col-lg-4" onclick="onlineChat('${detailVO.aptBasicVO.kaptCode}')">
+		<div class="card consulting-card col-lg-4" onclick="onlineChat('${kaptCode}')">
 			<img src="${ pageContext.request.contextPath }/resources/images/onlineChat.png" class="card-img-top card-img-consulting mx-auto consulting-img" alt="...">
 			<div class="card-body">
 				<h5 class="card-title">온라인 상담</h5>

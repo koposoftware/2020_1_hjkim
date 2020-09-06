@@ -1,5 +1,7 @@
 package kr.ac.kopo.chat.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.chat.service.ChatService;
-import kr.ac.kopo.chat.vo.ChatVO;
+import kr.ac.kopo.chat.vo.ChatHistoryVO;
 
 @Controller
 public class ChatController {
@@ -23,11 +25,13 @@ public class ChatController {
 		return mav;
 	}
 	
-	@RequestMapping("/chat/targetCheck")
+	@RequestMapping("/chat/loadHistory")
 	@ResponseBody
-	public ChatVO targetCheck(@RequestParam("checkNo") int userNo) {
-		System.out.println("targetCheck 들어옴");
-		ChatVO target = chatService.selectTarget(userNo);
-		return target;
+	public ModelAndView historyLoad(@RequestParam("userNo") int userNo){
+		List<ChatHistoryVO> history = chatService.selectHistoryList(userNo);
+		ModelAndView mav = new ModelAndView("employee/chatHistory");
+		mav.addObject("history", history);
+		mav.addObject("userNo", userNo);
+		return mav;
 	}
 }
