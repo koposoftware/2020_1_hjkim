@@ -62,9 +62,6 @@ public class MemberController {
 					chat 관련 : 상담사가 로그인하면 f_chat_list에 등록됨
 					------------------------------------------*/
 					memberService.insertCounselor(loginVO.getUserNo());
-					
-					
-					//memberService.insertCounselor(loginVO.getUserNo());
 					mav.setViewName("redirect:/counselor");
 				}else {
 					String dest = (String) session.getAttribute("dest");
@@ -84,9 +81,9 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(SessionStatus status, HttpSession session) {
 		MemberVO loginVO = (MemberVO) session.getAttribute("loginVO"); 
-		/*
-			만약 로그인 한 사람이 상담사면 consulting 테이블에서 삭제를 한다.
-		 */
+		/*----------------------------------------
+			chat 관련 : 상담사가 로그아웃하면 f_chat_list에 end_date is null and user_no is null인 것 지움
+		------------------------------------------*/
 		if(loginVO.getType().equalsIgnoreCase("c")) {
 			memberService.deleteCounselor(loginVO.getUserNo());
 		}

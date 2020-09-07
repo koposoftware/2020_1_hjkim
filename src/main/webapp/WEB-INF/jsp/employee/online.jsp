@@ -20,7 +20,6 @@
 		//핸들러 등록 (연결 생성, 메시지 수신, 연결종료)
 		
 		//url 연결할 서버의 경로
-//		ws = new WebSocket('ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/chatServer');
 		ws = new SockJS( "<c:url value="/chatServer"/>" );
 		ws.onopen = function(){
 			console.log('연결생성');
@@ -150,12 +149,7 @@
 							<span class="glyphicon glyphicon-comment"></span> 온라인 상담
 							<div class="btn-group pull-right">
 								<div class="btn-group">
-									<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">Separated link</a>
-									</div>
+									<button type="button" class="btn btn-danger" onclick="closeSocket()">채팅 종료</button>
 								</div>
 							</div>
 						</div>

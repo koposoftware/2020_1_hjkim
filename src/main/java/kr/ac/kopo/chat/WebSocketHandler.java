@@ -52,16 +52,20 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		System.out.println("handleTextMessage : " + object);
 
 		String type = (String) object.get("type");
-		/*
-		 * ------------------------------------------------- 상담사 1. userMap에 userNo와 세션
-		 * 등록 2. userNo, 채팅방번호 연결
+		/*-------------------------------------------------
+		 *  상담사 1. userMap에 userNo와 세션등록
+		 *  	 2. userNo, 채팅방번호 연결
 		 * 
-		 * 사용자 1. userMap에 userNo와 세션 등록 2. userNo, 채팅방번호 연결 3. user의 session이 종료되면
-		 * end_date를 update하기 위해 userFindMap에 user넣음
+		 *  사용자 
+		 *  1. userMap에 userNo와 세션 등록 
+		 *  2. userNo, 채팅방번호 연결 
+		 *  3. user의 session이 종료되면 end_date를 update하기 위해 userFindMap에 user넣음
 		 * 
-		 * 타켓 구하기 ( 방번호로 ) 1. userNo의 방번호를 찾는다. 2. 같은 방번호를 가지고 있는 다른 userNo를 찾는다. 3.
-		 * userNo로 세션을 구한다. ----------------------------------------------------
-		 */
+		 *  타켓 구하기 ( 방번호로 ) 
+		 *  1. userNo의 방번호를 찾는다. 
+		 *  2. 같은 방번호를 가지고 있는 다른 userNo를 찾는다. 
+		 *  3.userNo로 세션을 구한다. 
+		 *  ----------------------------------------------------*/
 		if (type != null && type.equalsIgnoreCase("counselor")) {
 			int userNo = object.getInt("userid");
 			userMap.put(userNo, session);
