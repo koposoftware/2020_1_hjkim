@@ -19,4 +19,5 @@
         from f_member
        where id = #{id}
    </select>
+   
 </mapper>

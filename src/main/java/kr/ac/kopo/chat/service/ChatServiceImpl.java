@@ -1,6 +1,7 @@
 package kr.ac.kopo.chat.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import kr.ac.kopo.chat.dao.ChatDAO;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
-import kr.ac.kopo.chat.vo.ChatVO;
+import kr.ac.kopo.chat.vo.ChatListUserNameVO;
+import kr.ac.kopo.chat.vo.ChatListVO;
+import kr.ac.kopo.member.vo.MemberVO;
 
 @Service
 public class ChatServiceImpl implements ChatService{
@@ -25,17 +28,6 @@ public class ChatServiceImpl implements ChatService{
 		Random r = new Random();
 		int counselorNo = counselorList.get(r.nextInt(counselorList.size()));
 		return counselorNo;
-	}
-
-	@Override
-	public void updateUser(ChatVO chatVO) {
-		chatDAO.updateUser(chatVO);
-	}
-
-	@Override
-	public ChatVO selectTarget(int userNo) {
-		ChatVO target = chatDAO.selectTarget(userNo);
-		return target;
 	}
 
 	@Override
@@ -63,6 +55,30 @@ public class ChatServiceImpl implements ChatService{
 	@Override
 	public void updateEndDate(int userNo) {
 		chatDAO.updateEndDate(userNo);
+	}
+
+	@Override
+	public List<ChatListVO> selectChatList(int userNo) {
+		List<ChatListVO> chatList = chatDAO.selectChatList(userNo);
+		return chatList;
+	}
+
+	@Override
+	public MemberVO selectMemberName(int userNo) {
+		MemberVO member = chatDAO.selectMemberName(userNo);
+		return member;
+	}
+
+	@Override
+	public int selectChatListCnt(int userNo) {
+		int listCnt = chatDAO.selectChatListCnt(userNo);
+		return listCnt;
+	}
+
+	@Override
+	public List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> paging) {
+		List<ChatListUserNameVO> chatList = chatDAO.selectChatListPaging(paging);
+		return chatList;
 	}
 	
 }

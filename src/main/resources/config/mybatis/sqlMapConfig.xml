@@ -12,7 +12,9 @@
 		<typeAlias type="kr.ac.kopo.apt.vo.AptSearchVO" alias="aptSearchVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptBjdCodeVO" alias="aptBjdCodeVO"/>
 		<typeAlias type="kr.ac.kopo.apt.vo.AptPriceVO" alias="aptPriceVO"/>
-		<typeAlias type="kr.ac.kopo.chat.vo.ChatVO" alias="ChatVO"/>
 		<typeAlias type="kr.ac.kopo.chat.vo.ChatHistoryVO" alias="historyVO"/>
+		<typeAlias type="kr.ac.kopo.chat.vo.ChatListVO" alias="chatListVO"/>
+		<typeAlias type="kr.ac.kopo.chat.vo.ChatPaginationVO" alias="chatPaginationVO"/>
+		<typeAlias type="kr.ac.kopo.chat.vo.ChatListUserNameVO" alias="chatListUserNameVO"/>
 	</typeAliases>
 </configuration>

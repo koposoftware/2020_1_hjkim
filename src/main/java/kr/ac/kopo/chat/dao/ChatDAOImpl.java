@@ -1,13 +1,16 @@
 package kr.ac.kopo.chat.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
-import kr.ac.kopo.chat.vo.ChatVO;
+import kr.ac.kopo.chat.vo.ChatListUserNameVO;
+import kr.ac.kopo.chat.vo.ChatListVO;
+import kr.ac.kopo.member.vo.MemberVO;
 
 @Repository
 public class ChatDAOImpl implements ChatDAO{
@@ -19,17 +22,6 @@ public class ChatDAOImpl implements ChatDAO{
 	public List<Integer> selectCounselor() {
 		List<Integer> counselorList = sqlSession.selectList("consulting.dao.consultingDAO.selectCounselor");
 		return counselorList;
-	}
-
-	@Override
-	public void updateUser(ChatVO chatVO) {
-		sqlSession.update("consulting.dao.consultingDAO.updateUser", chatVO);
-	}
-
-	@Override
-	public ChatVO selectTarget(int userNo) {
-		ChatVO target = sqlSession.selectOne("consulting.dao.consultingDAO.selectTarget",userNo);
-		return target;
 	}
 
 	@Override
@@ -57,6 +49,30 @@ public class ChatDAOImpl implements ChatDAO{
 	@Override
 	public void updateEndDate(int userNo) {
 		sqlSession.update("consulting.dao.consultingDAO.updateEndDate", userNo);
+	}
+
+	@Override
+	public List<ChatListVO> selectChatList(int userNo) {
+		List<ChatListVO> chatList = sqlSession.selectList("consulting.dao.consultingDAO.selectChatList", userNo);
+		return chatList;
+	}
+
+	@Override
+	public MemberVO selectMemberName(int userNo) {
+		MemberVO member = sqlSession.selectOne("consulting.dao.consultingDAO.selectMemberName",userNo);
+		return member;
+	}
+
+	@Override
+	public int selectChatListCnt(int userNo) {
+		int listCnt = sqlSession.selectOne("consulting.dao.consultingDAO.selectChatListCnt", userNo);
+		return listCnt;
+	}
+
+	@Override
+	public List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> map) {
+		List<ChatListUserNameVO> chatList= sqlSession.selectList("consulting.dao.consultingDAO.selectChatListPaging", map);
+		return chatList;
 	}
 	
 }

@@ -1,9 +1,12 @@
 package kr.ac.kopo.chat.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
-import kr.ac.kopo.chat.vo.ChatVO;
+import kr.ac.kopo.chat.vo.ChatListUserNameVO;
+import kr.ac.kopo.chat.vo.ChatListVO;
+import kr.ac.kopo.member.vo.MemberVO;
 
 public interface ChatDAO {
 	/**
@@ -11,17 +14,6 @@ public interface ChatDAO {
 	 * @return 매칭되지 않은 상담사의 userNo 리스트
 	 */
 	List<Integer> selectCounselor();
-	/**
-	 * 유저가 채팅을 시도하면, 상담사가 있는 행에 userNo를 삽입한다.
-	 * @param counselor 매칭된 상담사와 userNo
-	 */
-	void updateUser(ChatVO chatVO);
-	/**
-	 * f_consulting을 보고 매칭된 사용자의 userNo를 리턴한다.
-	 * @param userNo
-	 * @return
-	 */
-	ChatVO selectTarget(int userNo);
 	/**
 	 * userNo을 가지고 채팅방번호를 알아낸다.
 	 * @param userNo
@@ -49,5 +41,26 @@ public interface ChatDAO {
 	 * @param userNo
 	 */
 	void updateEndDate(int userNo);
-
+	/**
+	 * 유저 번호로 상담리스트를 불러온다
+	 * @param userNo
+	 * @return 상담 내역 [상담번호, 상담사번호, 유저번호, 시작일, 종료일]
+	 */
+	List<ChatListVO> selectChatList(int userNo);
+	/**
+	 * 상담 테이블에 있는 userNo와 이름을 매핑시키기 위함
+	 * @param userNo
+	 * @return userNo, name, type
+	 */
+	MemberVO selectMemberName(int userNo);
+	/**
+	 * 페이징 처리하기 위해 전체 상담 개수
+	 * @param userNo 
+	 * @return 전체 개수
+	 */
+	int selectChatListCnt(int userNo);
+	/**
+	 * 페이징 처리된 상담 내역 list
+	 */
+	List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> paging);
 }

@@ -1,7 +1,9 @@
 package kr.ac.kopo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -17,6 +19,8 @@ import kr.ac.kopo.apt.dao.AptDAO;
 import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.chat.vo.ChatListUserNameVO;
+import kr.ac.kopo.common.Pagination;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:config/spring/spring-mvc.xml"})
@@ -56,6 +60,7 @@ public class AptTest {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void 아파트기본정보테스트() throws Exception{
 		AptBasicVO aptLatLng = session.selectOne("apt.dao.AptDAO.selectBasicInfo","A13286109");
@@ -64,4 +69,16 @@ public class AptTest {
 		
 	}
 	
+	@Test
+	public void 채팅내역테스트() throws Exception{
+		Pagination pagination = new Pagination();
+		pagination.pageInfo(1, 1, 10);
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("pagination", pagination);
+		pagingMap.put("userNo", 2);
+		List<ChatListUserNameVO> list = session.selectList("consulting.dao.consultingDAO.selectChatListPaging",pagingMap);
+		for(ChatListUserNameVO test : list) {
+			System.out.println(test.toString());
+		}
+	}
 }

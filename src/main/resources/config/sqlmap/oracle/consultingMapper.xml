@@ -3,14 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="consulting.dao.consultingDAO">
-   <resultMap type="chatVO" id="chatMap">
-      <result column="counselor_no" property="counselorNo"/>
-      <result column="user_no" property="userNo"/>
-   </resultMap>
    <resultMap type="historyVO" id="historyMap">
-      <result column="chat_no" property="chatNo"/>
+      <result column="chat_no" property="chatNo" />
    </resultMap>
-
+   <resultMap type="chatListVO" id="chatListMap">
+      <result column="rn" property="rn"/>
+      <result column="counselor" property="counselor"/>
+      <result column="chat_no" property="chatNo" />
+      <result column="user_no" property="userNo" />
+      <result column="start_date" property="startDate" />
+      <result column="end_date" property="endDate" />
+   </resultMap>
+   <resultMap type="memberVO" id="memberMap">
+      <result column="user_no" property="userNo" />
+      <result column="phone_no" property="phoneNo" />
+      <result column="reg_date" property="regDate" />
+   </resultMap>
+   
+   <resultMap type="chatListUserNameVO" id="chatListUserNameMap">
+      <association property="userVO">
+         <result column="user_name" property="name" />
+      </association>
+      <association property="counselorVO">
+         <result column="counselor_name" property="name" />
+      </association>
+      <association property="chatListVO" resultMap="chatListMap"/>
+   </resultMap>
+   
    <!-- 상담사가 로그인을 하게되면 f_chat_list에 등록 -->
    <insert id="insertCounselor" parameterType="int">
       insert into f_chat_list(chat_no, counselor)
@@ -66,4 +85,47 @@
        where counselor = #{no} and end_date is null and user_no is null
    </delete>
    
+   <!-- 채팅히스토리관련 -->
+   <!-- 채팅내역select -->
+   <select id="selectChatList" parameterType="int" resultMap="chatListMap">
+      select chat_no, counselor, user_no, 
+             to_char(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date,
+             to_char(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date
+        from f_chat_list
+       where (counselor = #{no} or user_no = #{no}) and end_date is not null
+       order by start_date desc
+   </select>
+   <!-- 테이블에 있는  userNo와 매핑시키기 위함 -->
+   <select id="selectMemberName" parameterType="int" resultMap="memberMap">
+      select user_no, name, type
+        from f_member
+       where user_no = #{no}
+   </select>
+   
+   <!-- 페이징 -->
+   <!-- 페이징 처리한 채팅내역 select -->
+   <select id="selectChatListPaging" resultMap="chatListUserNameMap" parameterType="map">
+      select rn, chat_no, counselor, c.name as counselor_name ,a.user_no as user_no, b.name as user_name
+             ,to_char(start_date, 'YYYY-MM-DD HH24:MI:SS') as start_date
+             ,to_char(end_date, 'YYYY-MM-DD HH24:MI:SS') as end_date
+      from (
+             select rownum as rn, chat_no, counselor, user_no, start_date, end_date
+               from (
+                      select * from f_chat_list
+                       where (counselor = #{userNo} or user_no = #{userNo})and end_date is not null
+                       order by start_date asc
+                     )
+            ) A  left outer join f_member B on a.user_no = b.user_no
+                 left outer join f_member C on a.counselor = c.user_no
+       where rn between #{pagination.startList}
+                        and (#{pagination.endList})
+       order by rn asc
+   </select>
+   
+   <!-- 전체 상담 내역 개수 -->
+   <select id="selectChatListCnt" resultType="int" parameterType="int">
+      select count(*) as listCnt
+        from f_chat_list
+       where (counselor = #{no} or user_no = #{no}) and end_date is not null
+   </select>
 </mapper>

@@ -114,7 +114,7 @@
 	}
 	function loadHistory(){
 		$.ajax({
-			url: '${pageContext.request.contextPath}/chat/loadHistory',
+			url: '${pageContext.request.contextPath}/chat/loading',
 			type: 'post',
 			data: {
 				userNo : userNo
