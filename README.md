@@ -26,15 +26,13 @@
 
 # 4. 본인 소개
 
-본인 소개를 추가하세요
-
-|이름 |고길동|![gdKO](/gdko.jpg)|
-|연락처 | gdko(@)kopo.ac.kr|
+|이름 |김혜주|![properties5](./githubimg/김혜주.jpg)|
+|연락처 | hyeju.aa(@)gmail.com|
 |skill set| Frontend - HTML, CSS, Javascript|
 | | Backend - Java, Spring, Oracle|
-|자격증|  |
-|수상| |
-|특기사항|  TOEIC 990 |
+|자격증| sqld, 정보처리기사 |
+|수상|  | 
+|특기사항|  |
 
 # 5. 기타
 
