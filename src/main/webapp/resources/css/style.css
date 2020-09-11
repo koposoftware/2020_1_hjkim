@@ -2695,3 +2695,150 @@ section.container-fluid {
 .table-div > h3{
 	text-align: center;
 }
+.select-bjdcode select{
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+}
+.division-col {
+	display: block;
+	float: left;
+	margin: 1% 0 1% 1.6%;
+}
+.division-col:first-of-type { margin-left: 0; }
+
+.ltv-container{
+    min-height: 466px;
+}
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
+.cf input{
+	display: none;
+}
+
+.cf label{
+	position: relative;
+    color: #fff;
+    background-color: #b7b7b7;
+    line-height: 70px;
+    font-size: 20px;
+    text-align: center;
+    height: 70px;
+    display: block;
+    cursor: pointer;
+    border: 3px solid transparent;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.cf input:checked + label{
+	border: 3px solid #333;
+    background-color: #27b2a5;
+}
+
+.cf input:checked + label:after{
+	content: "\2713";
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 100%;
+	border: 2px solid #333;
+    background-color: #27b2a5;
+	z-index: 999;
+	position: absolute;
+	top: -10px;
+	right: -10px;
+}
+.four { width: 32.26%; max-width: 32.26%;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#popup_title {
+    font-size: 18px;
+    font-family: "hana-font-l";
+    text-align: center;
+    font-weight: bold;
+    border-bottom: solid 1px #d8d8d8;
+    padding: 11px;
+    margin: 0em;
+    background-color: #f2f6f7;
+    color: black;
+    border: 0;
+	border-bottom: solid 1px #d8d8d8;
+   
+}
+
+#popup_container {
+	position: fixed;
+	z-index: 99999;
+	padding: 0px;
+	margin: 0px;
+	min-width: 360px;
+	min-height: 300px;
+	max-width: 300px;
+	top: 200px;
+	left: 543px;
+	border: solid 1px #d8d8d8;
+	
+}
+#popup_message{
+    min-height: 150px;
+}
+#popup_container INPUT[type='button']{
+     width: 100px;
+    height: 30px;
+    color: #FFFFFF;
+    background: #29b3a6;
+    border-radius: 30px;
+    border: none;
+}

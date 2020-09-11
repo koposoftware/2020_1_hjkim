@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin.dao.AdminDAO">
+   <resultMap type="lawAreaVO" id="lawAreaMap">
+      <result column="law_bjdcode" property="lawBjdCode"/>
+      <result column="law_division" property="lawDivision"/>
+   </resultMap>
+   <!-- 시도 select -->
+   <select id="sido" resultType="bjdcodeVO">
+      select bjdcode, bjdname  from f_bjdcode where bjdcode like '__00000000' or bjdcode = '3611000000'
+   </select>
+   <!-- 시군구 select -->
+   <select id="sigungu" resultType="bjdcodeVO" parameterType="String">
+      select bjdcode, (case when (bjdcode like '41%' and substr(bjdName,-1) = '구') 
+                            then substr(bjdName,instr(bjdname, ' ', -1, 2)+1) 
+                            else substr(bjdName,instr(bjdname, ' ', -1, 1)+1) 
+                       end) as bjdName
+        from f_bjdcode 
+       where bjdcode like concat(#{sido},'___00000') and bjdcode != concat(#{sido},'00000000')
+   </select>
+   <!-- 읍면동 select -->
+   <select id="eupmyeondong" resultType="bjdcodeVO" parameterType="String">
+      select bjdcode, substr(bjdName,instr(bjdname, ' ', -1, 1)+1) as bjdName
+        from f_bjdcode 
+       where regexp_like(bjdcode, concat(#{sigungu},'[0-9]{3}00'))
+             and bjdcode != concat(subStr(#{sigungu},0,2),'00000000')
+             and bjdcode != concat(#{sigungu},'00000')
+   </select>
+   
+   <!-- 내가 삽입하려고 하는 지역이 테이블에 있는지 확인 -->
+   <select id="selectCodeInfo" parameterType="String" resultType="String">
+      select law_bjdcode
+        from f_law_area
+       where law_bjdcode = #{code}
+   </select>
+   
+   <!-- admin이 입력한 ltv정보 삽입 -->
+   <insert id="insertLawArea" parameterType="lawAreaVO">
+      insert into f_law_area(law_bjdcode, law_division)
+       values (#{lawBjdCode}, #{lawDivision})
+   </insert>
+   
+   <!-- admin이 입력한 ltv정보 갱신 -->
+   <update id="updateLawArea" parameterType="lawAreaVO">
+      update f_law_area
+         set law_division = #{lawDivision}
+       where law_bjdcode = #{lawBjdCode}
+   </update>
+</mapper>

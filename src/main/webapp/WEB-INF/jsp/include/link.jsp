@@ -19,7 +19,9 @@
 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/style.css">
 <script src="${ pageContext.request.contextPath }/resources/js/modernizr-2.6.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="${ pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
 <script src="${ pageContext.request.contextPath }/resources/js/Chart.min.js"></script>
 <script src="${ pageContext.request.contextPath }/resources/js/utils.js"></script>

@@ -18,5 +18,6 @@
 		<typeAlias type="kr.ac.kopo.chat.vo.ChatPaginationVO" alias="chatPaginationVO"/>
 		<typeAlias type="kr.ac.kopo.chat.vo.ChatListUserNameVO" alias="chatListUserNameVO"/>
 		<typeAlias type="kr.ac.kopo.admin.vo.BjdCodeVO" alias="bjdcodeVO"/>
+		<typeAlias type="kr.ac.kopo.admin.vo.LawAreaVO" alias="lawAreaVO"/>
 	</typeAliases>
 </configuration>

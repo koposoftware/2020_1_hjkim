@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.ac.kopo.admin.vo.BjdCodeVO;
 import kr.ac.kopo.apt.dao.AptDAO;
 import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptBasicVO;
@@ -83,6 +84,7 @@ public class AptTest {
 			System.out.println(test.toString());
 		}
 	}
+	@Ignore
 	@Test
 	public void 아파트면적테스트() throws Exception{
 		List<AptPriceChartVO> aptPriceChart = session.selectList("apt.dao.AptDAO.selectAptPriceChartArea", "A14272304");
@@ -92,6 +94,14 @@ public class AptTest {
 			List<AptPriceChartVO> aptPriceToArea = session.selectList("apt.dao.AptDAO.selectAptPriceChartAreaYYMM", vo);
 			areaMap.put(Double.toString(vo.getArea()),aptPriceToArea);
 			
+		}
+	}
+	
+	@Test
+	public void 법정동코드테스트() throws Exception{
+		List<BjdCodeVO> bjdCodeList = session.selectList("admin.dao.AdminDAO.sigungu", "11");
+		for(BjdCodeVO test : bjdCodeList) {
+			System.out.println(test.toString());
 		}
 	}
 }
