@@ -21,3 +21,5 @@
 <script src="${ pageContext.request.contextPath }/resources/js/modernizr-2.6.2.min.js"></script>
 <script src="${ pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/Chart.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/utils.js"></script>

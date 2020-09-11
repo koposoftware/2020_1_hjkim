@@ -6,6 +6,9 @@
 		<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
 		<div id="fh5co-logo">
 			<c:choose>
+				<c:when test="${ loginVO.type eq 'a' or loginVO.type eq 'A'}">
+					<a href="${ pageContext.request.contextPath }/admin"><img src="${ pageContext.request.contextPath }/resources/images/hanabang-logo-admin.png" alt="Free HTML5 Website Template"></a>
+				</c:when>
 				<c:when test="${ loginVO.type eq 'c' or loginVO.type eq 'C'}">
 					<a href="${ pageContext.request.contextPath }/counselor"><img src="${ pageContext.request.contextPath }/resources/images/hanabang-logo-employee.png" alt="Free HTML5 Website Template"></a>
 				</c:when>
@@ -16,22 +19,21 @@
 		</div>
 		<nav id="fh5co-main-nav" role="navigation">
 			<c:choose>
+				<c:when test="${ loginVO.type eq 'a' or loginVO.type eq 'A'}">
+					<ul>
+						<li><a href="${ pageContext.request.contextPath }/admin/ltvRegister">LTV등록</a></li>
+						<li><a href="${ pageContext.request.contextPath }/admin">상담사 관리</a></li>
+						<li><a href="${ pageContext.request.contextPath }/admin">상담 내역 관리</a></li>
+						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
+
+					</ul>
+				</c:when>
 				<c:when test="${ loginVO.type eq 'c' or loginVO.type eq 'C'}">
 					<ul>
 						<li><a href="${ pageContext.request.contextPath }/consulting/online">온라인상담</a></li>
 						<li><a href="${ pageContext.request.contextPath }/consulting/offline">오프라인 상담 일정</a></li>
 						<li><a href="${ pageContext.request.contextPath }/consulting/history">History</a></li>
 						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
-						<c:choose>
-							<c:when test="${ empty loginVO }">
-								<li class="cta"><a href="${ pageContext.request.contextPath }/login">로그인</a></li>
-								<li class="cta"><a href="${ pageContext.request.contextPath }/join">회원가입</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="cta"><a href="${ pageContext.request.contextPath }/mypage">마이페이지</a></li>
-								<li class="cta"><a href="${ pageContext.request.contextPath }/logout">logout</a></li>
-							</c:otherwise>
-						</c:choose>
 					</ul>
 				</c:when>
 				<c:otherwise>
@@ -50,17 +52,17 @@
 							</div>
 						</li>
 						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
-						<c:choose>
-							<c:when test="${ empty loginVO }">
-								<li class="cta"><a href="${ pageContext.request.contextPath }/login">로그인</a></li>
-								<li class="cta"><a href="${ pageContext.request.contextPath }/join">회원가입</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="cta"><a href="${ pageContext.request.contextPath }/mypage">마이페이지</a></li>
-								<li class="cta"><a href="${ pageContext.request.contextPath }/logout">logout</a></li>
-							</c:otherwise>
-						</c:choose>
 					</ul>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${ empty loginVO }">
+					<li class="cta"><a href="${ pageContext.request.contextPath }/login">로그인</a></li>
+					<li class="cta"><a href="${ pageContext.request.contextPath }/join">회원가입</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="cta"><a href="${ pageContext.request.contextPath }/mypage">마이페이지</a></li>
+					<li class="cta"><a href="${ pageContext.request.contextPath }/logout">logout</a></li>
 				</c:otherwise>
 			</c:choose>
 		</nav>
