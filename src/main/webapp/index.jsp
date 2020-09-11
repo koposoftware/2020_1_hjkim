@@ -39,7 +39,6 @@
 			
 			<section class="our-webcoderskull padding-lg">
 				<div class="container">
-					<!-- 			<ul class="row"> -->
 					<ul class="row">
 						<li class="col-12 col-lg-4">
 							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='#'">
