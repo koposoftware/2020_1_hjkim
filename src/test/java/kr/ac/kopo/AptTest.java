@@ -19,6 +19,7 @@ import kr.ac.kopo.apt.dao.AptDAO;
 import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.common.Pagination;
 
@@ -69,6 +70,7 @@ public class AptTest {
 		
 	}
 	
+	@Ignore
 	@Test
 	public void 채팅내역테스트() throws Exception{
 		Pagination pagination = new Pagination();
@@ -79,6 +81,17 @@ public class AptTest {
 		List<ChatListUserNameVO> list = session.selectList("consulting.dao.consultingDAO.selectChatListPaging",pagingMap);
 		for(ChatListUserNameVO test : list) {
 			System.out.println(test.toString());
+		}
+	}
+	@Test
+	public void 아파트면적테스트() throws Exception{
+		List<AptPriceChartVO> aptPriceChart = session.selectList("apt.dao.AptDAO.selectAptPriceChartArea", "A14272304");
+		Map<String,List<AptPriceChartVO>> areaMap = new HashMap<String, List<AptPriceChartVO>>();
+		for(AptPriceChartVO vo : aptPriceChart) {
+			System.out.println("면적 : " + vo.getArea());
+			List<AptPriceChartVO> aptPriceToArea = session.selectList("apt.dao.AptDAO.selectAptPriceChartAreaYYMM", vo);
+			areaMap.put(Double.toString(vo.getArea()),aptPriceToArea);
+			
 		}
 	}
 }

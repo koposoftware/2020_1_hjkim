@@ -10,6 +10,7 @@ import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
 
@@ -65,6 +66,18 @@ public class AptDAOImpl implements AptDAO {
 	public List<AptPriceVO> selectAptPrice(String kaptCode) {
 		List<AptPriceVO> aptPrice = sqlSession.selectList("apt.dao.AptDAO.selectAptPrice", kaptCode);
 		return aptPrice;
+	}
+
+	@Override
+	public List<AptPriceChartVO> selectAptPriceChartArea(String kaptCode) {
+		List<AptPriceChartVO> aptPriceChart = sqlSession.selectList("apt.dao.AptDAO.selectAptPriceChartArea", kaptCode);
+		return aptPriceChart;
+	}
+
+	@Override
+	public List<AptPriceChartVO> selectAptPriceChartArea(AptPriceChartVO vo) {
+		List<AptPriceChartVO> aptPriceChart = sqlSession.selectList("apt.dao.AptDAO.selectAptPriceChartAreaYYMM", vo);
+		return aptPriceChart;
 	}
 	
 }

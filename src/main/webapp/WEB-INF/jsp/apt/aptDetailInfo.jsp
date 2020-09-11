@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2>${ detailVO.aptBasicVO.kaptName }</h2>
+<div class="detail-aptName">
+	<h2>${ detailVO.aptBasicVO.kaptName }
+	<c:if test="${ loginVO.type eq 'u' or loginVO.type eq 'U' or empty loginVO}">
+		<button onclick="goBackToMap()" class="btn btn-outline-info btn-goMap btn-sm">지도로 돌아가기</button>
+	</c:if></h2>
+</div>
 <hr>
 <ul class="nav nav-tabs justify-content-center">
 
 	<li id='apt-detail-nav' class="nav-item active" onclick="aptDetailInfo('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link">아파트 상세보기</a></li>
 	<li id='apt-price-nav' class="nav-item" onclick="aptDetailPrice('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">아파트 실거래가</a></li>
-	<c:if test="${ loginVO.type eq 'U' or loginVO.type eq 'u' or empty loginVO }">
+	<c:if test="${ loginVO.type eq 'U' or loginVO.type eq 'u' }">
 		<li id='apt-consulting-nav' class="nav-item" onclick="aptConsulting('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">아파트 상담하기</a></li>
+		<li id='apt-loan-nav' class="nav-item" onclick="aptLnPreview('${detailVO.aptBasicVO.kaptCode}')"><a class="nav-link" href="#">대출 한도 조회</a></li>
 	</c:if>
 </ul>
 
@@ -93,9 +99,6 @@
 			<td>${ detailVO.aptDetailVO.kaptMPArea136 }</td>
 		</tr>
 	</table>
-	<c:if test="${ loginVO.type eq 'u' or loginVO.type eq 'U' }">
-		<button onclick="goBackToMap()" class="btn btn-outline-info">지도로 돌아가기</button>
-	</c:if>
 </div>
 
 
@@ -121,6 +124,7 @@
 				$('#apt-detail-nav').removeClass('active')
 				$('#apt-consulting-nav').removeClass('active')
 				$('#apt-price-nav').addClass('active')
+				$('#apt-loan-nav').removeClass('active')
 			}
 		})
 	}
@@ -133,6 +137,7 @@
 				$('#apt-detail-nav').removeClass('active')
 				$('#apt-price-nav').removeClass('active')
 				$('#apt-consulting-nav').addClass('active')
+				$('#apt-loan-nav').removeClass('active')
 			}
 		})
 	}
@@ -149,7 +154,22 @@
 			}
 		})
 	}
-
+	function aptLnPreview(aptCode) {
+		$.ajax({
+			url : '${ pageContext.request.contextPath }/loan',
+			type : 'post',
+			data : {
+				aptCode : aptCode
+			},
+			success : function(data){
+				$('.detail-content').html(data)
+				$('#apt-detail-nav').removeClass('active')
+				$('#apt-price-nav').removeClass('active')
+				$('#apt-consulting-nav').removeClass('active')
+				$('#apt-loan-nav').addClass('active')
+			}
+		})		
+	}
 	<c:if test="${loginVO.type eq 'c' or loginVO.type eq 'C'}">
 	function aptDetailInfo(aptCode) {
 		$.ajax({
@@ -164,4 +184,5 @@
 		})
 	}
 	</c:if>
+	
 </script>

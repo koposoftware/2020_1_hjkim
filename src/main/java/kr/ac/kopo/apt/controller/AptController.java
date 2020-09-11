@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
 
@@ -49,6 +51,7 @@ public class AptController {
 		} else if (type.equalsIgnoreCase("detailPrice")) {
 			List<AptPriceVO> aptPrice = aptService.selectAptPrice(kaptCode);
 			mav.addObject("aptPriceList", aptPrice);
+			mav.addObject("aptCode", kaptCode);
 			mav.setViewName("/apt/aptDetailPrice");
 		} else if (type.equalsIgnoreCase("consulting")) {
 			System.out.println("consulting");
@@ -124,5 +127,17 @@ public class AptController {
 		mav.addObject("aptBasicAndLatLngList", aptBasicAndLatLngList);
 		mav.addObject("aptBjdCodeList", aptBjdCodeList);
 		return mav;
+	}
+	
+	@RequestMapping("/priceChart.json")
+	@ResponseBody
+	public Map<String,List<AptPriceChartVO>> resJsonChart(@RequestParam("aptCode") String aptCode) {
+		Map<String,List<AptPriceChartVO>> json = new HashMap<String, List<AptPriceChartVO>>();
+		List<AptPriceChartVO> aptPrice = aptService.selectAptPriceChartArea(aptCode);
+		for(AptPriceChartVO vo : aptPrice) {
+			List<AptPriceChartVO> aptPriceToArea = aptService.selectAptPriceChartAreaYYMM(vo);
+			json.put(Double.toString(vo.getArea()),aptPriceToArea);
+		}
+		return json;
 	}
 }

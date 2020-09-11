@@ -2620,3 +2620,78 @@ section.container-fluid {
 .pagination>li>a, .pagination>li>span {
 	color: black;
 }
+
+.loan-info{
+	text-align: center;
+}
+#flip {
+	background-color: #f2f6f7;
+	font-weight: bold;
+}
+
+#panel, #flip {
+	padding: 5px;
+	text-align: center;
+	border-bottom: solid 1px #c3c3c3;
+	color: black;
+}
+
+#panel {
+	display: none;
+	max-height: 400px;
+	overflow: auto;
+}
+
+#panel > div > div {
+	text-align: left;
+	border: 1px solid #b5b5b5;
+    padding: 10px;
+}
+.loan-law-thead{
+	background-color: rgb(242, 246, 247);
+}
+#panel > div > span {
+	font-size: 15pt;
+    font-weight: bold;
+}
+
+#dd {
+	width: 300px;
+	font-size: 20px;
+	height: 30px;
+	border-color: #57dbce;
+}
+.select-box-text{
+	font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin-right: 20px;
+}
+.hr-style{
+	border: 0;
+    height: 3px;
+    background: #b5b5b5;
+}
+.price-table{
+	width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-goMap{
+	float: right;
+	clear: both;
+	border-radius: 30px;
+	border: 2px solid #27b2a5;
+	color: #27b2a5;
+}
+.btn-goMap:hover{
+	background: #27b2a5;
+	color: #fff;
+} 
+.table-div{
+	max-height: 400px;
+	overflow-y: auto;
+}
+.table-div > h3{
+	text-align: center;
+}

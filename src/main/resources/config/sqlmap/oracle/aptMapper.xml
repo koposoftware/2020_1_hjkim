@@ -81,5 +81,23 @@
       select kaptCode, area, yymm, dd, price, floor
         from f_price
        where kaptCode = #{aptCode}
+      order by yymm desc, dd desc
+   </select>
+   
+   <!-- 아파트 실거래가 차트관련 -->
+   <!-- 해당 아파트의 모든 면적 구하기 -->
+   <select id="selectAptPriceChartArea" parameterType="String" resultType="aptPriceChartVO">
+      select kaptCode, area
+        from f_price
+       where kaptCode = #{aptCode}
+      group by kaptCode, area
+   </select>
+   <!-- 해당 아파트의 면적당 월별 평균 구하기 -->
+   <select id="selectAptPriceChartAreaYYMM" parameterType="aptPriceChartVO" resultType="aptPriceChartVO">
+      select kaptCode, area, yymm, round(max(replace(price,',',''))) as maxPrice ,round(min(replace(price,',',''))) as minPrice, round(avg(replace(price,',',''))) as avgPrice
+        from f_price 
+       where kaptcode = #{kaptCode} and area = #{area}
+       group by yymm, kaptCode, area
+       order by yymm
    </select>
 </mapper>

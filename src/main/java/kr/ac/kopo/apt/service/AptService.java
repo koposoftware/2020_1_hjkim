@@ -6,6 +6,7 @@ import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptBjdCodeVO;
 import kr.ac.kopo.apt.vo.AptDetailVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
+import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
 
@@ -65,4 +66,17 @@ public interface AptService {
 	 * @return 해당 아파트의 거래내역 리스트
 	 */
 	List<AptPriceVO> selectAptPrice(String kaptCode);
+
+	/**
+	 * 차트를 그리기 위해, 해당 아파트의 면적을 가져온다.
+	 * @param kaptCode
+	 * @return
+	 */
+	List<AptPriceChartVO> selectAptPriceChartArea(String kaptCode);
+	/**
+	 * 월별 avg, max, min 
+	 * @param vo
+	 * @return
+	 */
+	List<AptPriceChartVO> selectAptPriceChartAreaYYMM(AptPriceChartVO vo);
 }
