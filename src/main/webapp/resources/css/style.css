@@ -2882,3 +2882,11 @@ section.container-fluid {
 	font-size: 14px !important;
 	text-align: center !important;
 }
+
+.admin-auto-content{
+    max-height: 300px;
+    overflow-y: auto;
+}
+.auto-title{
+    margin: 10px 10px 10px 10px;
+}

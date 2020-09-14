@@ -20,13 +20,28 @@
 		ws.onmessage = function(e) {
 			console.log('메시지 받음');
 			var data = e.data;
-			addMsg(data);
+			if(data.indexOf("@connect")!= -1){
+				console.log("@Connect")
+				addConnectMsg(data.substr("@connect : ".length))
+			} else {
+				addMsg(data);
+			}
 		};
 		ws.onclose = function() {
 			console.log('연결 끊김');
 		}
 	}
-
+	function addConnectMsg(msg){
+		content += '<li class="left clearfix">'
+		content += '	<div class="chat-body clearfix">'
+		content += '		<div class="header">'
+		content += '			<strong class="primary-font">알림</strong>'
+		content += '		</div>'
+		content += '		<p>'+ msg + '</p>'
+		content += '	</div>'
+		content += '</li>'
+		$('.chat').append(content)
+	}
 	function addMsg(msg) {
 		var content = '';
 		content += '<li class="left clearfix">'

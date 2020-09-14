@@ -82,7 +82,7 @@
    <!-- 상담사가 로그아웃을 하게되면  f_chat_list에 end_date is null and user_no is null인 것 지움  -->
    <delete id="deleteCounselor" parameterType="int">
       delete from f_chat_list
-       where counselor = #{no} and end_date is null and user_no is null
+       where counselor = #{no} and end_date is null
    </delete>
    
    <!-- 채팅히스토리관련 -->

@@ -61,6 +61,7 @@ public class MemberController {
 					/*----------------------------------------
 					chat 관련 : 상담사가 로그인하면 f_chat_list에 등록됨
 					------------------------------------------*/
+					memberService.deleteCounselor(loginVO.getUserNo());
 					memberService.insertCounselor(loginVO.getUserNo());
 					mav.setViewName("redirect:/counselor");
 				}else {

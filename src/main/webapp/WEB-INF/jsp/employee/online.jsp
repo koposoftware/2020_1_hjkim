@@ -12,26 +12,31 @@
 <jsp:include page="/WEB-INF/jsp/include/link.jsp" />
 <script>
 	var ws;
-	var userNo = ${ loginVO.userNo };
+	var userNo = ${loginVO.userNo};
+	
 	var targetNo;
 	var bool = false;
-	function connect(){
+	function connect() {
 		//웹소켓 객체 생성하는 부분
 		//핸들러 등록 (연결 생성, 메시지 수신, 연결종료)
-		
+
 		//url 연결할 서버의 경로
-		ws = new SockJS( "<c:url value="/chatServer"/>" );
-		ws.onopen = function(){
+		ws = new SockJS("<c:url value="/chatServer"/>");
+		ws.onopen = function() {
 			console.log('연결생성');
 			register();
 		};
-		
-		ws.onmessage = function(e){
+
+		ws.onmessage = function(e) {
 			console.log('메시지 받음');
 			var data = e.data;
-			if(data.indexOf("kaptCode:") != -1){
+			console.log(data.indexOf("@connect"))
+			if (data.indexOf("kaptCode:") != -1) {
 				addApt(data.substr("kaptCode:".length));
-			}else {
+			} else if (data.indexOf("@connect") != -1) {
+				console.log("@Connect")
+				addConnectMsg(data.substr("@connect : ".length))
+			} else {
 				addMsg(data);
 			}
 		};
@@ -39,36 +44,47 @@
 			console.log('연결 끊김');
 		}
 	}
-	
-	function addMsg(msg){
+
+	function addMsg(msg) {
 		var content = '';
 		content += '<li class="left clearfix">'
-		content += '	<span class="chat-img pull-left">' 
+		content += '	<span class="chat-img pull-left">'
 		content += '		<img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />'
 		content += '	</span>'
 		content += '	<div class="chat-body clearfix">'
 		content += '		<div class="header">'
 		content += '			<strong class="primary-font">고객</strong>'
 		content += '		</div>'
-		content += '		<p>'+ msg + '</p>'
+		content += '		<p>' + msg + '</p>'
 		content += '	</div>'
 		content += '</li>'
-	
+
 		$('.chat').append(content);
 	}
-	function addApt(apt){
-		if($(".card-text").html() == ''){
+	function addApt(apt) {
+		if ($(".card-text").html() == '') {
 			$.ajax({
-				url: '${pageContext.request.contextPath}/apt/' + apt + '/detailInfo',
-				type: 'get',
-				success : function(data){
+				url : '${pageContext.request.contextPath}/apt/' + apt + '/detailInfo',
+				type : 'get',
+				success : function(data) {
 					$(".card-text").html(data)
 				}
 			})
 		}
 	}
+	function addConnectMsg(msg) {
+		content += '<li class="left clearfix">'
+		content += '	<div class="chat-body clearfix">'
+		content += '		<div class="header">'
+		content += '			<strong class="primary-font">알림</strong>'
+		content += '		</div>'
+		content += '		<p>' + msg + '</p>'
+		content += '	</div>'
+		content += '</li>'
+		$('.chat').append(content)
+	}
 	//메시지 수신을 위한 서버에 id 등록
-	function register(){
+	function register() {
 		var msg = {
 			type : "counselor",
 			userid : userNo
@@ -76,8 +92,8 @@
 		console.log(userNo)
 		ws.send(JSON.stringify(msg))
 	}
-	
-	function sendMsg(){
+
+	function sendMsg() {
 		console.log("sendMsg에서 targetNo" + targetNo)
 		var msg = {
 			type : 'chat', //메시지를 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
@@ -85,22 +101,23 @@
 			message : $('#chatMsg').val()
 		};
 		ws.send(JSON.stringify(msg));
+		
 	};
-	
-	$(function(){
+
+	$(function() {
 		connect();
 		loadHistory();
-		$('#btnSend').on("click", function(){
+		$('#btnSend').on("click", function() {
 			var content = '';
 			content += '<li class="right clearfix">'
-			content += '	<span class="chat-img pull-right">' 
+			content += '	<span class="chat-img pull-right">'
 			content += '		<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />'
 			content += '	</span>'
 			content += '	<div class="chat-body clearfix">'
 			content += '		<div class="header">'
 			content += '			<strong class="pull-right primary-font">나</strong>'
 			content += '		</div>'
-			content += '		<p>'+ $('#chatMsg').val(); + '</p>'
+			content += '		<p>' + $('#chatMsg').val() +'</p>'
 			content += '	</div>'
 			content += '</li>'
 			$('.chat').append(content);
@@ -108,21 +125,48 @@
 			$('#chatMsg').val("");
 		})
 	})
-	
-	function closeSocket(){
+
+	function closeSocket() {
 		ws.close();
 	}
-	function loadHistory(){
+	function loadHistory() {
 		$.ajax({
-			url: '${pageContext.request.contextPath}/chat/loading',
-			type: 'post',
-			data: {
+			url : '${pageContext.request.contextPath}/chat/loading',
+			type : 'post',
+			data : {
 				userNo : userNo
 			},
-			success : function(data){
+			success : function(data) {
 				$('.chat').append(data)
 			}
 		})
+	}
+	/* 자동완성 send */
+	function autoWordSend(autoNo){
+		var autoWord = $('#auto'+autoNo).text()
+		var msg = {
+			type : 'chat', //메시지를 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
+			userid : userNo,
+			message : autoWord
+		};
+		addMsgForMe(autoWord)
+		ws.send(JSON.stringify(msg))
+	}
+	
+	function addMsgForMe(msg){
+		var content = '';
+		content += '<li class="right clearfix">'
+		content += '	<span class="chat-img pull-right">'
+		content += '		<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />'
+		content += '	</span>'
+		content += '	<div class="chat-body clearfix">'
+		content += '		<div class="header">'
+		content += '			<strong class="pull-right primary-font">나</strong>'
+		content += '		</div>'
+		content += '		<p>' + msg +'</p>'
+		content += '	</div>'
+		content += '</li>'
+		$('.chat').append(content);
 	}
 </script>
 </head>
@@ -155,7 +199,7 @@
 						</div>
 						<div class="card-body chat-body">
 							<ul class="chat">
-								<!-- 채팅이 들어간다. -->								
+								<!-- 채팅이 들어간다. -->
 							</ul>
 						</div>
 						<div class="card-footer chat-footer">
@@ -175,6 +219,68 @@
 					</div>
 				</div>
 			</div>
+			<div class="row justify-content-center margin-top-20">
+				<div class="card col-md-10" style="width: 18rem;">
+					<div class="card-body">
+						<h3 class="card-title">자동완성문구</h3>
+						<div class="row auto-word-row">
+						
+							<div class="card col-6">
+								<div class="card-title">
+									<h4 class="auto-title">공통 문구</h4>
+									<input class="form-control" id="searchAdmin" type="text" placeholder="Search..">
+								</div>
+								<div class="card-body">
+									<div class="container mt-3 admin-auto-content">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>no</th>
+													<th>content</th>
+												</tr>
+											</thead>
+											<tbody id="adminTable">
+												<c:forEach items="${ adminAutoList }" var="adminAuto" varStatus="list">
+													<tr onclick="autoWordSend(${ adminAuto.autoNo })">
+														<td>${ list.count }</td>
+														<td id="auto${ adminAuto.autoNo }">${ adminAuto.content }</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="card col-6">
+								<div class="card-title">
+									<h4 class="auto-title">My 문구</h4>
+									<input class="form-control" id="searchCounselor" type="text" placeholder="Search..">
+								</div>
+								<div class="card-body">
+									<div class="container mt-3 admin-auto-content">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>no</th>
+													<th>content</th>
+												</tr>
+											</thead>
+											<tbody id="counselorTable">
+												<c:forEach items="${ counselorAutoList }" var="counselorAuto" varStatus="list">
+													<tr onclick="autoWordSend(${ counselorAuto.autoNo })">
+														<td>${ list.count }</td>
+														<td id="auto${ counselorAuto.autoNo }">${ counselorAuto.content }</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -183,5 +289,21 @@
 		<%@include file="/WEB-INF/jsp/include/footer.jsp"%>
 	</footer>
 	<!-- End of footer -->
+	<script>
+		$(document).ready(function() {
+			$("#searchAdmin").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#adminTable tr").filter(function() {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+			$("#searchCounselor").on("keyup", function() {
+				var value = $(this).val().toLowerCase();
+				$("#counselorTable tr").filter(function() {
+					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+				});
+			});
+		});
+	</script>
 </body>
 </html>

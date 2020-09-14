@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="counselor.dao.counselorDAO">
+   <resultMap type="chatAutoVO" id="chatAutoMap">
+      <result column="auto_no" property="autoNo"/>
+      <result column="user_no" property="userNo"/>
+      <result column="content" property="content"/>
+   </resultMap>
+   <select id="selectAutoWord" parameterType="int" resultMap="chatAutoMap">
+      select auto_no, user_no, content 
+        from f_chat_auto
+       where user_no = #{userNo}
+   </select>
+</mapper>

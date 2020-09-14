@@ -88,7 +88,18 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			chatMap.put(userNo, chatNo);
 
 			userFindMap.put(session, userNo);
-
+			//상담사 연결이 됐을 경우 상담사와 연결이 됐다는 것을 알림
+			session.sendMessage(new TextMessage("@connect : 상담사와 연결되었습니다."));
+			int findChatNo = chatMap.get(userNo);
+			WebSocketSession ws = null;
+			for (Map.Entry<Integer, Integer> element : chatMap.entrySet()) {
+				int key = element.getKey();
+				int value = element.getValue();
+				if (findChatNo == value && key != userNo) {
+					ws = (WebSocketSession) userMap.get(key);
+					ws.sendMessage(new TextMessage("@connect : 사용자와 연결이 되었습니다."));
+				}
+			}
 			// 아파트 번호를 방번호와 매칭시킨다.
 			System.out.println("kaptCode : " + object.getString("kaptCode"));
 			String aptCode = object.getString("kaptCode");
@@ -135,6 +146,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				int value = element.getValue();
 				if (chatNo == value && key != userNo) {
 					memberService.insertCounselor(key);
+					System.out.println("memberService insertCounselor");
 					break;
 				}
 			}
