@@ -2624,28 +2624,31 @@ section.container-fluid {
 .loan-info{
 	text-align: center;
 }
-#flip {
+#flip, #loan-detail-flip {
 	background-color: #f2f6f7;
 	font-weight: bold;
 }
 
-#panel, #flip {
+#panel, #flip, #loan-detail-panel, #loan-detail-flip, #loan-calc-content{
 	padding: 5px;
 	text-align: center;
 	border-bottom: solid 1px #c3c3c3;
 	color: black;
 }
 
-#panel {
+#panel, #loan-detail-panel {
 	display: none;
 	max-height: 400px;
 	overflow: auto;
 }
 
-#panel > div > div {
+#panel > div > div, #loan-detail-panel > .ltv-info {
 	text-align: left;
 	border: 1px solid #b5b5b5;
     padding: 10px;
+}
+#loan-detail-panel > div{
+	font-size: 17pt
 }
 .loan-law-thead{
 	background-color: rgb(242, 246, 247);
@@ -2829,16 +2832,53 @@ section.container-fluid {
 	top: 200px;
 	left: 543px;
 	border: solid 1px #d8d8d8;
-	
+	background-color: white;
 }
 #popup_message{
-    min-height: 150px;
+    min-height: 100px;
+    color: black;
+    font-size: 15pt;
+    text-align: center;
 }
 #popup_container INPUT[type='button']{
-     width: 100px;
+    width: 100px;
     height: 30px;
     color: #FFFFFF;
     background: #29b3a6;
     border-radius: 30px;
     border: none;
+}
+
+.loan-form{
+    font-weight: bold !important;
+    font-size: 16pt;
+    line-height: 54px;
+    color: #444444;
+}
+
+.loan-form-sub-text{
+	align-self: flex-end;
+    margin-bottom: 9px;
+    color: #444444;
+    font-weight: bold;
+}
+
+.loan-select-arrow{
+	-webkit-appearance: auto;
+}
+
+.modal a.close-modal{
+    top: 1.5px !important;
+    right: 2.5px !important;
+}
+.jquery-modal .modal{
+    max-width: 80% !important;
+    max-height: 400px !important;
+}
+.blocker{
+    z-index: 1000 !important;
+}
+.notice{
+	font-size: 14px !important;
+	text-align: center !important;
 }

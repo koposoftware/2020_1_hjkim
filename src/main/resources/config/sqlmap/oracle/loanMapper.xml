@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="loan.dao.LoanDAO">
+   <select id="selectAptName" parameterType="string" resultType="string">
+      select kaptName
+        from f_aptbasic
+       where kaptCode = #{aptCode}
+   </select>
+
+   <select id="selectAptArea" parameterType="string" resultType="double">
+      select area
+        from f_price
+       where kaptCode = #{aptCode}
+      group by area
+   </select>
+   
+   <select id="selectAptPrice" parameterType="loanVO" resultType="int">
+      select ceil(avg(to_number(replace(price, ',', '')))) price
+        from f_price
+       where kaptCode= #{kaptCode} and area = #{aptArea}
+            and (abs(floor-#{aptFloor}) = (select res
+                                             from (select abs(floor - #{aptFloor}) as res 
+                                                     from f_price
+                                                    where kaptCode = #{kaptCode} and area = #{aptArea}
+                                                    order by res asc)
+                                            where rownum = 1))
+   </select>
+   
+   <select id="selectLawDivision" parameterType="String" resultType="String">
+      select law_division
+        from f_law_area
+       where (select bjdCode from f_aptbasic where kaptCode = #{aptCode}) like (case when law_bjdcode like '__00000000' 
+                                   then concat(substr(law_bjdcode,0,2),'%')
+                                   else concat(substr(law_bjdcode,0,5),'%')
+                                   end)
+   </select>
+   
+   <select id="selectLtvPercent" parameterType="loanCalcVO" resultType="loanCalcVO">
+      select calc_info as loanType, aptLtv
+        from (select calc_info,(case when #{areaType} = '투기지역' then toogi_hotplace_earth
+                                     when #{areaType} = '조정대상지역' then adjustment_target_area
+                                 end) as aptLtv
+               from f_ltv_toogi_adjustment
+              where apt_price_division = (case when #{aptPrice} between 0 and 90000 then '9억 이하'
+                                               when #{aptPrice} between 90001 and 150000 then '9억 초과'
+                                               else '15억 초과'
+                                          end) and
+                    calc_info like (case when #{aptPrice} between 0 and 90000 then concat(#{loanType},'%')
+                                         else '9억%'
+                                     end))
+   </select>
+</mapper>

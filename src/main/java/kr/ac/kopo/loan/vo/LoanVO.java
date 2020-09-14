@@ -1,23 +1,47 @@
 package kr.ac.kopo.loan.vo;
 
 public class LoanVO {
-	private long bjdCode;
-	private String bjdName;
-	public long getBjdCode() {
-		return bjdCode;
+
+	private String kaptCode;
+	private String aptName;
+	private double aptArea;
+	private int aptFloor;
+	private int bang;
+	public String getKaptCode() {
+		return kaptCode;
 	}
-	public void setBjdCode(long bjdCode) {
-		this.bjdCode = bjdCode;
+	public void setKaptCode(String kaptCode) {
+		this.kaptCode = kaptCode;
 	}
-	public String getBjdName() {
-		return bjdName;
+	public String getAptName() {
+		return aptName;
 	}
-	public void setBjdName(String bjdName) {
-		this.bjdName = bjdName;
+	public void setAptName(String aptName) {
+		this.aptName = aptName;
+	}
+	public double getAptArea() {
+		return aptArea;
+	}
+	public void setAptArea(double aptArea) {
+		this.aptArea = aptArea;
+	}
+	public int getAptFloor() {
+		return aptFloor;
+	}
+	public void setAptFloor(int aptFloor) {
+		this.aptFloor = aptFloor;
+	}
+	public int getBang() {
+		return bang;
+	}
+	public void setBang(int bang) {
+		this.bang = bang;
 	}
 	@Override
 	public String toString() {
-		return "BjdCodeVO [bjdCode=" + bjdCode + ", bjdName=" + bjdName + "]";
+		return "LoanVO [kaptCode=" + kaptCode + ", aptName=" + aptName + ", aptArea=" + aptArea + ", aptFloor="
+				+ aptFloor + ", bang=" + bang + "]";
 	}
+	
 	
 }

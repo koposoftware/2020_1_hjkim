@@ -19,5 +19,7 @@
 		<typeAlias type="kr.ac.kopo.chat.vo.ChatListUserNameVO" alias="chatListUserNameVO"/>
 		<typeAlias type="kr.ac.kopo.admin.vo.BjdCodeVO" alias="bjdcodeVO"/>
 		<typeAlias type="kr.ac.kopo.admin.vo.LawAreaVO" alias="lawAreaVO"/>
+		<typeAlias type="kr.ac.kopo.loan.vo.LoanVO" alias="loanVO"/>
+		<typeAlias type="kr.ac.kopo.loan.vo.LoanCalcVO" alias="loanCalcVO"/>
 	</typeAliases>
 </configuration>
