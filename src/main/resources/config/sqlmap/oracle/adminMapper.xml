@@ -7,6 +7,15 @@
       <result column="law_bjdcode" property="lawBjdCode"/>
       <result column="law_division" property="lawDivision"/>
    </resultMap>
+   <resultMap type="productFileVO" id="productFileMap">
+      <result column="file_no" property="fileNo"/>
+      <result column="product_code" property="productCode"/>
+      <result column="org_file_name" property="orgFileName"/>
+      <result column="stored_file_name" property="storedFileName"/>
+      <result column="file_size" property="fileSize"/>
+      <result column="reg_date" property="regDate"/>
+      <result column="del_gb" property="delGb"/>
+   </resultMap>
    <!-- 시도 select -->
    <select id="sido" resultType="bjdcodeVO">
       select bjdcode, bjdname  from f_bjdcode where bjdcode like '__00000000' or bjdcode = '3611000000'
@@ -48,4 +57,46 @@
          set law_division = #{lawDivision}
        where law_bjdcode = #{lawBjdCode}
    </update>
+   
+   <!-- 상품 파일 select -->
+   <select id="selectFile" parameterType="String" resultMap="productFileMap">
+      select file_no, product_code, org_file_name, stored_file_name, round(file_size/1024, 1) as file_size, reg_date, del_gb
+        from f_product_file
+       where product_code = #{no} and del_gb = 'n'
+   </select>
+   <!-- 상품 파일 download -->
+   <select id="selectFileInfo" parameterType="int" resultMap="productFileMap">
+      select file_no, product_code, org_file_name, stored_file_name, round(file_size/1024, 1) as file_size, reg_date, del_gb
+        from f_product_file
+       where file_no = #{no} and del_gb = 'n'
+   </select>
+   <!-- 상품 정보 insert -->
+   <insert id="insertProduct" parameterType="loanProductVO" useGeneratedKeys="true" keyProperty="productCode">
+      <selectKey keyProperty="productCode" resultType="String" order="BEFORE">
+         select concat('hana',lpad((seq_f_product_code.nextval),5,'0')) from dual
+      </selectKey>
+      insert into f_loan_product(   product_code, 
+                                    product_name, 
+                                    product_content, 
+                                    product_need_doc  )
+                         values (   #{productCode},
+                                    #{productName},
+                                    #{productContent},
+                                    #{productNeedDoc} )
+   </insert>
+   <insert id="insertProductFile" parameterType="hashMap">
+      insert into f_product_file  (
+                              file_no,
+                              product_code,
+                              org_file_name,
+                              stored_file_name,
+                              file_size
+                           )VALUES(
+                              seq_f_product_file_no.NEXTVAL,
+                              #{PRODUCT_CODE},
+                              #{ORG_FILE_NAME},
+                              #{STORED_FILE_NAME},
+                              #{FILE_SIZE}
+                           )
+   </insert>
 </mapper>

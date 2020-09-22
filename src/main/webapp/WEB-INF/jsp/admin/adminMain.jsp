@@ -11,42 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <jsp:include page="/WEB-INF/jsp/include/link.jsp" />
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/vanilla-notify.css">
-<script src="${ pageContext.request.contextPath }/resources/js/vanilla-notify.js"></script>
-<script>
-	var ws;
-	var userNo = ${loginVO.userNo};
-	function connect() {
-		ws = new SockJS("<c:url value='/chatServer'/>");
-		ws.onopen = function() {
-			console.log("counselor.jsp에서 웹소켓 연결")
-			register();
-		};
-
-		ws.onmessage = function(e) {
-			var data = e.data;
-			//웹소켓 세션이 연결되면 가장 먼저 kaptCode를 보낸다. 첫 글자가 kaptCode:로 시작하면 알림을 보내지 않음
-			if(data.indexOf("kaptCode:") == -1){
-				notification(data)
-			}
-		};
-		/* ws.onclose = function(){
-			console.log('연결끊김')
-		}; */
-	}
-
-	function register() {
-		var msg = {
-			type : "counselor",
-			userid : userNo
-		};
-		ws.send(JSON.stringify(msg))
-	}
-
-	$(function() {
-		connect();
-	})
-</script>
 </head>
 <body class="boxed">
 	<!-- Loader -->
@@ -79,24 +43,5 @@
 		<%@include file="/WEB-INF/jsp/include/footer.jsp"%>
 	</footer>
 	<!-- End of footer -->
-	<script>
-		function notification(data) {
-			vNotify.info({
-				text : data,
-				title : '새 메시지가 도착했습니다.',
-				click : '${pageContext.request.contextPath}/consulting/online',
-				fadeInDuration : 1000,
-				fadeOutDuration : 1000,
-				fadeInterval : 50,
-				visibleDuration : 5000, // auto close after 5 seconds
-				postHoverVisibleDuration : 500,
-				position : "bottomRight", // topLeft, bottomLeft, bottomRight, center
-				sticky : false, // is sticky
-				showClose : true
-			// show close button
-
-			});
-		}
-	</script>
 </body>
 </html>

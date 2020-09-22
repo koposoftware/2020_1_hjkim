@@ -2894,3 +2894,14 @@ section.container-fluid {
 #adminTable, .chat li .chat-body p {
 	font-family: "Noto Sans KR";
 }
+
+.product-table td {
+	font-family: "Noto Sans KR";
+}
+
+.product{
+	width: 80%;
+}
+.product > div {
+	width: 100%;
+}

@@ -22,7 +22,7 @@
 				<c:when test="${ loginVO.type eq 'a' or loginVO.type eq 'A'}">
 					<ul>
 						<li><a href="${ pageContext.request.contextPath }/admin/ltvRegister">LTV등록</a></li>
-						<li><a href="${ pageContext.request.contextPath }/admin">상담사 관리</a></li>
+						<li><a href="${ pageContext.request.contextPath }/admin/productList">대출상품</a></li>
 						<li><a href="${ pageContext.request.contextPath }/admin">상담 내역 관리</a></li>
 						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
 						<c:choose>

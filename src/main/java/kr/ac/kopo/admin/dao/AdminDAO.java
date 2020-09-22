@@ -1,9 +1,12 @@
 package kr.ac.kopo.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.ac.kopo.admin.vo.BjdCodeVO;
 import kr.ac.kopo.admin.vo.LawAreaVO;
+import kr.ac.kopo.admin.vo.ProductFileVO;
+import kr.ac.kopo.counselor.vo.LoanProductVO;
 
 public interface AdminDAO {
 	/**
@@ -39,4 +42,26 @@ public interface AdminDAO {
 	 * @param areaVO
 	 */
 	void updateLawArea(LawAreaVO areaVO);
+	/**
+	 * 상품 pdf 가져옴
+	 * @param productNo
+	 * @return
+	 */
+	ProductFileVO selectFile(String productNo);
+	/**
+	 * 상품 설명 insert
+	 * @param productVO
+	 */
+	void insertProduct(LoanProductVO productVO);
+	/**
+	 * 상품 pdf insert 
+	 * @param map
+	 */
+	void insertProductFile(Map<String, Object> map);
+	/**
+	 * 상품 pdf 다운로드
+	 * @param fileNo
+	 * @return
+	 */
+	ProductFileVO selectFileInfo(int fileNo);
 }
