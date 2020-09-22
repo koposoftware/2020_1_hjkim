@@ -4,13 +4,12 @@
 	var ws;
 	var userNo = ${loginVO.userNo};
 	var targetNo;
-
+	var summaryJson;
 	function connect() {
 		//웹소켓 객체 생성하는 부분
 		//핸들러 등록 (연결 생성, 메시지 수신, 연결종료)
 
 		//url 연결할 서버의 경로
-		//ws = new WebSocket('ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/chatServer');
 		ws = new SockJS("<c:url value="/chatServer"/>");
 		ws.onopen = function() {
 			console.log('연결생성');
@@ -21,9 +20,11 @@
 			console.log('메시지 받음');
 			var data = e.data;
 			if(data.indexOf("@connect")!= -1){
-				console.log("@Connect")
 				addConnectMsg(data.substr("@connect : ".length))
-			} else {
+			}else if(data.indexOf("@summary")!= -1){
+				addSummary(data.substr("@summary : ".length))
+				summaryJson = data.substr("@summary : ".length);
+			}else {
 				addMsg(data);
 			}
 		};
@@ -31,16 +32,35 @@
 			console.log('연결 끊김');
 		}
 	}
+	/* 상담내용요약내용을 받는 함수 */
+	function addSummary(data){
+		var summaryData = JSON.parse(data)
+		console.log(summaryData)
+		console.log(summaryData.length)
+		$('#consultingSummary').empty();
+		for(var i = 0; i < summaryData.length; i++){
+			var tableContent = '';
+			tableContent += '<tr>'
+			tableContent += '	<td>' + summaryData[i].title + '</td>'
+			tableContent += '	<td>' + summaryData[i].content + '</td>'
+			tableContent += '</tr>'
+			$('#consultingSummary').append(tableContent)
+		}
+	}
 	function addConnectMsg(msg){
-		content += '<li class="left clearfix">'
-		content += '	<div class="chat-body clearfix">'
-		content += '		<div class="header">'
-		content += '			<strong class="primary-font">알림</strong>'
-		content += '		</div>'
-		content += '		<p>'+ msg + '</p>'
-		content += '	</div>'
-		content += '</li>'
-		$('.chat').append(content)
+		var connectMsg = '';
+		connectMsg += '<li class="left clearfix">'
+		connectMsg += '		<span class="chat-img pull-left">'
+		connectMsg += '			<img src="http://placehold.it/50/FF0000/fff&text=@" class="img-circle" />'
+		connectMsg += '		</span>'
+		connectMsg += '		<div class="chat-body clearfix">'
+		connectMsg += '			<div class="header">'
+		connectMsg += '				<strong class="primary-font">알림</strong>'
+		connectMsg += '		</div>'
+		connectMsg += '		<p>'+ msg + '</p>'
+		connectMsg += '	</div>'
+		connectMsg += '</li>'
+		$('.chat').html(connectMsg)
 	}
 	function addMsg(msg) {
 		var content = '';
@@ -99,15 +119,40 @@
 			sendMsg();
 			$('#chatMsg').val("");
 		})
+		$('#toExcelBtn').on("click", function(){
+			post_to_url('${pageContext.request.contextPath}/chat/downloadExcel',{'arr': summaryJson})
+		})
 	})
 
 	function closeSocket() {
 		ws.close();
 	}
+	
+	function post_to_url(path, params, method) {
+	    method = method || "post"; // 전송 방식 기본값을 POST로
+	 
+	    
+	    var form = document.createElement("form");
+	    form.setAttribute("method", method);
+	    form.setAttribute("action", path);
+	 
+	    //히든으로 값을 주입시킨다.
+	    for(var key in params) {
+	        var hiddenField = document.createElement("input");
+	        hiddenField.setAttribute("type", "hidden");
+	        hiddenField.setAttribute("name", key);
+	        hiddenField.setAttribute("value", params[key]);
+	 
+	        form.appendChild(hiddenField);
+	    }
+	 
+	    document.body.appendChild(form);
+	    form.submit();
+	}
 </script>
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
+		<div class="col-md-6">
 			<div class="card card-info card-all">
 				<div class="panel-heading chat-heading">
 					<span class="glyphicon glyphicon-comment"></span> 온라인 상담
@@ -128,6 +173,32 @@
 							<button class="btn btn-info chat-btn" type="button" id="btnSend">보내기</button>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card-body">
+				<h3 class="card-title">고객 지원</h3>
+				<div class="row auto-word-row">
+					<div class="card col-12">
+						<div class="card-title">
+							<h4 class="auto-title">온라인 상담 요약</h4>
+						</div>
+						<div class="card-body">
+							<div class="container mt-3 admin-auto-content">
+								<table class="table table-bordered" id="summaryTable">
+									<thead>
+										<tr>
+											<th colspan="2">HanaBang 온라인 상담 요약</th>
+										</tr>
+									</thead>
+									<tbody id="consultingSummary">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-outline-info btn-block" id="toExcelBtn">Excel다운로드 받기</button>
 				</div>
 			</div>
 		</div>

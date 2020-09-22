@@ -7,11 +7,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.ac.kopo.counselor.service.CounselorService;
 import kr.ac.kopo.counselor.vo.ChatAutoVO;
+import kr.ac.kopo.counselor.vo.LoanProductVO;
 import kr.ac.kopo.member.vo.MemberVO;
 
 @Controller
@@ -43,5 +47,20 @@ public class CounselorController {
 	@RequestMapping("/consulting/history")
 	public String history() {
 		return "/employee/history";
+	}
+	
+	@GetMapping("/counselor/loadLoanProduct")
+	@ResponseBody
+	public List<LoanProductVO> loadLoanProduct(){
+		System.out.println("loan");
+		List<LoanProductVO> loanList = counselorService.selectLoanProduct();
+		return loanList;
+	}
+	
+	@PostMapping("/counselor/loadLoanProduct")
+	@ResponseBody
+	public LoanProductVO loadLoanProductOne(@RequestParam("productCode") String productCode) {
+		LoanProductVO loan = counselorService.selectLoanProductOne(productCode);
+		return loan;
 	}
 }

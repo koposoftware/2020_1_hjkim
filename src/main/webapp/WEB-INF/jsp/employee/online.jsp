@@ -68,12 +68,58 @@
 				type : 'get',
 				success : function(data) {
 					$(".card-text").html(data)
+					addAptNameSummary(apt);
 				}
 			})
 		}
 	}
+	function addConsultingSummary(title, content){
+		if(content == 'nowday'){
+			var year = (new Date()).getFullYear();
+			var month = (new Date()).getMonth() + 1 ;
+			var day = (new Date()).getDate();
+			content = year + '년 ' + month +'월 ' + day +"일"
+		}
+		var innerHtmlContent = ''
+		innerHtmlContent +='<tr>'
+		innerHtmlContent +='	<td class="title">' + title +'</td>'
+		innerHtmlContent +='	<td><input type="text" size="20" style="width:100%; border: 0;" value="' + content + '"></td>'
+		innerHtmlContent +='</tr>'
+		$('#consultingSummary').append(innerHtmlContent);
+		
+	}
+	function addConsultingSummaryTextArea(title, content){
+		if(content == 'nowday'){
+			var year = (new Date()).getFullYear();
+			var month = (new Date()).getMonth() + 1 ;
+			var day = (new Date()).getDate();
+			content = year + '년 ' + month +'월 ' + day +"일"
+		}
+		var innerHtmlContent = ''
+		innerHtmlContent +='<tr>'
+		innerHtmlContent +='	<td class="title">' + title +'</td>'
+		innerHtmlContent +='	<td><textarea size="20" style="width:100%; border: 0;">'+ content +'</textarea></td>'
+		innerHtmlContent +='</tr>'
+		$('#consultingSummary').append(innerHtmlContent);
+		
+	}
+	/* hanabang 온라인 상담 요약 중 아파트 정보를 출력하기 위한 함수 */
+	function addAptNameSummary(apt){
+		$.ajax({
+			url : '${pageContext.request.contextPath}/apt/aptBasic/' + apt,
+			type : 'get',
+			success : function(data) { 
+				addConsultingSummary('선택하신 아파트', data.aptBasicVO.kaptName);
+				addConsultingSummary('아파트 주소', data.aptDetailVO.kaptAddr);
+			}
+		})
+	}
 	function addConnectMsg(msg) {
+		var content = '';
 		content += '<li class="left clearfix">'
+		content += '		<span class="chat-img pull-left">'
+		content += '			<img src="http://placehold.it/50/FF0000/fff&text=@" class="img-circle" />'
+		content += '		</span>'
 		content += '	<div class="chat-body clearfix">'
 		content += '		<div class="header">'
 		content += '			<strong class="primary-font">알림</strong>'
@@ -107,6 +153,9 @@
 	$(function() {
 		connect();
 		loadHistory();
+		$('#consultingSummary').empty(); // 상담 요약 테이블을 비운다.
+		addConsultingSummary('상담일자', 'nowday');// 상담 요약 테이블에 상담 일자를 등록한다.
+		addRecommendLoan(); // 상담 요약 테이블에서 사용할 대출 추천 상품 리스트를 불러온다.
 		$('#btnSend').on("click", function() {
 			var content = '';
 			content += '<li class="right clearfix">'
@@ -123,6 +172,41 @@
 			$('.chat').append(content);
 			sendMsg();
 			$('#chatMsg').val("");
+		})
+		
+		/* 대출 추천 상품 선택시 해당 대출상품 출력 */
+		$('#recommendLoan').on("change",function(){
+			var code = $('#recommendLoan option:selected').attr("id");
+			if(code != '0'){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/counselor/loadLoanProduct',
+					type: 'post',
+					data : {
+						productCode : code
+					},
+					success: function(data){
+						addConsultingSummary('대출 추천 상품', data.productName);
+						addConsultingSummary('가입시 필요 서류', data.productNeedDoc);
+						addConsultingSummaryTextArea('대출 상세 내용', data.productContent);
+						addConsultingSummaryTextArea('대출 부가 설명', '');
+					}
+				})
+			}
+		})
+		
+		/* 고객에게 요약 데이터 전송 */
+		$('#summaryBtn').click(function() {
+			var dataArrayToSend = [];
+			$("#summaryTable tbody tr").each(function(){
+				var tableData = {'title' : $(this).find(".title").text() , 'content' : $(this).find("td input[type='text'], td textarea").val()};
+				dataArrayToSend.push(tableData);
+			})
+			var msg = {
+				type : 'table', //메시지를 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
+				userid : userNo,
+				msg : JSON.stringify(dataArrayToSend)
+			};
+			ws.send(JSON.stringify(msg));
 		})
 	})
 
@@ -167,6 +251,22 @@
 		content += '	</div>'
 		content += '</li>'
 		$('.chat').append(content);
+	}
+	
+	function addRecommendLoan(){
+		$.ajax({
+			url: '${pageContext.request.contextPath}/counselor/loadLoanProduct',
+			type: 'get',
+			success: function(data){
+				$('#recommendLoan').empty();
+				$('#recommendLoan').html("<option id='0'>대출 추천 상품을 선택하세요.</option>")
+				for(let i = 0; i < data.length; i++){
+					var content = '';
+					content += '<option id="' + data[i].productCode + '">' + data[i].productName +'</option>'
+					$('#recommendLoan').append(content);
+				}
+			}
+		})
 	}
 </script>
 </head>
@@ -224,7 +324,7 @@
 					<div class="card-body">
 						<h3 class="card-title">자동완성문구</h3>
 						<div class="row auto-word-row">
-						
+
 							<div class="card col-6">
 								<div class="card-title">
 									<h4 class="auto-title">공통 문구</h4>
@@ -277,6 +377,36 @@
 									</div>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center margin-top-20">
+				<div class="card col-md-10" style="width: 18rem;">
+					<div class="card-body">
+						<h3 class="card-title">고객 지원</h3>
+						<div class="row auto-word-row">
+							<div class="card col-12">
+								<div class="card-title">
+									<h4 class="auto-title">온라인 상담 요약</h4>
+									<select id="recommendLoan">
+									</select>
+								</div>
+								<div class="card-body">
+									<div class="container mt-3 admin-auto-content">
+										<table class="table table-bordered" id="summaryTable">
+											<thead>
+												<tr>
+													<th colspan="2">HanaBang 온라인 상담 요약</th>
+												</tr>
+											</thead>
+											<tbody id="consultingSummary">
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-outline-info btn-block" id="summaryBtn">고객에게 전송하기</button>
 						</div>
 					</div>
 				</div>

@@ -26,7 +26,7 @@
 		ws.onmessage = function(e) {
 			var data = e.data;
 			//웹소켓 세션이 연결되면 가장 먼저 kaptCode를 보낸다. 첫 글자가 kaptCode:로 시작하면 알림을 보내지 않음
-			if(data.indexOf("kaptCode:") == -1){
+			if (data.indexOf("kaptCode:") == -1) {
 				notification(data)
 			}
 		};
@@ -63,9 +63,7 @@
 		<div class="container">
 			<div class="owl-carousel owl-carousel-main margin-top-100">
 				<div>
-					<div>
-						<img src="${ pageContext.request.contextPath }/resources/images/mainbg.jpg" alt="Free HTML5 Website Template">
-					</div>
+					<img src="${ pageContext.request.contextPath }/resources/images/mainbg.jpg" alt="Free HTML5 Website Template">
 				</div>
 				<div>
 					<img src="${ pageContext.request.contextPath }/resources/images/mainbg2.png" alt="Free HTML5 Website Template">

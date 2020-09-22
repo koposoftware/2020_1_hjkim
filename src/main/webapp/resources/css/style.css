@@ -2890,3 +2890,7 @@ section.container-fluid {
 .auto-title{
     margin: 10px 10px 10px 10px;
 }
+
+#adminTable, .chat li .chat-body p {
+	font-family: "Noto Sans KR";
+}

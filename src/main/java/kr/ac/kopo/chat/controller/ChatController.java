@@ -1,19 +1,28 @@
 package kr.ac.kopo.chat.controller;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
 import kr.ac.kopo.chat.service.ChatService;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
+import kr.ac.kopo.chat.vo.ExcelDownloadVO;
 import kr.ac.kopo.common.Pagination;
 
 @Controller
@@ -59,6 +68,19 @@ public class ChatController {
 		ModelAndView mav = new ModelAndView("chatting/chatList");
 		mav.addObject("chatListUserNameList", ChatListUserNameList);
 		mav.addObject("pagination", pagination);
+		return mav;
+	}
+
+	@RequestMapping("/chat/downloadExcel")
+	@ResponseBody
+//	public String excelConvert(@RequestParam("summary") String summary) {
+	public ModelAndView excelConvert(HttpServletRequest request) {
+		String summary = request.getParameter("arr");
+		Gson gson = new Gson();
+		ExcelDownloadVO[] excelData= gson.fromJson(summary, ExcelDownloadVO[].class);
+		List<ExcelDownloadVO> excelList = Arrays.asList(excelData);
+		ModelAndView mav = new ModelAndView("chatting/downloadExcel");
+		mav.addObject("excelList", excelList);
 		return mav;
 	}
 }

@@ -8,9 +8,27 @@
       <result column="user_no" property="userNo"/>
       <result column="content" property="content"/>
    </resultMap>
+   <resultMap type="loanProductVO" id="loanProductMap">
+      <result column="product_code" property="productCode"/>
+      <result column="product_name" property="productName"/>
+      <result column="product_content" property="productContent"/>
+      <result column="product_need_doc" property="productNeedDoc"/>
+   </resultMap>
+   
    <select id="selectAutoWord" parameterType="int" resultMap="chatAutoMap">
       select auto_no, user_no, content 
         from f_chat_auto
        where user_no = #{userNo}
+   </select>
+   
+   <select id="selectLoanProduct" resultMap="loanProductMap">
+      select product_code, product_name, product_content, product_need_doc
+        from f_loan_product
+   </select>
+   
+   <select id="selectLoanProductOne" resultMap="loanProductMap" parameterType="String">
+      select product_code, product_name, product_content, product_need_doc
+        from f_loan_product
+       where product_code = #{code}
    </select>
 </mapper>

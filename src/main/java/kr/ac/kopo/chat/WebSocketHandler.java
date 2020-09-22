@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -101,12 +102,26 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				}
 			}
 			// 아파트 번호를 방번호와 매칭시킨다.
-			System.out.println("kaptCode : " + object.getString("kaptCode"));
 			String aptCode = object.getString("kaptCode");
 			if(aptCode != null) {
 				chatAptMappingMap.put(chatNo, aptCode);
 			}
-		} else {
+		} else if(type != null && type.equalsIgnoreCase("table")){
+			int userNo = object.getInt("userid");
+			int findChatNo = chatMap.get(userNo);
+			String msg = object.getString("msg");
+			WebSocketSession ws = null;
+			for (Map.Entry<Integer, Integer> element : chatMap.entrySet()) {
+				int key = element.getKey();
+				int value = element.getValue();
+				if (findChatNo == value && key != userNo) {
+					ws = (WebSocketSession) userMap.get(key);
+				}
+			}
+			if (ws != null) {
+				ws.sendMessage(new TextMessage("@summary : " + msg));
+			}
+		}else {
 			ChatHistoryVO historyVO = new ChatHistoryVO();
 
 			int userNo = object.getInt("userid");
