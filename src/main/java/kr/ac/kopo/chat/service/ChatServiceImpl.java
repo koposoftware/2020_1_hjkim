@@ -7,6 +7,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.chat.dao.ChatDAO;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
@@ -79,6 +80,11 @@ public class ChatServiceImpl implements ChatService{
 	public List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> paging) {
 		List<ChatListUserNameVO> chatList = chatDAO.selectChatListPaging(paging);
 		return chatList;
+	}
+
+	@Override
+	public ProductFileVO selectFile(int fileNo) {
+		return chatDAO.selectFile(fileNo);
 	}
 	
 }

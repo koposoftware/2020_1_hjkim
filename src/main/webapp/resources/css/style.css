@@ -2901,7 +2901,17 @@ section.container-fluid {
 
 .product{
 	width: 80%;
+	max-width: 1140px;
 }
 .product > div {
 	width: 100%;
+}
+
+.custom-select {
+	font-size: 21px;
+}
+.pdf-msg{
+	background-color: #d0ecec;
+    border-radius: 10px;
+    width: 90%;
 }

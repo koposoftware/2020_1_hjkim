@@ -3,6 +3,7 @@ package kr.ac.kopo.chat.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.chat.vo.ChatListVO;
@@ -63,4 +64,10 @@ public interface ChatDAO {
 	 * 페이징 처리된 상담 내역 list
 	 */
 	List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> paging);
+	/**
+	 * 상품 pdf 가져옴
+	 * @param productNo
+	 * @return
+	 */
+	ProductFileVO selectFile(int fileNo);
 }

@@ -121,7 +121,22 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			if (ws != null) {
 				ws.sendMessage(new TextMessage("@summary : " + msg));
 			}
-		}else {
+		} else if(type != null && type.equalsIgnoreCase("pdf")){
+			int userNo = object.getInt("userid");
+			int findChatNo = chatMap.get(userNo);
+			String msg = object.getString("message");
+			WebSocketSession ws = null;
+			for (Map.Entry<Integer, Integer> element : chatMap.entrySet()) {
+				int key = element.getKey();
+				int value = element.getValue();
+				if (findChatNo == value && key != userNo) {
+					ws = (WebSocketSession) userMap.get(key);
+				}
+			}
+			if (ws != null) {
+				ws.sendMessage(new TextMessage("@pdfSend : " + msg));
+			}
+		} else {
 			ChatHistoryVO historyVO = new ChatHistoryVO();
 
 			int userNo = object.getInt("userid");

@@ -1,6 +1,5 @@
 package kr.ac.kopo.chat.controller;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,21 +8,23 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.chat.service.ChatService;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.chat.vo.ExcelDownloadVO;
 import kr.ac.kopo.common.Pagination;
+import kr.ac.kopo.counselor.vo.LoanProductVO;
 
 @Controller
 public class ChatController {
@@ -73,7 +74,6 @@ public class ChatController {
 
 	@RequestMapping("/chat/downloadExcel")
 	@ResponseBody
-//	public String excelConvert(@RequestParam("summary") String summary) {
 	public ModelAndView excelConvert(HttpServletRequest request) {
 		String summary = request.getParameter("arr");
 		Gson gson = new Gson();
@@ -82,5 +82,15 @@ public class ChatController {
 		ModelAndView mav = new ModelAndView("chatting/downloadExcel");
 		mav.addObject("excelList", excelList);
 		return mav;
+	}
+	
+	@GetMapping("/chat/pdfLoad/{no}")
+	@ResponseBody
+	public ProductFileVO pdfLoad(@PathVariable("no") String fileNoStr) {
+		int fileNo = Integer.parseInt(fileNoStr);
+		ModelAndView mav = new ModelAndView();
+		ProductFileVO loanFileVO = chatService.selectFile(fileNo);
+		System.out.println(loanFileVO.toString());
+		return loanFileVO;
 	}
 }

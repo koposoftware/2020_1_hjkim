@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.counselor.service.CounselorService;
 import kr.ac.kopo.counselor.vo.ChatAutoVO;
 import kr.ac.kopo.counselor.vo.LoanProductVO;
@@ -36,6 +37,9 @@ public class CounselorController {
 		List<ChatAutoVO> counselorAutoList = counselorService.selectAutoWord(loginVO.getUserNo());
 		mav.addObject("adminAutoList", adminAutoList);
 		mav.addObject("counselorAutoList", counselorAutoList);
+		
+		List<ProductFileVO> loanFileList = counselorService.selectFileList();
+		mav.addObject("fileList", loanFileList);
 		return mav;
 	}
 

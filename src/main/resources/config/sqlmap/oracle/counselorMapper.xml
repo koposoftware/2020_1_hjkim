@@ -14,6 +14,15 @@
       <result column="product_content" property="productContent"/>
       <result column="product_need_doc" property="productNeedDoc"/>
    </resultMap>
+   <resultMap type="productFileVO" id="productFileMap">
+      <result column="file_no" property="fileNo"/>
+      <result column="product_code" property="productCode"/>
+      <result column="org_file_name" property="orgFileName"/>
+      <result column="stored_file_name" property="storedFileName"/>
+      <result column="file_size" property="fileSize"/>
+      <result column="reg_date" property="regDate"/>
+      <result column="del_gb" property="delGb"/>
+   </resultMap>
    
    <select id="selectAutoWord" parameterType="int" resultMap="chatAutoMap">
       select auto_no, user_no, content 
@@ -31,4 +40,10 @@
         from f_loan_product
        where product_code = #{code}
    </select>
+   <select id="selectFileList" resultMap="productFileMap">
+      select file_no, product_code, org_file_name, stored_file_name, round(file_size/1024, 1) as file_size, reg_date, del_gb
+        from f_product_file
+       where del_gb = 'n'
+   </select>
+   
 </mapper>

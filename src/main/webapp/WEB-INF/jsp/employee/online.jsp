@@ -150,6 +150,18 @@
 		
 	};
 
+	function sendNoticeMsg(noticeMsg) {
+		var msg = {
+			type : 'chat', //메시지를 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
+			userid : userNo,
+			message : noticeMsg
+		};
+		ws.send(JSON.stringify(msg));
+		
+	};
+	
+
+
 	$(function() {
 		connect();
 		loadHistory();
@@ -157,6 +169,8 @@
 		addConsultingSummary('상담일자', 'nowday');// 상담 요약 테이블에 상담 일자를 등록한다.
 		addRecommendLoan(); // 상담 요약 테이블에서 사용할 대출 추천 상품 리스트를 불러온다.
 		$('#btnSend').on("click", function() {
+
+			console.log("btnSend클릭")
 			var content = '';
 			content += '<li class="right clearfix">'
 			content += '	<span class="chat-img pull-right">'
@@ -208,8 +222,28 @@
 			};
 			ws.send(JSON.stringify(msg));
 		})
+		
+		$('#productPDFBtn').click(function(){
+			console.log("productPDFBtn클릭")
+			var product = $('#productPdfSelect option:selected').attr("value");
+			if(product != "0"){
+				sendPdf(product);
+			}
+		})
 	})
-
+	/* pdf전송 */
+	function sendPdf(productCode){
+		var msg = {
+				type : 'pdf', //메시지를 구분하는 구분자 - 상대방 아이디와 메시지 포함해서 보냄
+				userid : userNo,
+				message : productCode
+			};
+			ws.send(JSON.stringify(msg))
+			
+			addMsgForMe("PDF를 전송하였습니다. 하단을 확인해주세요 :-)")
+			sendNoticeMsg("PDF를 전송하였습니다. 하단을 확인해주세요 :-)")
+	}
+	
 	function closeSocket() {
 		ws.close();
 	}
@@ -268,6 +302,7 @@
 			}
 		})
 	}
+	
 </script>
 </head>
 <body class="boxed">
@@ -312,7 +347,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card col-md-5" style="width: 18rem;">
+				<div class="card col-md-5">
 					<div class="card-body">
 						<h5 class="card-title">고객이 선택한 아파트</h5>
 						<p class="card-text apt-card-detail"></p>
@@ -320,7 +355,33 @@
 				</div>
 			</div>
 			<div class="row justify-content-center margin-top-20">
-				<div class="card col-md-10" style="width: 18rem;">
+				<div class="card col-md-10">
+					<div class="card-body">
+						<h3 class="card-title">대출 상품 pdf</h3>
+						<div class="row auto-word-row">
+							<div class="col-12">
+								<div class="card-body">
+									<div class="container mt-3 admin-auto-content">
+										<div class="input-group">
+											<select class="custom-select" id="productPdfSelect" aria-label="Example select with button addon">
+												<option selected value="0">상품을 선택하세요</option>
+												<c:forEach var="file" items="${ fileList }">
+													<option value="${ file.fileNo }">${ file.orgFileName }&nbsp;&nbsp;&nbsp; ${ file.fileSize }(kb)</option>
+												</c:forEach>
+											</select>
+											<div class="input-group-append">
+												<button class="btn btn-outline-secondary" type="button" id="productPDFBtn">상품정보 보내기</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center margin-top-20">
+				<div class="card col-md-10">
 					<div class="card-body">
 						<h3 class="card-title">자동완성문구</h3>
 						<div class="row auto-word-row">
@@ -382,7 +443,7 @@
 				</div>
 			</div>
 			<div class="row justify-content-center margin-top-20">
-				<div class="card col-md-10" style="width: 18rem;">
+				<div class="card col-md-10">
 					<div class="card-body">
 						<h3 class="card-title">고객 지원</h3>
 						<div class="row auto-word-row">

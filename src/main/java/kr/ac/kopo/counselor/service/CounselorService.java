@@ -2,6 +2,7 @@ package kr.ac.kopo.counselor.service;
 
 import java.util.List;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.counselor.vo.ChatAutoVO;
 import kr.ac.kopo.counselor.vo.LoanProductVO;
 
@@ -22,6 +23,11 @@ public interface CounselorService {
 	 * @return
 	 */
 	LoanProductVO selectLoanProductOne(String productCode);
+	/**
+	 * pdf 목록 가져옴
+	 * @return
+	 */
+	List<ProductFileVO> selectFileList();
 	
 
 }

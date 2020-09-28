@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.ac.kopo.admin.vo.BjdCodeVO;
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.apt.dao.AptDAO;
 import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptBasicVO;
@@ -25,7 +26,6 @@ import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.common.Pagination;
 import kr.ac.kopo.counselor.vo.ChatAutoVO;
 import kr.ac.kopo.loan.dao.LoanDAO;
-import kr.ac.kopo.loan.vo.LoanCalcVO;
 import kr.ac.kopo.loan.vo.LoanVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -147,5 +147,11 @@ public class AptTest {
 		for(ChatAutoVO vo : list) {
 			System.out.println(vo);
 		}
+	}
+	@Ignore
+	@Test
+	public void pdf테스트() throws Exception{
+		ProductFileVO vo = session.selectOne("consulting.dao.consultingDAO.selectFile", 1);
+		System.out.println(vo);
 	}
 }

@@ -233,6 +233,7 @@
 					content += '    <div class="info">'
 					content += '        <div class="title">'
 					content += data.aptBasicVO.kaptName
+					content += '&nbsp;&nbsp;<i class="far fa-heart" onclick="myFunction(this); basket(\''+ infodata.kaptCode + '\')"></i>'
 					content += '            <div class="close" onclick="closeCustomOverlay()" title="닫기"></div>'
 					content += '        </div>'
 					content += '        <div class="body">'
@@ -392,6 +393,15 @@
 			lat = lat
 			lng = lng
 			map.setCenter(new kakao.maps.LatLng(lat, lng));
+		}
+		/*-------------------------------------------------------------
+			장바구니
+		------------------------------------------------------------- */
+		function myFunction(x){
+			x.classList.toggle("fas");
+		}
+		function basket(kaptCode){
+			console.log(kaptCode)
 		}
 	</script>
 	<script>

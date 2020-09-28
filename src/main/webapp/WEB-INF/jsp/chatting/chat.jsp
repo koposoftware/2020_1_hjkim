@@ -24,6 +24,9 @@
 			}else if(data.indexOf("@summary")!= -1){
 				addSummary(data.substr("@summary : ".length))
 				summaryJson = data.substr("@summary : ".length);
+			}else if(data.indexOf("@pdfSend") != -1){
+				var pdfCode = data.substr("@pdfSend : ".length);
+				pdfAddMsg(pdfCode);
 			}else {
 				addMsg(data);
 			}
@@ -32,6 +35,25 @@
 			console.log('연결 끊김');
 		}
 	}
+	
+	
+	/* pdf파일을 상담에 보내는 함수 */
+	function pdfAddMsg(pdfCode){
+		$.ajax({
+			url: '${pageContext.request.contextPath}/chat/pdfLoad/' + pdfCode,
+			type: 'get',
+			success: function(data){
+				console.log('ajax들어옴')
+				var pdfContent = '';
+	            pdfContent += "<div class='pdf-msg'>"
+	            pdfContent += "   <p><a href='#' onclick='fn_fileDown("+ data.fileNo +"); return false;'>" + data.orgFileName + "</a>" + data.fileSize + "(kb)</p>"
+	            pdfContent += "</div>"
+	            addMsg(pdfContent)
+				console.log(data.orgFileName)
+			}
+		})
+	}
+	
 	/* 상담내용요약내용을 받는 함수 */
 	function addSummary(data){
 		var summaryData = JSON.parse(data)
@@ -127,7 +149,9 @@
 	function closeSocket() {
 		ws.close();
 	}
-	
+	function fn_fileDown(fileNo){
+		post_to_url('${pageContext.request.contextPath}/admin/fileDown',{'fileNo': fileNo})
+	}
 	function post_to_url(path, params, method) {
 	    method = method || "post"; // 전송 방식 기본값을 POST로
 	 

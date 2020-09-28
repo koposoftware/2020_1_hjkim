@@ -3,6 +3,7 @@ package kr.ac.kopo.chat.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.chat.vo.ChatListVO;
@@ -64,4 +65,10 @@ public interface ChatService {
 	 * @return
 	 */
 	List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> pagingMap);
+	/**
+	 * 상품 pdf chat에 보냄
+	 * @param fileNo
+	 * @return
+	 */
+	ProductFileVO selectFile(int fileNo);
 }

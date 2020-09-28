@@ -29,6 +29,15 @@
       </association>
       <association property="chatListVO" resultMap="chatListMap"/>
    </resultMap>
+   <resultMap type="productFileVO" id="productFileMap">
+      <result column="file_no" property="fileNo"/>
+      <result column="product_code" property="productCode"/>
+      <result column="org_file_name" property="orgFileName"/>
+      <result column="stored_file_name" property="storedFileName"/>
+      <result column="file_size" property="fileSize"/>
+      <result column="reg_date" property="regDate"/>
+      <result column="del_gb" property="delGb"/>
+   </resultMap>
    
    <!-- 상담사가 로그인을 하게되면 f_chat_list에 등록 -->
    <insert id="insertCounselor" parameterType="int">
@@ -127,5 +136,11 @@
       select count(*) as listCnt
         from f_chat_list
        where (counselor = #{no} or user_no = #{no}) and end_date is not null
+   </select>
+   
+   <select id="selectFile" parameterType="int" resultMap="productFileMap">
+      select file_no, product_code, org_file_name, stored_file_name, round(file_size/1024, 1) as file_size, reg_date, del_gb
+        from f_product_file
+       where file_no = #{no} and del_gb = 'n'
    </select>
 </mapper>

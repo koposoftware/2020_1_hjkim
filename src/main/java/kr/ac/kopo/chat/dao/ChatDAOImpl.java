@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.ac.kopo.admin.vo.ProductFileVO;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.chat.vo.ChatListVO;
@@ -73,6 +74,11 @@ public class ChatDAOImpl implements ChatDAO{
 	public List<ChatListUserNameVO> selectChatListPaging(Map<String, Object> map) {
 		List<ChatListUserNameVO> chatList= sqlSession.selectList("consulting.dao.consultingDAO.selectChatListPaging", map);
 		return chatList;
+	}
+
+	@Override
+	public ProductFileVO selectFile(int fileNo) {
+		return sqlSession.selectOne("consulting.dao.consultingDAO.selectFile", fileNo);
 	}
 	
 }
