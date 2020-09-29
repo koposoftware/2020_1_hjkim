@@ -22,6 +22,7 @@ import kr.ac.kopo.apt.service.AptService;
 import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptLatLngVO;
 import kr.ac.kopo.apt.vo.AptPriceChartVO;
+import kr.ac.kopo.apt.vo.BasketVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
 import kr.ac.kopo.common.Pagination;
 import kr.ac.kopo.counselor.vo.ChatAutoVO;
@@ -140,7 +141,7 @@ public class AptTest {
 //		int aptName = session.selectOne("loan.dao.LoanDAO.selectAptPrice",loan);
 //		System.out.println(aptName);
 	}
-	
+	@Ignore
 	@Test
 	public void 어드민자동문구() throws Exception{
 		List<ChatAutoVO> list = session.selectList("counselor.dao.counselorDAO.selectAutoWord",0);
@@ -153,5 +154,19 @@ public class AptTest {
 	public void pdf테스트() throws Exception{
 		ProductFileVO vo = session.selectOne("consulting.dao.consultingDAO.selectFile", 1);
 		System.out.println(vo);
+	}
+	
+	@Test
+	public void 장바구니테스트() throws Exception{
+		Pagination pagination = new Pagination(15, 10);
+		pagination.pageInfo(1, 1, 4);
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("pagination", pagination);
+		pagingMap.put("userNo", 1);
+			
+		List<BasketVO> basket = session.selectList("apt.dao.AptDAO.selectBasketAll", pagingMap);
+		for(BasketVO vo : basket) {
+			System.out.println(vo);
+		}
 	}
 }

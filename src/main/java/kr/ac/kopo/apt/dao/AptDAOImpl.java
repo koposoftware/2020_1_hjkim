@@ -1,6 +1,7 @@
 package kr.ac.kopo.apt.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import kr.ac.kopo.apt.vo.AptLatLngVO;
 import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
+import kr.ac.kopo.apt.vo.BasketVO;
 
 @Repository
 public class AptDAOImpl implements AptDAO {
@@ -78,6 +80,33 @@ public class AptDAOImpl implements AptDAO {
 	public List<AptPriceChartVO> selectAptPriceChartArea(AptPriceChartVO vo) {
 		List<AptPriceChartVO> aptPriceChart = sqlSession.selectList("apt.dao.AptDAO.selectAptPriceChartAreaYYMM", vo);
 		return aptPriceChart;
+	}
+
+	@Override
+	public BasketVO selectBasketOne(BasketVO basket) {
+		BasketVO vo = sqlSession.selectOne("apt.dao.AptDAO.selectBasketOne", basket);
+		return vo;
+	}
+
+	@Override
+	public void insertBasket(BasketVO basket) {
+		sqlSession.insert("apt.dao.AptDAO.insertBasket", basket);
+	}
+
+	@Override
+	public void deleteBasket(BasketVO basket) {
+		sqlSession.insert("apt.dao.AptDAO.deleteBasket", basket);
+	}
+
+	@Override
+	public int selectBasketCnt(int userNo) {
+		int listCnt = sqlSession.selectOne("apt.dao.AptDAO.selectBasketCnt", userNo);
+		return listCnt;
+	}
+
+	@Override
+	public List<BasketVO> selectBasketAll(Map<String, Object> pagingMap) {
+		return sqlSession.selectList("apt.dao.AptDAO.selectBasketAll", pagingMap);
 	}
 	
 }

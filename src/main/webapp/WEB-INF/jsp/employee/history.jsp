@@ -10,29 +10,9 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/jsp/include/link.jsp" />
+<script src="${ pageContext.request.contextPath }/resources/js/paging.js"></script>
 
 <script>
-	//이전 버튼 이벤트
-
-	function fn_prev(page, range, rangeSize) {
-		var page = ((range - 2) * rangeSize) + 1;
-		var range = range - 1;
-		selectList(page,range);
-	}
-
-	//페이지 번호 클릭
-	function fn_pagination(page, range, rangeSize) {
-		var page = page;
-		var range = range;
-		selectList(page,range);
-	}
-
-	//다음 버튼 이벤트
-	function fn_next(page, range, rangeSize) {
-		var page = parseInt((range * rangeSize)) + 1;
-		var range = parseInt(range) + 1;
-		selectList(page, range);
-	}
 
 	$(function() {
 		selectList(1,1);

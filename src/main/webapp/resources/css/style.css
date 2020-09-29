@@ -2899,19 +2899,77 @@ section.container-fluid {
 	font-family: "Noto Sans KR";
 }
 
-.product{
+.product {
 	width: 80%;
 	max-width: 1140px;
 }
-.product > div {
+
+.product>div {
 	width: 100%;
 }
 
 .custom-select {
 	font-size: 21px;
 }
-.pdf-msg{
+
+.pdf-msg {
 	background-color: #d0ecec;
-    border-radius: 10px;
-    width: 90%;
+	border-radius: 10px;
+	width: 90%;
+}
+
+.contact-box {
+	background-color: #ffffff;
+	border: 1px solid #e7eaec;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.contact-box>a {
+	color: inherit;
+}
+
+.contact-box.center-version {
+	border: 1px solid #e7eaec;
+	padding: 0;
+}
+
+.contact-box.center-version div {
+	display: block;
+	background-color: #ffffff;
+	padding: 0 20px 20px;
+}
+
+.contact-box.center-version img {
+	width: 80px;
+	height: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.contact-box .contact-box-footer {
+	text-align: center;
+	background-color: #ffffff;
+	border-top: 1px solid #e7eaec;
+	padding: 15px 20px;
+}
+
+.basket-list .basket-title {
+	text-align: center;
+	margin-top: 10px;
+	background-color: #f2f6f7;
+	padding: 14px;
+}
+.basket-list .basket-content {
+    min-height: 310px;
+}
+.basket-list .basket-sub-title{
+	font-size: 18px;
+    font-weight: bold;
+    padding: 8px !important;
+    color: #757575;
+}
+.basket-list .baseket-content-parent{
+	max-height: 340px;
+	overflow-y :auto; 
 }

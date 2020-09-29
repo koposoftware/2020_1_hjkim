@@ -1,6 +1,7 @@
 package kr.ac.kopo.apt.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptBjdCodeVO;
@@ -9,6 +10,7 @@ import kr.ac.kopo.apt.vo.AptLatLngVO;
 import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
+import kr.ac.kopo.apt.vo.BasketVO;
 
 public interface AptDAO {
 	/**
@@ -75,4 +77,32 @@ public interface AptDAO {
 	 * @return
 	 */
 	public List<AptPriceChartVO> selectAptPriceChartArea(AptPriceChartVO vo);
+	/**
+	 * 아파트 찜하기 기능 
+	 * @param basket
+	 * @return
+	 */
+	public BasketVO selectBasketOne(BasketVO basket);
+	/**
+	 * 장바구니 추가
+	 * @param basket
+	 */
+	public void insertBasket(BasketVO basket);
+	/**
+	 * 장바구니 삭제
+	 * @param basket
+	 */
+	public void deleteBasket(BasketVO basket);
+	/**
+	 * 장바구니개수
+	 * @param userNo
+	 * @return
+	 */
+	public int selectBasketCnt(int userNo);
+	/**
+	 * 장바구니 목록
+	 * @param pagingMap
+	 * @return
+	 */
+	public List<BasketVO> selectBasketAll(Map<String, Object> pagingMap);
 }

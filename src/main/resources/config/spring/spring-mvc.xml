@@ -34,7 +34,7 @@
 
 
    <mvc:annotation-driven />							<!-- annotation 기법을 쓰겠다 component , serviec , autowire 등등 -->
-
+   <!-- <bean class="org.springframework.mock.web.MockServletContext"/> -->
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
       <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />

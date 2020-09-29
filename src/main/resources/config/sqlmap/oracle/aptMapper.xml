@@ -9,6 +9,11 @@
       <result column="kaptMPArea_135" property="kaptMPArea135"/>
       <result column="kaptMPArea_136" property="kaptMPArea136"/>
    </resultMap>
+   <resultMap type="basketVO" id="basketMap">
+      <result column="basket_no" property="basketNo"/>
+      <result column="kaptCode" property="kaptCode"/>
+      <result column="user_no" property="userNo"/>
+   </resultMap>
    <!-- 지도에 마커를 찍기 위한 select -->
    <select id="selectLatLng" resultType="aptLatLngVO" parameterType="java.util.List">
       select kaptCode, lat, lng
@@ -99,5 +104,32 @@
        where kaptcode = #{kaptCode} and area = #{area}
        group by yymm, kaptCode, area
        order by yymm
+   </select>
+   <!-- 장바구니 관련 -->
+   <select id="selectBasketOne" parameterType="basketVO" resultMap="basketMap">
+      select basket_no, kaptCode, user_no
+        from f_apt_basket
+       where user_no = #{userNo} and kaptCode= #{kaptCode} 
+   </select>
+   <insert id="insertBasket" parameterType="basketVO">
+      insert into f_apt_basket(basket_no, kaptCode, user_no)
+       values (seq_f_apt_basket.nextval, #{kaptCode}, #{userNo})
+   </insert>
+   <delete id="deleteBasket" parameterType="basketVO">
+      delete from f_apt_basket
+       where user_no = #{userNo} and kaptCode = #{kaptCode}
+   </delete>
+   <!-- 장바구니 목록관련 -->
+   <select id="selectBasketCnt" resultType="int" parameterType="int">
+      select count(*) as listCnt
+        from f_apt_basket
+       where user_no = #{no}
+   </select>
+   <select id="selectBasketAll" parameterType="map" resultMap="basketMap">
+      select basket_no, kaptCode, user_no 
+        from (select rownum as rn, basket_no, kaptCode, user_no 
+            from f_apt_basket
+            where user_no = #{userNo})
+      where rn between #{pagination.startList} and #{pagination.endList}
    </select>
 </mapper>

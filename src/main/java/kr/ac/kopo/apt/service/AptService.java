@@ -1,6 +1,7 @@
 package kr.ac.kopo.apt.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.ac.kopo.apt.vo.AptBasicVO;
 import kr.ac.kopo.apt.vo.AptBjdCodeVO;
@@ -9,6 +10,7 @@ import kr.ac.kopo.apt.vo.AptLatLngVO;
 import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
+import kr.ac.kopo.apt.vo.BasketVO;
 
 public interface AptService {
 	
@@ -79,4 +81,32 @@ public interface AptService {
 	 * @return
 	 */
 	List<AptPriceChartVO> selectAptPriceChartAreaYYMM(AptPriceChartVO vo);
+	/**
+	 * 장바구니 되어 있는지 확인
+	 * @param basket
+	 * @return
+	 */
+	BasketVO selectBasketOne(BasketVO basket);
+	/**
+	 * 장바구니 추가
+	 * @param basket
+	 */
+	void insertBasket(BasketVO basket);
+	/**
+	 * 장바구니 삭제
+	 * @param basket
+	 */
+	void deleteBasket(BasketVO basket);
+	/**
+	 * 장바구니 개수
+	 * @param userNo
+	 * @return
+	 */
+	int selectBasketCnt(int userNo);
+	/**
+	 * 장바구니 목록가져오기
+	 * @param pagingMap
+	 * @return
+	 */
+	List<BasketVO> selectBasketAll(Map<String, Object> pagingMap);
 }

@@ -20,7 +20,8 @@ import kr.ac.kopo.counselor.vo.LoanProductVO;
 public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
-	@Resource(name="fileUtils")
+//	@Resource(name="fileUtils")
+	@Autowired
 	private FileUtils fileUtils;
 	
 	@Override

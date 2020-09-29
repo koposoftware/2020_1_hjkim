@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.omg.CORBA.Request;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,9 @@ import kr.ac.kopo.apt.vo.AptLatLngVO;
 import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
+import kr.ac.kopo.apt.vo.BasketVO;
+import kr.ac.kopo.common.Pagination;
+import kr.ac.kopo.member.vo.MemberVO;
 
 @RequestMapping("/apt")
 @Controller
@@ -54,7 +59,6 @@ public class AptController {
 			mav.addObject("aptCode", kaptCode);
 			mav.setViewName("/apt/aptDetailPrice");
 		} else if (type.equalsIgnoreCase("consulting")) {
-			System.out.println("consulting");
 			mav.setViewName("/apt/consultingMenu");
 			mav.addObject("aptCode", kaptCode);
 		}
@@ -93,7 +97,7 @@ public class AptController {
 		AptAllInfoVO aptOverlay = new AptAllInfoVO();
 		aptOverlay.setAptBasicVO(aptBasic);
 		aptOverlay.setAptDetailVO(aptDetail);
-
+		
 		return aptOverlay;
 	}
 
@@ -139,5 +143,72 @@ public class AptController {
 			json.put(Double.toString(vo.getArea()),aptPriceToArea);
 		}
 		return json;
+	}
+	
+	@RequestMapping("/basketCheck")
+	@ResponseBody
+	public BasketVO basketCheck(@RequestParam("kaptCode") String kaptCode, @RequestParam("userNo") String userNo) {
+		BasketVO basket = new BasketVO();
+		basket.setKaptCode(kaptCode);
+		basket.setUserNo(Integer.parseInt(userNo));
+		BasketVO basketCheck = aptService.selectBasketOne(basket);
+		return basketCheck;
+	}
+	
+	@RequestMapping("/addBasket")
+	@ResponseBody
+	public void basketInsert(@RequestParam("kaptCode") String kaptCode, @RequestParam("userNo") String userNo) {
+		BasketVO basket = new BasketVO();
+		basket.setKaptCode(kaptCode);
+		basket.setUserNo(Integer.parseInt(userNo));
+		aptService.insertBasket(basket);
+	}
+	
+	@RequestMapping("/removeBasket")
+	@ResponseBody
+	public void basketDelete(@RequestParam("kaptCode") String kaptCode, @RequestParam("userNo") String userNo) {
+		BasketVO basket = new BasketVO();
+		basket.setKaptCode(kaptCode);
+		basket.setUserNo(Integer.parseInt(userNo));
+		aptService.deleteBasket(basket);
+	}
+	
+	@RequestMapping("/bookMark")
+	public ModelAndView aptBasket(HttpSession session
+								, @RequestParam(required = false, defaultValue = "1") int page
+								, @RequestParam(required = false, defaultValue = "1") int range) {
+		ModelAndView mav = new ModelAndView("apt/aptBasket");
+
+		MemberVO loginVO = (MemberVO)session.getAttribute("loginVO");
+		//1. 로그인한 user의 basket count를 가져온다.
+		int listCnt = aptService.selectBasketCnt(loginVO.getUserNo());
+		Pagination pagination = new Pagination(15, 10);
+		pagination.pageInfo(page, range, listCnt);
+		Map<String, Object> pagingMap = new HashMap<>();
+		pagingMap.put("pagination", pagination);
+		pagingMap.put("userNo", loginVO.getUserNo());
+		
+		List<BasketVO> basket = aptService.selectBasketAll(pagingMap);
+		List<AptAllInfoVO> aptInfo = new ArrayList<>();
+		for(BasketVO vo : basket) {
+			AptBasicVO aptBasic = aptService.selectAptBasic(vo.getKaptCode());
+			AptDetailVO aptDetail = aptService.selectAptDetailInOverlay(vo.getKaptCode());
+			AptAllInfoVO aptAllInfo = new AptAllInfoVO();
+			aptAllInfo.setAptBasicVO(aptBasic);
+			aptAllInfo.setAptDetailVO(aptDetail);
+			aptInfo.add(aptAllInfo);
+		}
+		mav.addObject("aptInfo", aptInfo);
+		mav.addObject("pagination", pagination);
+		return mav;
+	}
+	@RequestMapping("/bookMark/{kaptCode}")
+	public ModelAndView basketDetail(@PathVariable("kaptCode") String kaptCode) {
+		ModelAndView mav = new ModelAndView("apt/aptMap");
+		Map<String, Object> map = new HashMap<>();
+		AptLatLngVO aptLatLng = aptService.selectLatLng(kaptCode);
+		map.put(kaptCode, aptLatLng);
+		mav.addObject("basketMove", map);
+		return mav;
 	}
 }

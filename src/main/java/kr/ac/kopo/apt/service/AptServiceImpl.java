@@ -1,6 +1,7 @@
 package kr.ac.kopo.apt.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import kr.ac.kopo.apt.vo.AptLatLngVO;
 import kr.ac.kopo.apt.vo.AptPriceChartVO;
 import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.apt.vo.AptSearchVO;
+import kr.ac.kopo.apt.vo.BasketVO;
 
 @Service
 public class AptServiceImpl implements AptService{
@@ -78,5 +80,32 @@ public class AptServiceImpl implements AptService{
 	public List<AptPriceChartVO> selectAptPriceChartAreaYYMM(AptPriceChartVO vo) {
 		List<AptPriceChartVO> aptPriceChartArea = aptDAO.selectAptPriceChartArea(vo);
 		return aptPriceChartArea;
+	}
+
+	@Override
+	public BasketVO selectBasketOne(BasketVO basket) {
+		BasketVO basketVO = aptDAO.selectBasketOne(basket);
+		return basketVO;
+	}
+
+	@Override
+	public void insertBasket(BasketVO basket) {
+		aptDAO.insertBasket(basket);
+	}
+
+	@Override
+	public void deleteBasket(BasketVO basket) {
+		aptDAO.deleteBasket(basket);
+	}
+
+	@Override
+	public int selectBasketCnt(int userNo) {
+		int cnt = aptDAO.selectBasketCnt(userNo);
+		return cnt;
+	}
+
+	@Override
+	public List<BasketVO> selectBasketAll(Map<String, Object> pagingMap) {
+		return aptDAO.selectBasketAll(pagingMap);
 	}
 }

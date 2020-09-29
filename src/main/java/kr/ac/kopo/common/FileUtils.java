@@ -17,7 +17,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.ac.kopo.counselor.vo.LoanProductVO;
 
-@Component("fileUtils")
+//@Component("fileUtils")
+@Component
 public class FileUtils {
 	@Autowired
 	ServletContext servletContext;

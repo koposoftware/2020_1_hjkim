@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
+	var basketDetailCheck = basketCheck('${ detailVO.aptBasicVO.kaptCode}')
+	$('#basketIcon').attr('class', basketDetailCheck)
+</script>
 <div class="detail-aptName">
 	<h2>${ detailVO.aptBasicVO.kaptName }
+	<i id="basketIcon" onclick="basket('${ detailVO.aptBasicVO.kaptCode}',this)"></i>
 	<c:if test="${ loginVO.type eq 'u' or loginVO.type eq 'U' or empty loginVO}">
 		<button onclick="goBackToMap()" class="btn btn-outline-info btn-goMap btn-sm">지도로 돌아가기</button>
 	</c:if></h2>

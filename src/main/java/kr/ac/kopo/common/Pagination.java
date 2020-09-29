@@ -14,7 +14,12 @@ public class Pagination {
 	private boolean prev;
 	private boolean next;
 
-	
+	public Pagination() {}
+	public Pagination(int listSize, int rangeSize) {
+		this.listSize = listSize;
+		this.rangeSize = rangeSize;
+	}
+
 	public int getEndList() {
 		return endList;
 	}
