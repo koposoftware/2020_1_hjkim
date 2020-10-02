@@ -422,6 +422,7 @@ Extra height css
 #fh5co-header #fh5co-main-nav {
 	float: right;
 	margin-right: -7px;
+	margin-top: 20px !important;
 }
 
 /* #fh5co-header > .container {

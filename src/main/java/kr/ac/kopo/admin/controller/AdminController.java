@@ -46,7 +46,7 @@ public class AdminController {
 	
 	@GetMapping("/ltvRegister")
 	public String ltvRegister(){
-		return "/admin/ltvInput";
+		return "admin/calcLoan/ltvInput";
 	}
 	@PostMapping("/ltvRegister")
 	@ResponseBody

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="margin-top-20">
-	<span class="select-box-text">평수를 선택해 보세요 :-)</span>
+	<span class="select-box-text">평수를 선택해 보세요 </span>
 	<select class="dropdown" id="dd">
 		<option value="all" selected="selected">전체</option>
 	</select>
@@ -39,6 +39,7 @@
 	$.getJSON("${ pageContext.request.contextPath }/apt/priceChart.json?aptCode=${ aptCode }", addData);
 	function addData(data) {
 		var title = Object.keys(data)
+		console.log(title)
 		for (var i = 0; i < title.length; i++) {
 			var dataPointPush = [], dataPointMin = [], dataPointMax = [];
 
@@ -47,7 +48,9 @@
 				var xy = data[title[i]]
 				var date = String(xy[j].yymm);
 				var yyyy = date.substr(0, 4);
-				var mm = date.substr(5, 3);
+				var mm = date.substr(4, 2);
+				console.log(data)
+				console.log(yyyy + " " + mm)
 				var formatX = yyyy + "년" + mm + "월"
 				var com_ym = new Date(yyyy, mm - 1, 31);
 

@@ -17,7 +17,7 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<nav id="fh5co-main-nav" role="navigation">
+		<nav id="fh5co-main-nav" role="navigation" class="my-auto">
 			<c:choose>
 				<c:when test="${ loginVO.type eq 'a' or loginVO.type eq 'A'}">
 					<ul>
@@ -59,17 +59,7 @@
 					<ul>
 						<li><a href="${ pageContext.request.contextPath }/apt/aptMap">아파트 검색</a></li>
 						<li><a href="${ pageContext.request.contextPath }/apt/bookMark">My하나방</a></li>
-						<li class="has-sub">
-							<div class="drop-down-menu">
-								<a href="services.html">대출상담</a>
-								<div class="dropdown-menu-wrap">
-									<ul>
-										<li><a href="${ pageContext.request.contextPath }/onlineConsulting">온라인상담</a></li>
-										<li><a href="${ pageContext.request.contextPath }/offlineConsulting">오프라인상담예약</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
+						<li><a href="${ pageContext.request.contextPath }/chat/online">온라인 상담</a></li>
 						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
 						<c:choose>
 							<c:when test="${ empty loginVO }">

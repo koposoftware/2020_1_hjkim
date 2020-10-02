@@ -63,6 +63,9 @@
 		<div class="container">
 			<div class="owl-carousel owl-carousel-main margin-top-100">
 				<div>
+					<img src="${ pageContext.request.contextPath }/resources/images/mainbg2.png" alt="Free HTML5 Website Template">
+				</div>
+				<div>
 					<img src="${ pageContext.request.contextPath }/resources/images/mainbg.jpg" alt="Free HTML5 Website Template">
 				</div>
 				<div>

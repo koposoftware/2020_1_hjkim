@@ -47,9 +47,9 @@
 				var pdfContent = '';
 	            pdfContent += "<div class='pdf-msg'>"
 	            pdfContent += "   <p><a href='#' onclick='fn_fileDown("+ data.fileNo +"); return false;'>" + data.orgFileName + "</a>" + data.fileSize + "(kb)</p>"
-	            pdfContent += "</div>"
-	            addMsg(pdfContent)
-				console.log(data.orgFileName)
+	            pdfContent += "</div>";
+	            
+	            addMsg(pdfContent);
 			}
 		})
 	}
@@ -140,9 +140,9 @@
 			$('.chat-body').scrollTop($('.chat-body')[0].scrollHeight);
 			sendMsg();
 			$('#chatMsg').val("");
-		})
+		});
 		$('#toExcelBtn').on("click", function(){
-			post_to_url('${pageContext.request.contextPath}/chat/downloadExcel',{'arr': summaryJson})
+			post_to_url('${pageContext.request.contextPath}/chat/downloadExcel',{'arr': summaryJson, 'kaptCode': '${ kaptCode }'})
 		})
 	})
 

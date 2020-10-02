@@ -19,6 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
 import kr.ac.kopo.admin.vo.ProductFileVO;
+import kr.ac.kopo.apt.service.AptService;
+import kr.ac.kopo.apt.vo.AptAllInfoVO;
+import kr.ac.kopo.apt.vo.AptBasicVO;
+import kr.ac.kopo.apt.vo.AptDetailVO;
+import kr.ac.kopo.apt.vo.AptPriceVO;
 import kr.ac.kopo.chat.service.ChatService;
 import kr.ac.kopo.chat.vo.ChatHistoryVO;
 import kr.ac.kopo.chat.vo.ChatListUserNameVO;
@@ -30,6 +35,9 @@ import kr.ac.kopo.counselor.vo.LoanProductVO;
 public class ChatController {
 	@Autowired
 	private ChatService chatService;
+	@Autowired
+	private AptService aptService;
+	
 	
 	@RequestMapping("/chat")
 	@ResponseBody
@@ -76,11 +84,20 @@ public class ChatController {
 	@ResponseBody
 	public ModelAndView excelConvert(HttpServletRequest request) {
 		String summary = request.getParameter("arr");
+		String kaptCode = request.getParameter("kaptCode");
+		System.out.println("kaptCode : " + kaptCode);
+		AptBasicVO aptBasic = aptService.selectAptBasic(kaptCode);
+		AptDetailVO aptDetail = aptService.selectAptDetailInOverlay(kaptCode);
+		
 		Gson gson = new Gson();
 		ExcelDownloadVO[] excelData= gson.fromJson(summary, ExcelDownloadVO[].class);
 		List<ExcelDownloadVO> excelList = Arrays.asList(excelData);
 		ModelAndView mav = new ModelAndView("chatting/downloadExcel");
 		mav.addObject("excelList", excelList);
+		mav.addObject("aptBasic",aptBasic);
+		mav.addObject("aptDetail",aptDetail);
+		List<AptPriceVO> aptPrice = aptService.selectAptPrice(kaptCode);
+		mav.addObject("aptPriceList", aptPrice);
 		return mav;
 	}
 	
@@ -92,5 +109,10 @@ public class ChatController {
 		ProductFileVO loanFileVO = chatService.selectFile(fileNo);
 		System.out.println(loanFileVO.toString());
 		return loanFileVO;
+	}
+	
+	@RequestMapping("/chat/online")
+	public String onlineChat() {
+		return "chatting/onlineConsulting";
 	}
 }
