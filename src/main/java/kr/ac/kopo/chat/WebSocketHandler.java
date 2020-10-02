@@ -110,6 +110,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 			int userNo = object.getInt("userid");
 			int findChatNo = chatMap.get(userNo);
 			String msg = object.getString("msg");
+			msg = msg.replace("\\n", "<br>");
+			System.out.println("msg : " + msg);
 			WebSocketSession ws = null;
 			for (Map.Entry<Integer, Integer> element : chatMap.entrySet()) {
 				int key = element.getKey();
