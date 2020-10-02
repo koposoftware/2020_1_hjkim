@@ -41,7 +41,7 @@
 				<div class="container">
 					<ul class="row">
 						<li class="col-12 col-lg-4">
-							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='#'">
+							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='${ pageContext.request.contextPath }/apt/aptMa'">
 								<figure>
 									<img src="${ pageContext.request.contextPath }/resources/images/mainbtn/search.png" class="img-responsive" alt="">
 								</figure>
@@ -52,7 +52,7 @@
 							</div>
 						</li>
 						<li class="col-12 col-lg-4">
-							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='#'">
+							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='${ pageContext.request.contextPath }/apt/bookMark'">
 								<figure>
 									<img src="${ pageContext.request.contextPath }/resources/images/mainbtn/save.png" class="img-responsive" alt="">
 								</figure>
@@ -63,13 +63,13 @@
 							</div>
 						</li>
 						<li class="col-12 col-lg-4">
-							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='#'">
+							<div class="cnt-block equal-hight" style="height: 349px;" OnClick="location.href ='${ pageContext.request.contextPath }/chat/online'">
 								<figure>
 									<img src="${ pageContext.request.contextPath }/resources/images/mainbtn/loan.png" class="img-responsive" alt="">
 								</figure>
 								<h3>대출 상담</h3>
 								<p>
-									모바일 상담/ 오프라인 상담예약을<br>할 수 있습니다.
+									온라인 상담을<br>할 수 있습니다.
 								</p>
 							</div>
 						</li>
