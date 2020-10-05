@@ -1,28 +1,39 @@
-# 프로젝트 제목
+# Hanabang
 
-[프로젝트 홈페이지 - https://koposoftware.github.io/template/](https://koposoftware.github.io/template/)
+[프로젝트 홈페이지 - https://koposoftware.github.io/2020_1_hjkim/](https://koposoftware.github.io/2020_1_hjkim/)
 
 # 1. 프로젝트 개요
 
-이것은 프로젝트 개요입니다. 글과 그림을 이용하여 개요를 설명하세요.
+ 하나방은 국토교통부의 오픈 API를 이용하여 부동산 실거래가에 관련한 정보를 제공하는 웹 사이트이다. 
+ 
+ 금융 웹 프로젝트에 맞게 아파트에 관한 대출한도 조회를 할 수 있으며, 대출 관련 온라인 상담을 할 수 있는 서비스 이다. 
+
+
+ 타행사인 국민은행은 Liiv on이라는 부동산 서비스를 운영하고 있으며, 우리은행은 아파트담보대출가능금액조회 서비스를 운영하고 있다. 
+ 하나은행은 하나라운지 안의 [골드 클럽]에 들어가면 부동산 전문가가 컨설팅을 도와주지만 이외에는 부동산 관련 서비스가 없다.
+
+
+ 가계 대출의 비중 중 주택담보대출이 차지하는 비율이 상당수이기 때문에 고객에게 정보 제공하는 것이 필요하다고 생각하였다. 
+ 또한 주택담보대출과 관련한 편리한 서비스(온라인 상담, 대출 한도 조회)를 제공해야 한다고 생각했기에 하나방을 기획하게 되었다.
+
+
+
 
 # 2. 프로젝트 제안서
 
-프로젝트 제안서를 설명하세요. 발표자료와 동영상을 추가하세요. 시스템의 아키텍쳐 설명도 추가하세요.
-
-   <img src="ppt.jpg"/>[발표자료](/project.pptx)<br>
-   <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/6LxbdIjWP04" frameborder="0"></iframe>
- 
-
+   <img src="ppt.jpg"/>[Hanabang 제안서](./gitDoc/[최종프로젝트] 제안서 - 김혜주.pptx)<br>
+    ### 😁 WorkFlow
+   <img src="./githubimg/workflow.jpg"/>
+   
+   
 # 3. 프로젝트 결과
-프로젝트 결과를 추가하세요. 발표자료. 시연동영상을 추가하세요.
 
 ## 발표 ppt 
-   <img src="ppt.jpg"/>[발표자료](/project.pptx)<br>
+   <img src="ppt.jpg"/>[발표자료](./gitDoc/[최종프로젝트] 제안서 - 김혜주.pptx)|<br>
 
 ## 시연 동영상 
 
-   <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/6LxbdIjWP04" frameborder="0"></iframe>
+   <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/wZgTAmqRRF4" frameborder="0"></iframe>
 
 # 4. 본인 소개
 
@@ -31,8 +42,9 @@
 |skill set| Frontend - HTML, CSS, Javascript|
 | | Backend - Java, Spring, Oracle|
 |자격증| sqld, 정보처리기사 |
-|수상|  | 
-|특기사항|  |
+|수상| 입선- ICT 한이음 공모전(QR코드를 이용한 유통기한 관리 애플리케이션) | 
+|특기사항| 2019년.03월 ~ 2019년 12월 (동아리활동- 멋쟁이 사자처럼 : Django를 이용합 웹 어플리케이션 개발, React-native를 이용한 어플리케이션 개발) <br>
+           2019년.04월 ~ 2019년 11월 (06개월) ICT 한이음 멘토링 |
 
 # 5. 기타
 
