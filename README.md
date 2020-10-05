@@ -21,7 +21,7 @@
 <br>
 
 # 2. 프로젝트 제안서
-<img src="./githubimg/hanabang.png"/> <br> 
+<img src="./githubimg/hanabang-logo.png"/> <br> 
 ### [🤩Hanabang 제안서](./gitDoc/제안서.pptx) <br> <hr>
 ### ❤ WorkFlow <br>
    <img src="./githubimg/workflow.jpg"/>
@@ -31,7 +31,7 @@
    
 # 3. 프로젝트 결과
 
-<img src="./githubimg/hanabang.png"/> <br> 
+<img src="./githubimg/hanabang-logo.png"/> <br> 
 ### [🤩Hanabang 발표자료](./gitDoc/최종프로젝트발표.pptx) <br>
 
 ## 시연 동영상 
