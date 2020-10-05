@@ -20,8 +20,9 @@
 
 
 # 2. 프로젝트 제안서
-   <img src="ppt.jpg"/>   <br> 
+   <img src="ppt.jpg"/> <br> 
    ### [🤩Hanabang 제안서](./gitDoc/제안서.pptx) <br>
+   
    ### ❤ WorkFlow <br>
    <img src="./githubimg/workflow.jpg"/>
    
