@@ -16,20 +16,22 @@
  가계 대출의 비중 중 주택담보대출이 차지하는 비율이 상당수이기 때문에 고객에게 정보 제공하는 것이 필요하다고 생각하였다. 
  또한 주택담보대출과 관련한 편리한 서비스(온라인 상담, 대출 한도 조회)를 제공해야 한다고 생각했기에 하나방을 기획하게 되었다.
 
-
-
+<br>
+<br>
+<br>
 
 # 2. 프로젝트 제안서
-   <img src="ppt.jpg"/> <br> 
-   ### [🤩Hanabang 제안서](./gitDoc/제안서.pptx) <br>
-   
-   ### ❤ WorkFlow <br>
+<img src="./githubimg/hanabang.png"/> <br> 
+### [🤩Hanabang 제안서](./gitDoc/제안서.pptx) <br> <hr>
+### ❤ WorkFlow <br>
    <img src="./githubimg/workflow.jpg"/>
-   
+<br>
+<br>
+<br>
    
 # 3. 프로젝트 결과
-## 발표 ppt 
-   <img src="ppt.jpg"/>
+
+<img src="./githubimg/hanabang.png"/> <br> 
 ### [🤩Hanabang 발표자료](./gitDoc/최종프로젝트발표.pptx) <br>
 
 ## 시연 동영상 
