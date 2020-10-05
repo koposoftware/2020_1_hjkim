@@ -10,6 +10,10 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/jsp/include/link.jsp" />
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/modal.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/style.css">
+<script src="${ pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/modal.min.js"></script>
 <script>
 	var ws;
 	var userNo = ${loginVO.userNo};
@@ -366,7 +370,7 @@
 											<select class="custom-select" id="productPdfSelect" aria-label="Example select with button addon">
 												<option selected value="0">상품을 선택하세요</option>
 												<c:forEach var="file" items="${ fileList }">
-													<option value="${ file.fileNo }">${ file.orgFileName }&nbsp;&nbsp;&nbsp; ${ file.fileSize }(kb)</option>
+													<option value="${ file.fileNo }">${ file.orgFileName }&nbsp;&nbsp;&nbsp;${ file.fileSize }(kb)</option>
 												</c:forEach>
 											</select>
 											<div class="input-group-append">
@@ -414,7 +418,9 @@
 							</div>
 							<div class="card col-6">
 								<div class="card-title">
-									<h4 class="auto-title">My 문구</h4>
+									<h4 class="auto-title">
+										My 문구<i class="fas fa-plus-circle float-right" data-toggle="modal" data-target="#myModal"></i>
+									</h4>
 									<input class="form-control" id="searchCounselor" type="text" placeholder="Search..">
 								</div>
 								<div class="card-body">
@@ -494,7 +500,43 @@
 					$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 				});
 			});
+			
 		});
+		function registerWord(){
+			console.log($('.auto-word').val())
+			$.ajax({
+				url: '${pageContext.request.contextPath}/counselor/autoWord',
+				type: 'POST',
+				data: {
+					word: $('.auto-word').val()
+				},success: function(data){
+					console.log('등록성공')
+					$('#counselorTable').html(data);
+				}
+			})	
+		}
+		
 	</script>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="opacity: 2; z-index: 1050; overflow: hidden;">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3 class="modal-title" id="myModalLabel">자동문구 등록</h3>
+				</div>
+				<div class="modal-body">
+					<div>자동문구를 입력해주세요.</div>
+					<textarea rows="5" class="auto-word"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-default auto-word-btn" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-sm btn-primary auto-word-btn" onclick="registerWord()" data-dismiss="modal">등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

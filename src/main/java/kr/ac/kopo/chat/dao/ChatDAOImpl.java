@@ -80,5 +80,10 @@ public class ChatDAOImpl implements ChatDAO{
 	public ProductFileVO selectFile(int fileNo) {
 		return sqlSession.selectOne("consulting.dao.consultingDAO.selectFile", fileNo);
 	}
+
+	@Override
+	public List<ChatHistoryVO> selectHistoryDetail(int chatNo) {
+		return sqlSession.selectList("consulting.dao.consultingDAO.selectHistoryDetail", chatNo);
+	}
 	
 }

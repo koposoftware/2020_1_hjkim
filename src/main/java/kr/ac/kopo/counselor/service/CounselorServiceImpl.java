@@ -33,6 +33,12 @@ public class CounselorServiceImpl implements CounselorService {
 	@Override
 	public List<ProductFileVO> selectFileList() {
 		return counselorDAO.selectFileList();
+	}
+
+	@Override
+	public void insertAutoWordCounselor(ChatAutoVO autoWord) {
+		counselorDAO.insertAutoWordCounselor(autoWord);
 	} 
+	
 	
 }

@@ -115,4 +115,12 @@ public class ChatController {
 	public String onlineChat() {
 		return "chatting/onlineConsulting";
 	}
+	
+	@RequestMapping("/chat/chatHistoryDetail")
+	@ResponseBody
+	public List<ChatHistoryVO> chatHistoryDetail(@RequestParam("chatNo") int chatNo){
+		System.out.println(chatNo);
+		List<ChatHistoryVO> history = chatService.selectHistoryDetail(chatNo);
+		return history;
+	}
 }

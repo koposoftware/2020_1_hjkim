@@ -2974,3 +2974,25 @@ section.container-fluid {
 	max-height: 340px;
 	overflow-y :auto; 
 }
+.auto-word{
+    width: 100%;
+    border: 1px solid #27b2a5;
+    resize: none;
+}
+.auto-word-btn{
+    border-radius: 30px;
+    border: 1px solid #27b2a5;
+}
+
+#historyDetail .modal-body{
+    height: 400px;
+    max-height: 390px;
+    overflow-y: auto;
+}
+#historyDetail .modal-body table tbody th{
+	vertical-align: middle;
+	width: 20%;
+}
+#historyDetail .modal-body table tbody td{
+	font-family: sans-serif;
+}

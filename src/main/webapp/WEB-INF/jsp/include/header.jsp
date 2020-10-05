@@ -23,8 +23,8 @@
 					<ul>
 						<li><a href="${ pageContext.request.contextPath }/admin/ltvRegister">LTV등록</a></li>
 						<li><a href="${ pageContext.request.contextPath }/admin/productList">대출상품</a></li>
-						<li><a href="${ pageContext.request.contextPath }/admin">상담 내역 관리</a></li>
-						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
+						<li><a href="${ pageContext.request.contextPath }/admin/autoWord">자동문구</a></li>
+						<li><a href="${ pageContext.request.contextPath }/board">상담사등록</a></li>
 						<c:choose>
 							<c:when test="${ empty loginVO }">
 								<li class="cta"><a href="${ pageContext.request.contextPath }/login">로그인</a></li>
@@ -40,7 +40,7 @@
 				<c:when test="${ loginVO.type eq 'c' or loginVO.type eq 'C'}">
 					<ul>
 						<li><a href="${ pageContext.request.contextPath }/consulting/online">온라인상담</a></li>
-						<li><a href="${ pageContext.request.contextPath }/consulting/offline">오프라인 상담 일정</a></li>
+						<li><a href="${ pageContext.request.contextPath }/consulting/offline">자동문구</a></li>
 						<li><a href="${ pageContext.request.contextPath }/consulting/history">History</a></li>
 						<li><a href="${ pageContext.request.contextPath }/board">고객의소리</a></li>
 						<c:choose>

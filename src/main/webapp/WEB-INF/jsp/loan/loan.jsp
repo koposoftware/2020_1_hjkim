@@ -149,21 +149,21 @@
 						<th scope="row" rowspan="4">9억이하</th>
 						<td>서민실수요자</td>
 						<td>50%</td>
-						<td>50%</td>
+						<td>60%</td>
 						<td>70%</td>
 						<td>70%</td>
 					</tr>
 					<tr>
 						<td>무주택자</td>
 						<td>40%</td>
-						<td>40%</td>
+						<td>50%</td>
 						<td>70%</td>
 						<td>70%</td>
 					</tr>
 					<tr>
 						<td>1주택 보유자</td>
 						<td>40%</td>
-						<td>40%</td>
+						<td>50%</td>
 						<td>70%</td>
 						<td>70%</td>
 					</tr>
@@ -178,25 +178,25 @@
 						<th scope="row" rowspan="2">9억 초과</th>
 						<td>9억 이하분</td>
 						<td>40%</td>
-						<td>40%</td>
+						<td>50%</td>
 						<td colspan="4" rowspan="4">공시가격 9억 이하<br>주택 구입 기준과 동일
 						</td>
 					</tr>
 					<tr>
 						<td>9억 초과분</td>
 						<td>20%</td>
-						<td>20%</td>
+						<td>30%</td>
 					</tr>
 					<tr>
 						<th scope="row" rowspan="2">15억 초과</th>
 						<td>9억 이하분</td>
 						<td>불가</td>
-						<td>40%</td>
+						<td>50%</td>
 					</tr>
 					<tr>
 						<td>9억 초과분</td>
 						<td>불가</td>
-						<td>20%</td>
+						<td>30%</td>
 					</tr>
 				</tbody>
 			</table>
@@ -217,7 +217,7 @@
 			<div class="form-group row">
 				<label for="lgFormGroupInput" class="col-sm-3 col-form-label col-form-label-lg loan-form">선택한 아파트</label>
 				<div class="col-sm-7">
-					<input type="email" class="form-control form-control-lg" id="lgFormGroupInput" value="${ aptName }">
+					<input type="text" class="form-control form-control-lg" id="lgFormGroupInput" value="${ aptName }" autocomplete="off">
 				</div>
 			</div>
 			<div class="form-group row">
@@ -246,7 +246,7 @@
 				<div class="form-group row lgFormGroupFloor">
 					<label for="lgFormGroupFloor" class="col-sm-3 col-form-label col-form-label-lg loan-form">아파트 층수</label>
 					<div class="col-sm-7">
-						<input type="email" class="form-control form-control-lg" id="lgFormGroupFloor" placeholder="층수를 입력하세요">
+						<input type="text" class="form-control form-control-lg" id="lgFormGroupFloor" placeholder="층수를 입력하세요" autocomplete="off">
 					</div>
 					<div class="col-sm-2 loan-form-sub-text">층</div>
 				</div>

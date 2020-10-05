@@ -27,6 +27,7 @@
 
 		<c:if test="${ not empty basketMove }">
 			<c:forEach var="entry" items="${basketMove}">
+				displayList('clear')
 				aptDetailInfo('${entry.key}')
 				aptMoveCenter('${entry.value.lat}','${entry.value.lng}')
 			</c:forEach>
@@ -43,9 +44,15 @@
 			$(".map-class").css('display', 'block');
 		</c:if>
 		
-		$('#searchTextBox').keyup(function() {
-			searchKeyword($('#searchTextBox').val());
+		$('#searchTextBox').keyup(function(key) {
+			if(key.keyCode == 13){
+				searchKeyword($('#searchTextBox').val());
+			}
+			if($('#searchTextBox').val()==""){
+				$('#apt-search-list').html("");
+			}
 		})
+		
 	})
 
 	function searchClick() {
@@ -82,7 +89,7 @@
 					<div class="sidebar-search">
 						<div>
 							<div class="input-group">
-								<input type="text" class="form-control search-menu" id="searchTextBox" placeholder="Search...">
+								<input type="text" class="form-control search-menu" id="searchTextBox" placeholder="Search..." autocomplete="off">
 								<div class="input-group-append" onclick="searchClick()">
 									<span class="input-group-text"> <i class="fa fa-search" aria-hidden="true"></i>
 									</span>
@@ -94,7 +101,7 @@
 				<div class="sidebar-content">
 					<!-- sidebar-search  -->
 					<div class="sidebar-menu">
-						<div id="apt-search-list" class="search-box"></div>
+						<div id="apt-search-list"></div>
 						<div id="apt-click-list"></div>
 						<div class="header-menu">
 							<span>이 지역 아파트 목록</span>
@@ -478,6 +485,7 @@
 		function loginCheck() {
 			jAlert('장바구니 기능은 로그인 후 이용 가능합니다.', '로그인');
 		}
+		
 	</script>
 	<script>
 		jQuery(function($) {

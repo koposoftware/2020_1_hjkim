@@ -36,5 +36,10 @@ public class CounselorDAOImpl implements CounselorDAO {
 	public List<ProductFileVO> selectFileList() {
 		return sqlSession.selectList("counselor.dao.counselorDAO.selectFileList");
 	}
+
+	@Override
+	public void insertAutoWordCounselor(ChatAutoVO autoWord) {
+		sqlSession.insert("counselor.dao.counselorDAO.insertAutoWordCounselor", autoWord);
+	}
 	
 }

@@ -70,4 +70,11 @@ public interface ChatDAO {
 	 * @return
 	 */
 	ProductFileVO selectFile(int fileNo);
+	
+	/**
+	 * 상담 상세보기
+	 * @param chatNo
+	 * @return
+	 */
+	List<ChatHistoryVO> selectHistoryDetail(int chatNo);
 }

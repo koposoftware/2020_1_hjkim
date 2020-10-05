@@ -10,8 +10,11 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/jsp/include/link.jsp" />
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/modal.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/style.css">
+<script src="${ pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/js/modal.min.js"></script>
 <script src="${ pageContext.request.contextPath }/resources/js/paging.js"></script>
-
 <script>
 
 	$(function() {
@@ -27,10 +30,36 @@
 				range : range
 			},
 			success : function(data) {
-				console.log(page, range)
 				$('#chatList').html(data)
 			}
 		})
+	}
+	
+	/* 클릭시 모달팝업 */
+	function chatDetail(chatNo){
+		console.log(chatNo)
+		$.ajax({
+			url : '${ pageContext.request.contextPath }/chat/chatHistoryDetail',
+			type : 'post',
+			data : {
+				chatNo : chatNo
+			},
+			success : function(data){
+				var historyContent = '';
+				for(let i = 0; i < data.length; i++){
+					historyContent += '<tr>'
+					if(data[i].sender == '${loginVO.userNo}'){
+						historyContent += '		<th scope="row"> 나 </th>'
+					}else {
+						historyContent += '		<th scope="row"> 손님 </th>'
+					}
+					historyContent += '		<td>' + data[i].content +'</td>'
+					historyContent += '</tr>'
+				}
+				$('.historyContent').html(historyContent);
+			}
+		}) 
+		$('#historyDetail').modal('show')
 	}
 </script>
 </head>
@@ -61,5 +90,27 @@
 		<%@include file="/WEB-INF/jsp/include/footer.jsp"%>
 	</footer>
 	<!-- End of footer -->
+	<!-- Modal -->
+	<div class="modal fade" id="historyDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="opacity: 2; z-index: 1050; overflow: hidden;">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3 class="modal-title" id="myModalLabel">상담 대화 내역</h3>
+				</div>
+				<div class="modal-body">
+					<table class="table">
+						<tbody class="historyContent">
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-default auto-word-btn" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -28,6 +28,11 @@ public interface CounselorService {
 	 * @return
 	 */
 	List<ProductFileVO> selectFileList();
+	/**
+	 * 상담사 자동문구 등록
+	 * @param autoWord
+	 */
+	void insertAutoWordCounselor(ChatAutoVO autoWord);
 	
 
 }

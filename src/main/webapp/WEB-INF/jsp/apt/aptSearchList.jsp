@@ -5,7 +5,7 @@
 	<span>검색 목록</span>
 </div>
 
-<div class="search-box">
+<div class="search-box" id="search-box">
 	<c:if test="${ not empty aptBasicAndLatLngList }">
 		<c:forEach var="aptBasicAndLatLng" items="${ aptBasicAndLatLngList }">
 			<div class="apt-search-one" onclick="aptDetailInfo('${ aptBasicAndLatLng.aptBasicVO.kaptCode }');aptMoveCenter('${ aptBasicAndLatLng.aptLatLngVO.lat }','${ aptBasicAndLatLng.aptLatLngVO.lng }')">

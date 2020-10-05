@@ -45,5 +45,8 @@
         from f_product_file
        where del_gb = 'n'
    </select>
-   
+   <insert id="insertAutoWordCounselor" parameterType="chatAutoVO">
+      insert into f_chat_auto(auto_no, user_no, content)
+       values (SEQ_F_CHAT_AUTO_NO.nextval, #{userNo}, #{content})
+   </insert>
 </mapper>

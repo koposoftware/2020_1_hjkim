@@ -5,6 +5,7 @@
 <mapper namespace="consulting.dao.consultingDAO">
    <resultMap type="historyVO" id="historyMap">
       <result column="chat_no" property="chatNo" />
+      <result column="send_date" property="sendDate" />
    </resultMap>
    <resultMap type="chatListVO" id="chatListMap">
       <result column="rn" property="rn"/>
@@ -122,7 +123,7 @@
                from (
                       select * from f_chat_list
                        where (counselor = #{userNo} or user_no = #{userNo})and end_date is not null
-                       order by start_date asc
+                       order by start_date desc
                      )
             ) A  left outer join f_member B on a.user_no = b.user_no
                  left outer join f_member C on a.counselor = c.user_no
@@ -142,5 +143,11 @@
       select file_no, product_code, org_file_name, stored_file_name, round(file_size/1024, 1) as file_size, reg_date, del_gb
         from f_product_file
        where file_no = #{no} and del_gb = 'n'
+   </select>
+   
+   <select id="selectHistoryDetail" parameterType="int" resultMap="historyMap">
+      select chat_no, sender, receiver, content, send_date
+        from f_chat_history
+       where chat_no = #{chatNo}
    </select>
 </mapper>

@@ -15,7 +15,7 @@
 			<td>1</td>
 			<td>주택가격</td>
 			<td></td>
-			<td>${ resultVO.aptPrice }(만원)</td>
+			<td>${ resultVO.aptPrice }(만 원)</td>
 		</tr>
 		<tr>
 			<td>2</td>
@@ -62,7 +62,7 @@
 			<td>4</td>
 			<td>대출가능 금액</td>
 			<td>최대 대출 한도(주택가격 * LTV)</td>
-			<td>${ resultVO.loanMaxPrice }</td>
+			<td>${ resultVO.loanMaxPrice } (만 원)</td>
 		</tr>
 	</c:if>
 </table>

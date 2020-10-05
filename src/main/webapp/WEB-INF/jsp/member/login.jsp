@@ -82,7 +82,7 @@
 						</div>
 						<div class="panel-body">
 							<form role="form" action="${ pageContext.request.contextPath }/login" method="POST">
-								<fieldset>
+								<div>
 									<div class="row">
 										<div class="center-block">
 											<img class="profile-img" src="${ pageContext.request.contextPath }/resources/images/member/person.png" alt="">
@@ -93,7 +93,7 @@
 											<div class="form-group">
 												<div class="input-group">
 													<span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i>
-													</span> <input class="form-control login-input-form" placeholder="Username" name="id" type="text" autofocus>
+													</span> <input class="form-control login-input-form" placeholder="Username" name="id" type="text" autofocus autocomplete="off">
 												</div>
 											</div>
 											<div class="form-group">
@@ -108,7 +108,7 @@
 											</div>
 										</div>
 									</div>
-								</fieldset>
+								</div>
 							</form>
 							<div class="row">
 								<div class="form-group col-sm-12 col-md-10  col-md-offset-1 ">

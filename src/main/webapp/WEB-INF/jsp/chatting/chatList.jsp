@@ -16,7 +16,7 @@
 	</thead>
 	<tbody>
 		<c:forEach items="${ chatListUserNameList }" var="chat">
-			<tr>
+			<tr onclick="chatDetail(${ chat.chatListVO.chatNo})">
 				<td>${ chat.chatListVO.rn }</td>
 				<c:if test="${ loginVO.type eq 'u' or loginVO.type eq 'U' }">
 					<td width="40%">${ chat.counselorVO.name }상담사</td>

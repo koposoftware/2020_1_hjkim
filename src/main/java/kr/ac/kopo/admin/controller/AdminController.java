@@ -112,7 +112,7 @@ public class AdminController {
 	@PostMapping("/insertProduct")
 	public String productInsert(@Valid LoanProductVO productVO, MultipartHttpServletRequest mpRequest) throws Exception {
 		adminService.insertProduct(productVO, mpRequest);
-		return "redirect:/admin/product/product";
+		return "redirect:/admin/productList";
 	}
 	
 	@RequestMapping("/fileDown")
@@ -132,5 +132,10 @@ public class AdminController {
 		response.getOutputStream().write(fileByte);
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
+	}
+	
+	@GetMapping("/autoWord")
+	public String goAutoWord() {
+		return "admin/addAutoWord";
 	}
 }

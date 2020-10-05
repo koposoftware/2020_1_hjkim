@@ -15,4 +15,6 @@ public interface CounselorDAO {
 	LoanProductVO selectLoanProductOne(String productCode);
 
 	List<ProductFileVO> selectFileList();
+
+	void insertAutoWordCounselor(ChatAutoVO autoWord);
 }

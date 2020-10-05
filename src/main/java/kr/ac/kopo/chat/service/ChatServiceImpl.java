@@ -86,5 +86,11 @@ public class ChatServiceImpl implements ChatService{
 	public ProductFileVO selectFile(int fileNo) {
 		return chatDAO.selectFile(fileNo);
 	}
+
+	@Override
+	public List<ChatHistoryVO> selectHistoryDetail(int chatNo) {
+		List<ChatHistoryVO> history = chatDAO.selectHistoryDetail(chatNo);
+		return history;
+	}
 	
 }

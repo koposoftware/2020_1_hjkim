@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,6 @@ public class CounselorController {
 		List<ChatAutoVO> adminAutoList = counselorService.selectAutoWord(0);
 		List<ChatAutoVO> counselorAutoList = counselorService.selectAutoWord(loginVO.getUserNo());
 		mav.addObject("adminAutoList", adminAutoList);
-		mav.addObject("counselorAutoList", counselorAutoList);
 		
 		List<ProductFileVO> loanFileList = counselorService.selectFileList();
 		mav.addObject("fileList", loanFileList);
@@ -66,5 +66,21 @@ public class CounselorController {
 	public LoanProductVO loadLoanProductOne(@RequestParam("productCode") String productCode) {
 		LoanProductVO loan = counselorService.selectLoanProductOne(productCode);
 		return loan;
+	}
+	
+	@PostMapping("/counselor/autoWord")
+	@ResponseBody
+	@Transactional
+	public ModelAndView counselorAuto(@RequestParam("word") String word, HttpSession session){
+		ModelAndView mav = new ModelAndView("employee/addAutoWord");
+		MemberVO loginVO = (MemberVO) session.getAttribute("loginVO"); 
+		word = word.replace("\r\n", "<br>");
+		ChatAutoVO autoWord = new ChatAutoVO();
+		autoWord.setUserNo(loginVO.getUserNo());
+		autoWord.setContent(word);
+		counselorService.insertAutoWordCounselor(autoWord);
+		List<ChatAutoVO> counselorAutoList = counselorService.selectAutoWord(loginVO.getUserNo());
+		mav.addObject("counselorAutoList", counselorAutoList);
+		return mav;
 	}
 }
