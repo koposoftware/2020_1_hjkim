@@ -20,16 +20,16 @@
 
 
 # 2. 프로젝트 제안서
-
-   <img src="ppt.jpg"/>[Hanabang 제안서](./gitDoc/[최종프로젝트] 제안서 - 김혜주.pptx)<br>
-    ### 😁 WorkFlow
+   <img src="ppt.jpg"/>   <br> 
+   ### [🤩Hanabang 제안서](./gitDoc/제안서.pptx) <br>
+   ### ❤ WorkFlow <br>
    <img src="./githubimg/workflow.jpg"/>
    
    
 # 3. 프로젝트 결과
-
 ## 발표 ppt 
-   <img src="ppt.jpg"/>[발표자료](./gitDoc/[최종프로젝트] 제안서 - 김혜주.pptx)|<br>
+   <img src="ppt.jpg"/>
+### [🤩Hanabang 발표자료](./gitDoc/최종프로젝트발표.pptx) <br>
 
 ## 시연 동영상 
 
